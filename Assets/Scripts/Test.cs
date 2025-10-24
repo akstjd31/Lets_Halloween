@@ -7,6 +7,6 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("12121323");
+        Debug.Log("테스트입니다")
     }
 }
