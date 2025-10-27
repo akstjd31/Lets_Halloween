@@ -1,0 +1,12 @@
+using UnityEngine;
+
+public class Player : Unit, IFaction
+{
+    // 상수
+    // 변수
+    // 프로퍼티
+    public FactionType Faction => FactionType.Player;
+    // 생성자
+    // 메소드
+    public override void Initialize(string name, int id, Transform target) => base.Initialize(name, id, target);
+}
