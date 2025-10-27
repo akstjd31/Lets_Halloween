@@ -11,8 +11,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
     private IFactionController activeFaction;
-    private bool onGameStart;
     private GameState currentState;
+    private bool onGameStart;
 
     private void Start()
     {
