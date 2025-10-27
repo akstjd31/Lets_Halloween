@@ -9,6 +9,7 @@ public class WaveManager : MonoBehaviour
     public event Action onWaveStarted;
     public event Action onWaveEnded;
 
+    // 임시 데이터
     private void Start()
     {
         Wave wave = new Wave();

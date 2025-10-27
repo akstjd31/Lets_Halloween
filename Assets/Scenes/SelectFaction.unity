@@ -381,6 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba517e692b001a34e8418c0c09b64178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4892876140870344629, guid: 78f6f5fa1bc1aff418586871f4392020, type: 3}
 --- !u!4 &571488652
 Transform:
   m_ObjectHideFlags: 0
@@ -425,6 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb7cf78a5a521f2479303e0ed2c91d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 8958406411661257147, guid: 25566ede7013c4a40acf0ddb2d3068e5, type: 3}
 --- !u!4 &634559062
 Transform:
   m_ObjectHideFlags: 0
@@ -471,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFactionController: {fileID: 634559061}
   enemyFactionController: {fileID: 571488651}
+  elapesedTime: 0
 --- !u!4 &664700047
 Transform:
   m_ObjectHideFlags: 0

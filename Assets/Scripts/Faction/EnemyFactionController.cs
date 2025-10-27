@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class EnemyFactionController : Singleton<EnemyFactionController>, IFactionController
 {
-    public FactionType Faction { get; }
-    private Unit enemy;
-    public virtual void Initialize(Unit unit)
-    {
-        Debug.Log("적 선택됨!");
-        Debug.Log("초기 세팅 중...");
+    public FactionType Faction { get; } = FactionType.Enemy;
+    [SerializeField] private GameObject enemyPrefab;
+    private Enemy enemy;
 
-        enemy = new Unit();
-        enemy.Initialize(unit.name, unit.ID);
+    // 초기화 부분
+    public virtual void Initialize()
+    {
+        GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        Debug.Log("플레이어 생성됨!");
+
+        Debug.Log("초기 세팅 중...");
+        enemy = newEnemyPrefab.GetComponent<Enemy>();
+        enemy.Initialize(newEnemyPrefab.name, 0);
 
         Debug.Log($"{enemy.name}님 환영합니다!");
     }
@@ -19,13 +23,17 @@ public class EnemyFactionController : Singleton<EnemyFactionController>, IFactio
     {
         // 게임 시작 시 바로 준비 단계로 접어들기.
         Debug.Log("적 진영으로 게임 시작!");
-        GameManager.Instance.UpdateState(GameState.Prepare);
+        Debug.Log("준비 단계");
+
+        // 상점 활성화
+        // 각종 UI 활성화
+        // 배치 모드 활성화
     }
 
-    public virtual void Update()
-    {
-        Debug.Log("업데이트...");
-    }
+    // public virtual void Update()
+    // {
+    //     Debug.Log("업데이트...");
+    // }
     
     public virtual void EndGame()
     {
