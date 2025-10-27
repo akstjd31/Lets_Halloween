@@ -8,5 +8,5 @@ public class Player : Unit, IFaction
     public FactionType Faction => FactionType.Player;
     // 생성자
     // 메소드
-    public override void Initialize(string name, int id, Transform target) => base.Initialize(name, id, target);
+    public override void Initialize(string name, int id) => base.Initialize(name, id);
 }

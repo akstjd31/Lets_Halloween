@@ -2,7 +2,7 @@ public interface IFactionController
 {
     FactionType Faction { get; }
     // 초기화
-    void Initialize();
+    void Initialize(Unit unit);
 
     // 게임 시작
     void StartGame();

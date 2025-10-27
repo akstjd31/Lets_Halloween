@@ -6,7 +6,6 @@ public interface IEntity
 {
     string Name { get; set; }
     int ID { get; set; }
-    Transform Target { get; set; }
 
-    void Initialize(string name, int id, Transform target);
+    void Initialize(string name, int id);
 }
