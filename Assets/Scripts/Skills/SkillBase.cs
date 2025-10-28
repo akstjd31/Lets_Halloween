@@ -25,14 +25,11 @@ public class SkillBase : MonoBehaviour, ISkil
 
     private float timer = 0;
 
-    SkillCoolDown skillCooldown;
-
     void Start()
     {
 
         collider = GetComponent<SphereCollider>();
 
-        Debug.Log(skillCooldown);
         if (collider != null )
         {
             collider.radius = range;

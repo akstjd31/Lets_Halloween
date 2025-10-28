@@ -619,7 +619,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 511791782702313630, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
   m_PrefabInstance: {fileID: 1529695060}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 987089043}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7f4c40f49b593b46be9c24b200e1ae7, type: 3}
@@ -1421,6 +1421,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 62.818, y: 0, z: 0}
+--- !u!1 &987089043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8967925826694666990, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
+  m_PrefabInstance: {fileID: 1529695060}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &987089046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 987089043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7f4c40f49b593b46be9c24b200e1ae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timetext: {fileID: 0}
+  enemySpeed: 0
 --- !u!1001 &1051564205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1531,7 +1550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1544,7 +1563,7 @@ PrefabInstance:
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 672484171}
+      objectReference: {fileID: 1094026308}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
@@ -1559,7 +1578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: SendMessage
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1571,7 +1590,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UnityEngine.Component, UnityEngine
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1318187239706275283, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -1607,6 +1630,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
+--- !u!1 &1094026308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7442627101989390785, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
+  m_PrefabInstance: {fileID: 1051564205}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1215773727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,7 +1908,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8967925826694666990, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 987089046}
   m_SourcePrefab: {fileID: 100100000, guid: f3083d3a17180bf4eaa86885ea1df0e8, type: 3}
 --- !u!1001 &1745363625
 PrefabInstance:

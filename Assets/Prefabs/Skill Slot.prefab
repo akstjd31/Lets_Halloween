@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf270e9e7211b624aace34db8dae80ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
 --- !u!1 &7442627101989390785
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +393,6 @@ GameObject:
   - component: {fileID: 101497454052826440}
   - component: {fileID: 6085265451353199214}
   - component: {fileID: 1318187239706275283}
-  - component: {fileID: 340068132416009408}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -407,7 +407,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7442627101989390785}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -526,18 +526,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &340068132416009408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7442627101989390785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79a8b1bd80df0654f9ba8ddd69e11c89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8967925826694666990
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,3 +618,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timetext: {fileID: 0}
+  enemySpeed: 0
