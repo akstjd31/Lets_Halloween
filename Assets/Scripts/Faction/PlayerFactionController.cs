@@ -15,11 +15,9 @@ public class PlayerFactionController : Singleton<PlayerFactionController>, IFact
         Debug.Log("초기 세팅 중...");
         player = newPlayerPrefab.GetComponent<Player>();
         player.Initialize(newPlayerPrefab.name, 0);
-
-        Debug.Log($"{player.name}님 환영합니다!");
     }
 
-    public virtual void StartGame()
+    public virtual void PreparationPhase()
     {
         Debug.Log("플레이어 진영으로 게임 시작!");
         Debug.Log("준비 단계");
@@ -30,12 +28,20 @@ public class PlayerFactionController : Singleton<PlayerFactionController>, IFact
 
     }
 
-    // public virtual void Update()
-    // {
-    // }
+    // 업데이트 구문
+    public virtual void Update()
+    {
+
+    }
     
-    // 끝나는 시점에 해야될 것 작성
-    public virtual void EndGame()
+    // 전투 단계
+    public virtual void BattlePhase()
+    {
+        
+    }
+    
+    // 결과 단계
+    public virtual void ResultPhase()
     {
         
     }

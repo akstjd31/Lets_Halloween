@@ -4,12 +4,15 @@ public interface IFactionController
     // 초기화
     void Initialize();
 
-    // 게임 시작
-    void StartGame();
+    // 준비 단계
+    void PreparationPhase();
 
     // 업데이트 부분
-    //void Update();
+    void Update();
 
-    // 게임 종료
-    void EndGame();
+    // 전투 단계
+    void BattlePhase();
+
+    // 결과 단계
+    void ResultPhase();
 }

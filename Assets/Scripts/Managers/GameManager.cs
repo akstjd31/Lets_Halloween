@@ -27,26 +27,29 @@ public class GameManager : Singleton<GameManager>
     private void Update()
     {
         //activeFaction?.Update();
-
+        
         // 각 상태에 따른 수행 부분
         switch (currentState)
         {
             case GameState.Main:
                 break;
             case GameState.Prepare:
-                Preparing();
+                activeFaction?.PreparationPhase();
+                StartPreparing();
                 break;
             case GameState.Battle:
+                activeFaction?.BattlePhase();
                 break;
             case GameState.Result:
+                activeFaction?.ResultPhase();
                 break;
         }
     }
 
     public void UpdateState(GameState gameState) => this.currentState = gameState;
 
-    // 준비
-    private void Preparing()
+    // 준비시간 게산
+    private void StartPreparing()
     {
         elapsedTime -= Time.deltaTime;
 
@@ -83,7 +86,6 @@ public class GameManager : Singleton<GameManager>
 
         // 해당 진영 선택 후 초기화, 준비 단계로 변경
         activeFaction?.Initialize();
-        activeFaction?.StartGame();
         UpdateState(GameState.Prepare);
     }
 
