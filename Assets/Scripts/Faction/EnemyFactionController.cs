@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyFactionController : Singleton<EnemyFactionController>, IFactionController
+public class EnemyFactionController : MonoBehaviour, IFactionController
 {
     public FactionType Faction { get; } = FactionType.Enemy;
     [SerializeField] private GameObject enemyPrefab;

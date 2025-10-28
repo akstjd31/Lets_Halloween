@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerFactionController : Singleton<PlayerFactionController>, IFactionController
+public class PlayerFactionController : MonoBehaviour, IFactionController
 {
     public FactionType Faction { get; } = FactionType.Player;
     [SerializeField] private GameObject playerPrefab;
@@ -19,13 +19,9 @@ public class PlayerFactionController : Singleton<PlayerFactionController>, IFact
 
     public virtual void PreparationPhase()
     {
-        Debug.Log("플레이어 진영으로 게임 시작!");
-        Debug.Log("준비 단계");
-
         // 상점 활성화
         // 각종 UI 활성화
         // 배치 모드 활성화
-
     }
 
     // 업데이트 구문
