@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
     private IFactionController activeFaction;
     [SerializeField] private GameState currentState;
     [SerializeField] private float PreparingTime = 10f;   // 임시로 설정
-    private bool onGameStart;
+    private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
     // 준비 단계에서 남은 시간
     [SerializeField] private float elapsedTime;
@@ -21,13 +21,15 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         activeFaction = null;
+        isFirstWave = true;
+        
         UpdateState(GameState.Main);
     }
 
     private void Update()
     {
         //activeFaction?.Update();
-        
+
         // 각 상태에 따른 수행 부분
         switch (currentState)
         {
@@ -46,26 +48,38 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // 상태 업데이트
     public void UpdateState(GameState gameState) => this.currentState = gameState;
+
+    // 현재 상태 비교 후 bool 반환
+    public bool CompareState(GameState gameState) => this.currentState == gameState ? true : false;
+
+    // 준비 완료 버튼 이벤트
+    public void OnClickReadyButton()
+    {
+        if (currentState.Equals(GameState.Prepare))
+            UpdateState(GameState.Battle);
+
+    }
 
     // 준비시간 게산
     private void StartPreparing()
     {
-        elapsedTime -= Time.deltaTime;
-
-        // 준비 시간 끝나면 전투로 넘어감
-        if (elapsedTime <= 0f)
+        if (!isFirstWave)
         {
-            UpdateState(GameState.Battle);
+            elapsedTime -= Time.deltaTime;
+
+            // 준비 시간 끝나면 전투로 넘어감
+            if (elapsedTime <= 0f)
+            {
+                UpdateState(GameState.Battle);
+            }
         }
     }
 
     // 게임 시작 시 진영 선택에 따른 컨트롤러 제어권 관리
     private void StartGame(FactionType factionType)
     {
-        // 상태 변경
-        onGameStart = true;
-
         // 선택한 진영에 따른 컨트롤러 부여
         activeFaction = factionType == FactionType.Player ? playerFactionController : enemyFactionController;
 
@@ -73,7 +87,7 @@ public class GameManager : Singleton<GameManager>
         SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("InGame");
     }
-    
+
     // 다음 씬에서 초기화하기 위함
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

@@ -9,7 +9,7 @@ public class EnemyFactionController : Singleton<EnemyFactionController>, IFactio
     // 초기화 부분
     public virtual void Initialize()
     {
-        GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
         Debug.Log("적 생성됨!");
 
         Debug.Log("초기 세팅 중...");
@@ -19,10 +19,6 @@ public class EnemyFactionController : Singleton<EnemyFactionController>, IFactio
 
     public virtual void PreparationPhase()
     {
-        // 게임 시작 시 바로 준비 단계로 접어들기.
-        Debug.Log("적 진영으로 게임 시작!");
-        Debug.Log("준비 단계");
-
         // 상점 활성화
         // 각종 UI 활성화
         // 배치 모드 활성화
@@ -30,6 +26,10 @@ public class EnemyFactionController : Singleton<EnemyFactionController>, IFactio
 
     public virtual void Update()
     {
+        if (enemy != null)
+        {
+            
+        }
     }
 
     public virtual void BattlePhase()

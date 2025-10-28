@@ -9,7 +9,7 @@ public class PlayerFactionController : Singleton<PlayerFactionController>, IFact
     // 초기화 부분
     public virtual void Initialize()
     {
-        GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
+        GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
         Debug.Log("플레이어 생성됨!");
 
         Debug.Log("초기 세팅 중...");
@@ -31,7 +31,10 @@ public class PlayerFactionController : Singleton<PlayerFactionController>, IFact
     // 업데이트 구문
     public virtual void Update()
     {
-
+        if (player != null)
+        {
+            
+        }
     }
     
     // 전투 단계

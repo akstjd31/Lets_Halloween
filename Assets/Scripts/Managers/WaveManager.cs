@@ -14,22 +14,36 @@ public class WaveManager : MonoBehaviour
     }
 
     [SerializeField] List<Wave> waves = new List<Wave>();
+    [SerializeField] private Transform spawnPoint;
     public event Action onWaveStarted;  // 웨이브 시작 시 이벤트
     public event Action onWaveEnded;    // 웨이브 종료 시 이벤트
-    private int currentWaveNum;         // 현재 (진행한, 진행중인) 웨이브
+    private int currentWaveIndex;         // 현재 (진행한, 진행중인) 웨이브
     private int spawnedCount;           // 생성된 적 카운트
     private float spawnTimer;
-    private bool isWaveRunning = false;
+    private bool isWaveRunning;
 
     // 임시 데이터
     private void Start()
     {
-        currentWaveNum = 1;
+        currentWaveIndex = 0;
+        isWaveRunning = false;
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.CompareState(GameState.Battle))
+        {
+            if (!isWaveRunning)
+                StartWave();
+
+            if (isWaveRunning)
+                RunWave();
+        }
     }
 
     private void StartWave()
     {
-        if (currentWaveNum >= waves.Count)
+        if (currentWaveIndex >= waves.Count)
             return;
 
         isWaveRunning = true;
@@ -37,13 +51,40 @@ public class WaveManager : MonoBehaviour
 
         onWaveStarted?.Invoke();
 
-        Debug.Log($"Wave {currentWaveNum} 시작!");
+        Debug.Log($"Wave {currentWaveIndex} 시작!");
     }
 
     private void RunWave()
     {
-        Wave wave = waves[currentWaveNum];
+        Wave wave = waves[currentWaveIndex];
 
-        
+        spawnTimer += Time.deltaTime;
+
+        if (spawnedCount < wave.waveEnemyCount && spawnTimer >= wave.spawnInterval)
+        {
+            spawnTimer = 0f;
+            SpawnEnemy(wave);
+            spawnedCount++;
+        }
+
+        if (spawnedCount >= wave.waveEnemyCount)
+        {
+            EndWave();
+        }
+    }
+
+    private void EndWave()
+    {
+        isWaveRunning = false;
+        onWaveEnded?.Invoke();
+
+        Debug.Log($"Wave {currentWaveIndex} 종료!");
+
+        currentWaveIndex++;
+    }
+
+    private void SpawnEnemy(Wave wave)
+    {
+        Instantiate(wave.enemies[0], spawnPoint.position, Quaternion.identity);
     }
 }
