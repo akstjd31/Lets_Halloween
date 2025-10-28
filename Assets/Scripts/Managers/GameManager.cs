@@ -10,9 +10,10 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
-    private IFactionController activeFaction;
     [SerializeField] private GameState currentState;
+    public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
     [SerializeField] private float PreparingTime = 10f;   // 임시로 설정
+    private IFactionController activeFaction;
     private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
     // 준비 단계에서 남은 시간
@@ -78,10 +79,10 @@ public class GameManager : Singleton<GameManager>
     }
 
     // 게임 시작 시 진영 선택에 따른 컨트롤러 제어권 관리
-    private void StartGame(FactionType factionType)
+    private void StartGame()
     {
         // 선택한 진영에 따른 컨트롤러 부여
-        activeFaction = factionType == FactionType.Player ? playerFactionController : enemyFactionController;
+        activeFaction = selectedFactionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
 
         // 씬 넘어가기
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -106,7 +107,7 @@ public class GameManager : Singleton<GameManager>
     // 선택한 진영 (버튼 선택) - 임시
     public void SelectFaction(int buttonIdx)
     {
-        FactionType selectedFaction = (FactionType)buttonIdx;
-        StartGame(selectedFaction);
+        selectedFactionType = (FactionType)buttonIdx;
+        StartGame();
     }
 }

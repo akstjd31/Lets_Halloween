@@ -1,6 +1,6 @@
 public interface IFactionController
 {
-    FactionType Faction { get; }
+    FactionType FactionType { get; }
     // 초기화
     void Initialize();
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WaveManager : Singleton<WaveManager>
@@ -15,12 +16,16 @@ public class WaveManager : Singleton<WaveManager>
 
     [SerializeField] List<Wave> waves = new List<Wave>();
     [SerializeField] private Transform spawnPoint;
-    public event Action onWaveStarted;  // 웨이브 시작 시 이벤트
-    public event Action onWaveEnded;    // 웨이브 종료 시 이벤트
-    private int currentWaveIndex;         // 현재 (진행한, 진행중인) 웨이브
+    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private Transform endPoint;
+    [SerializeField] float minZPos;
+    [SerializeField] float maxZPos;
+    // public event Action onWaveStarted;  // 웨이브 시작 시 이벤트
+    // public event Action onWaveEnded;    // 웨이브 종료 시 이벤트
+    public bool isWaveRunning;          // 웨이브 진행 여부
+    private int currentWaveIndex;       // 현재 (진행한, 진행중인) 웨이브
     private int spawnedCount;           // 생성된 적 카운트
-    private float spawnTimer;
-    private bool isWaveRunning;
+    private float spawnTimer;           // 생성 주기 관련 타이머
 
     // 임시 데이터
     private void Start()
@@ -29,19 +34,7 @@ public class WaveManager : Singleton<WaveManager>
         isWaveRunning = false;
     }
 
-    private void Update()
-    {
-        if (GameManager.Instance.CompareState(GameState.Battle))
-        {
-            if (!isWaveRunning)
-                StartWave();
-
-            if (isWaveRunning)
-                RunWave();
-        }
-    }
-
-    private void StartWave()
+    public void StartWave()
     {
         if (currentWaveIndex >= waves.Count)
             return;
@@ -49,12 +42,12 @@ public class WaveManager : Singleton<WaveManager>
         isWaveRunning = true;
         spawnedCount = 0;
 
-        onWaveStarted?.Invoke();
+        //onWaveStarted?.Invoke();
 
         Debug.Log($"Wave {currentWaveIndex} 시작!");
     }
 
-    private void RunWave()
+    public void RunWave()
     {
         Wave wave = waves[currentWaveIndex];
 
@@ -73,10 +66,10 @@ public class WaveManager : Singleton<WaveManager>
         }
     }
 
-    private void EndWave()
+    public void EndWave()
     {
         isWaveRunning = false;
-        onWaveEnded?.Invoke();
+        //onWaveEnded?.Invoke();
 
         Debug.Log($"Wave {currentWaveIndex} 종료!");
 
@@ -85,6 +78,15 @@ public class WaveManager : Singleton<WaveManager>
 
     private void SpawnEnemy(Wave wave)
     {
-        Instantiate(wave.enemies[0], spawnPoint.position, Quaternion.identity);
+        Vector3 newPos = new Vector3(
+            spawnPoint.position.x,
+            spawnPoint.position.y,
+            spawnPoint.position.z + UnityEngine.Random.Range(minZPos, maxZPos)
+
+        );
+        
+        EnemyMover enemyMover = Instantiate(wave.enemies[0], newPos, Quaternion.identity).GetComponent<EnemyMover>();
     }
+
+    public Transform GetWaypoint(int index) => waypoints[index];
 }

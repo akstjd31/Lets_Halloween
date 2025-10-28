@@ -2,21 +2,33 @@ using UnityEngine;
 
 public class PlayerFactionController : MonoBehaviour, IFactionController
 {
-    public FactionType Faction { get; } = FactionType.Player;
+    public FactionType FactionType { get; } = FactionType.Player;
     [SerializeField] private GameObject playerPrefab;
     private Player player;
+
 
     // 초기화 부분
     public virtual void Initialize()
     {
-        GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
-        Debug.Log("플레이어 생성됨!");
+        // 선택한 진영과 일치한다면
+        if (GameManager.Instance.selectedFactionType.Equals(FactionType))
+        {
+            GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
+            Debug.Log("플레이어 생성됨!");
 
-        Debug.Log("초기 세팅 중...");
-        player = newPlayerPrefab.GetComponent<Player>();
-        player.Initialize(newPlayerPrefab.name, 0);
+            Debug.Log("초기 세팅 중...");
+            player = newPlayerPrefab.GetComponent<Player>();
+            player.Initialize(newPlayerPrefab.name, 0);
+        }
+
+        // 선택한 진영이 아닌 경우
+        else
+        {
+
+        }
     }
 
+    // 준비 페이즈
     public virtual void PreparationPhase()
     {
         // 상점 활성화
@@ -29,19 +41,29 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     {
         if (player != null)
         {
-            
+
         }
     }
-    
-    // 전투 단계
+
+    /// <summary> 전투 페이즈
+    /// 플레이어를 선택한 경우,
+    /// 슬롯 활성화
+    /// 
+    /// </summary>
     public virtual void BattlePhase()
     {
-        
+        // 웨이브 시작
+        if (!WaveManager.Instance.isWaveRunning)
+            WaveManager.Instance.StartWave();
+
+
+        if (WaveManager.Instance.isWaveRunning)
+            WaveManager.Instance.RunWave();
     }
-    
-    // 결과 단계
+
+    // 결과 페이즈
     public virtual void ResultPhase()
     {
-        
+
     }
 }
