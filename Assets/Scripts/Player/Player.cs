@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMove))]
 public class Player : Unit, IFaction
 {
     // 상수

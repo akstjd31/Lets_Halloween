@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     private void OnWaveStarted()
     {
         Debug.Log("웨이브 시작");
+        waveText.text = $"Wave {WaveManager.Instance.currentWaveIndex + 1}";
+        // 상점, 준비버튼 등 비활성화 작업
     }
 
     private void OnWaveEnded()

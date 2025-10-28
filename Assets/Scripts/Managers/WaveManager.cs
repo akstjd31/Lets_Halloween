@@ -1,97 +1,150 @@
-using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+// using System;
+// using System.Collections.Generic;
+// using UnityEngine;
 
-public class WaveManager : Singleton<WaveManager>
-{
-    [Serializable]
-    public class Wave
-    {
-        public int waveNum;            // 웨이브 번호
-        public int waveEnemyCount;     // 웨이브 당 생성될 적 수
-        public float spawnInterval;    // 스폰 주기
-        public List<Enemy> enemies;    // 해당 웨이브에 소환될 적 리스트
-    }
+// public class WaveManager : Singleton<WaveManager>
+// {
+//     [Serializable]
+//     public class Wave
+//     {
+//         public int waveNum;                         // 웨이브 번호
+//         public List<SpawnInfo> spawnInfos = new();
+//     }
 
-    [SerializeField] List<Wave> waves = new List<Wave>();
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Transform[] waypoints;
-    [SerializeField] private Transform endPoint;
-    [SerializeField] float minZPos;
-    [SerializeField] float maxZPos;
-    public event Action onWaveStarted;  // 웨이브 시작 시 이벤트
-    public event Action onWaveEnded;    // 웨이브 종료 시 이벤트
-    public bool isWaveRunning;          // 웨이브 진행 여부
-    public int currentWaveIndex;       // 현재 진행중인 웨이브
-    private int spawnedCount;           // 생성된 적 카운트
-    public int deactiveCount;          // 비활성화된 적 마리 수 체크
-    private float spawnTimer;           // 생성 주기 관련 타이머
+//     [Serializable]
+//     public class SpawnInfo
+//     {
+//         public Enemy enemyPrefab;
+//         public int spawnCount;
+//         public float spawnInterval;
+//     }
 
-    // 임시 데이터
-    private void Start()
-    {
-        currentWaveIndex = 0;
-        deactiveCount = 0;
-        isWaveRunning = false;
+//     [SerializeField] List<Wave> waves = new List<Wave>();
+//     [SerializeField] private Transform spawnPoint;
+//     [SerializeField] private Transform[] waypoints;
+//     [SerializeField] private Transform endPoint;
+//     [SerializeField] float minZPos;
+//     [SerializeField] float maxZPos;
+//     public event Action onWaveStarted;  // 웨이브 시작 시 이벤트
+//     public event Action onWaveEnded;    // 웨이브 종료 시 이벤트
+//     public bool isWaveRunning;          // 웨이브 진행 여부
+//     public int currentWaveIndex;       // 현재 진행중인 웨이브
+//     public int deactiveCount;          // 비활성화된 적 마리 수 체크
+//     private int totalSpawnCount;       // 웨이브별 생성되어야 하는 적의 총 마리 수
+//     private int spawnedCount;          // 생성된 적 카운트
+//     private int spawnInfoListIndex;    // 스폰정보가 담긴 리스트 인덱스
+//     private float spawnTimer;          // 생성 주기 관련 타이머
 
-        onWaveStarted += () => GameManager.Instance.UpdateState(GameState.Battle);
-        onWaveEnded += () => GameManager.Instance.UpdateState(GameState.Prepare);
-    }
+//     // private Queue<EnemyMover> enemyPool = new Queue<EnemyMover>();
+//     // [SerializeField] private int poolSize;
 
-    public void StartWave()
-    {
-        if (currentWaveIndex >= waves.Count)
-            return;
+//     // 임시 데이터
+//     private void Start()
+//     {
+//         currentWaveIndex = 0;
+        
+//         onWaveStarted += HandleWaveStarted;
+//         onWaveEnded += HandleWaveEnded;
+//     }
 
-        isWaveRunning = true;
-        spawnedCount = 0;
+//     public void StartWave()
+//     {
+//         if (currentWaveIndex >= waves.Count)
+//             return;
 
-        onWaveStarted?.Invoke();
-    }
+//         isWaveRunning = true;
+        
+//         deactiveCount = 0;
+//         spawnedCount = 0;
+//         spawnInfoListIndex = 0;
+        
+//         // 현재 웨이브에 존재하는 몹들의 총 개수를 계산
+//         foreach (SpawnInfo spawnInfo in waves[currentWaveIndex].spawnInfos)
+//             totalSpawnCount += spawnInfo.spawnCount;
 
-    public void RunWave()
-    {
-        Wave wave = waves[currentWaveIndex];
+//         onWaveStarted?.Invoke();
+//     }
 
-        spawnTimer += Time.deltaTime;
+//     public void RunWave()
+//     {
+//         if (!isWaveRunning)
+//             return;
 
-        if (spawnedCount < wave.waveEnemyCount && spawnTimer >= wave.spawnInterval)
-        {
-            spawnTimer = 0f;
-            SpawnEnemy(wave);
-            spawnedCount++;
-        }
+//         Wave wave = waves[currentWaveIndex];
+//         spawnTimer += Time.deltaTime;
 
-        if (deactiveCount >= wave.waveEnemyCount)
-        {
-            EndWave();
-        }
-    }
+//         // 이번 웨이브에 생성되어야 하는 총 몹의 개수가 0이면서 
+//         float spawnInverval = waves[currentWaveIndex].spawnInfos[spawnInfoListIndex].spawnInterval;
+//         if (spawnedCount < totalSpawnCount && spawnTimer >= spawnInverval)
+//         {
+//             spawnTimer = 0f;
+//             SpawnEnemy(wave);
+//             spawnedCount++;
+//         }
 
-    public void EndWave()
-    {
-        isWaveRunning = false;
-        onWaveEnded?.Invoke();
+//         // 이 부분 수정해야 됨. (웨이브 종료 시점??)
+//         if (deactiveCount >= totalSpawnCount)
+//         {
+//             EndWave();
+//         }
+//     }
 
-        currentWaveIndex++;
-        GameManager.Instance.UpdateState(GameState.Prepare);
-        GameManager.Instance.InitPreparingTime();
-    }
+//     public void EndWave()
+//     {
+//         isWaveRunning = false;
+//         onWaveEnded?.Invoke();
 
-    private void SpawnEnemy(Wave wave)
-    {
-        Vector3 newPos = new Vector3(
-            spawnPoint.position.x,
-            spawnPoint.position.y,
-            spawnPoint.position.z + UnityEngine.Random.Range(minZPos, maxZPos)
+//         currentWaveIndex++;
+//         GameManager.Instance.InitPreparingTime();
+//     }
 
-        );
+//     private void InitPool()
+//     {
+//         if (waves.Count == 0)
+//             return;
 
-        EnemyMover enemy = Instantiate(wave.enemies[0], newPos, Quaternion.identity).GetComponent<EnemyMover>();
+//         //EnemyMover prefab = waves[currentWaveIndex].enm
+//     }
 
-        enemy.onEnemyDeactivated += () => deactiveCount++;
-    }
+//     // 웨이브 시작 핸들러
+//     private void HandleWaveStarted()
+//     {
+//         GameManager.Instance.UpdateState(GameState.Battle);
+//     }
 
-    public Transform GetWaypoint(int index) => waypoints[index];
-}
+//     // 웨이브 종료 핸들러
+//     private void HandleWaveEnded()
+//     {
+//         GameManager.Instance.UpdateState(GameState.Prepare);
+//     }
+
+//     // 파괴될 때 구독 해제
+//     private void OnDestroy()
+//     {
+//         onWaveStarted -= HandleWaveStarted;
+//         onWaveEnded -= HandleWaveEnded;
+//     }
+
+//     private void SpawnEnemy(Wave wave)
+//     {
+//         Vector3 newPos = new Vector3(
+//             spawnPoint.position.x,
+//             spawnPoint.position.y,
+//             spawnPoint.position.z + UnityEngine.Random.Range(minZPos, maxZPos)
+
+//         );
+
+//         EnemyMover enemy = Instantiate(waves[currentWaveIndex].spawnInfos[spawnInfoListIndex].enemyPrefab, newPos, Quaternion.identity).GetComponent<EnemyMover>();
+
+//         enemy.onEnemyDeactivated += OnEnemyDeactivated;
+//     }
+
+//     private void OnEnemyDeactivated(EnemyMover enemy)
+//     {
+//         enemy.onEnemyDeactivated -= OnEnemyDeactivated;
+//         //enemyPool.Return(enemy);
+//         deactiveCount++;
+//     }
+
+//     public Transform GetWaypoint(int index) => waypoints[index];
+// }

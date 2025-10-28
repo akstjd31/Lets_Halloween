@@ -50,9 +50,6 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
         if (!WaveManager.Instance.isWaveRunning)
             WaveManager.Instance.StartWave();
 
-
-        if (WaveManager.Instance.isWaveRunning)
-            WaveManager.Instance.RunWave();
     } 
     
     // 결과 페이즈
