@@ -9,6 +9,8 @@ TagManager:
   - PlayerUnit
   - EnemyUnit
   - PlayerUnit_Projectile
+  - Dialogue
+  - CollidingBody
   layers:
   - Default
   - TransparentFX

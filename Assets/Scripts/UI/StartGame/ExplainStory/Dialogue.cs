@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dialogue : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private Transform startPosition;
+    //[SerializeField] private Transform startPosition;
 
     private Vector3 moveForward = Vector3.zero;
 
@@ -42,18 +42,18 @@ public class Dialogue : MonoBehaviour
     private void Init()
     {
         // 테스트 할 때만 활성화 추후 다른 곳에서 활성화할 예정
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         // 이동방향 입력
         moveForward += Vector3.forward;
         moveForward += Vector3.up;
         // 테스트 할 때만 사용하는 매서드
-        SetStartPosition();
+        //SetStartPosition();
     }
 
-    private void  SetStartPosition()
-    {
-        transform.position = startPosition.position;
-    }
+    //private void  SetStartPosition()
+    //{
+    //    transform.position = startPosition.position;
+    //}
 
     
 }
