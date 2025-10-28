@@ -473,7 +473,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerFactionController: {fileID: 634559061}
   enemyFactionController: {fileID: 571488651}
-  elapesedTime: 0
+  currentState: 0
+  PreparingTime: 10
+  elapsedTime: 0
 --- !u!4 &664700047
 Transform:
   m_ObjectHideFlags: 0
