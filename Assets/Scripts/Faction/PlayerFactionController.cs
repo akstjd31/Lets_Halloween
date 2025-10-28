@@ -53,11 +53,11 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     public virtual void BattlePhase()
     {
         // 웨이브 시작
-        if (!WaveManager.Instance.isWaveRunning)
+        if (!WaveManager.Instance.IsWaveRunning())
             WaveManager.Instance.StartWave();
 
 
-        if (WaveManager.Instance.isWaveRunning)
+        if (WaveManager.Instance.IsWaveRunning())
             WaveManager.Instance.RunWave();
     }
 

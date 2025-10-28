@@ -39,7 +39,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameState.Prepare:
                 activeFaction?.PreparationPhase();
-                StartPreparing();
+                CalPreparingTime();
                 break;
             case GameState.Battle:
                 activeFaction?.BattlePhase();
@@ -72,7 +72,7 @@ public class GameManager : Singleton<GameManager>
     }
     
     // 준비시간 게산
-    private void StartPreparing()
+    private void CalPreparingTime()
     {
         if (!isFirstWave)
         {

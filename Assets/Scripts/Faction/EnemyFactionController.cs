@@ -47,8 +47,8 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     public virtual void BattlePhase()
     {
         // 웨이브 시작
-        if (!WaveManager.Instance.isWaveRunning)
-            WaveManager.Instance.StartWave();
+        // if (!WaveManager.Instance.IsWaveRunning())
+        //     WaveManager.Instance.StartWave();
 
     } 
     

@@ -2,84 +2,72 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// 웨이브 관리
 public partial class WaveManager : Singleton<WaveManager>
 {
     [SerializeField] private List<Wave> waves = new List<Wave>();
+
     public event Action onWaveStarted;
     public event Action onWaveEnded;
 
-    public bool isWaveRunning;
-    public int currentWaveIndex;
-    public int deactiveCount;
-
-    private int totalSpawnCount;
-    private int spawnedCount;
-    private int spawnInfoListIndex;
-    private float spawnTimer;
+    private int currentWaveIndex;
+    private bool isWaveRunning;
+    private WaveRuntimeData runtimeData;
 
     private void Start()
     {
         currentWaveIndex = 0;
+        runtimeData = new WaveRuntimeData();
+
         onWaveStarted += HandleWaveStarted;
         onWaveEnded += HandleWaveEnded;
     }
 
+    // 웨이브 시작
     public void StartWave()
     {
         if (currentWaveIndex >= waves.Count)
             return;
 
+        Wave wave = waves[currentWaveIndex];
+        runtimeData.Initialize(wave);
+
         isWaveRunning = true;
-        deactiveCount = 0;
-        spawnedCount = 0;
-        spawnInfoListIndex = 0;
-        totalSpawnCount = 0;
-
-        // 웨이브에 존재하는 적의 총 개수 계산
-        foreach (SpawnInfo spawnInfo in waves[currentWaveIndex].spawnInfos)
-            totalSpawnCount += spawnInfo.spawnCount;
-
         onWaveStarted?.Invoke();
     }
 
+    // 웨이브 진행 중
     public void RunWave()
     {
         if (!isWaveRunning)
             return;
 
+        runtimeData.UpdateTimer(Time.deltaTime);
+
         Wave wave = waves[currentWaveIndex];
-        spawnTimer += Time.deltaTime;
+        TrySpawnEnemy(wave);
 
-        float spawnInterval = wave.spawnInfos[spawnInfoListIndex].spawnInterval;
-        if (spawnedCount < totalSpawnCount && spawnTimer >= spawnInterval)
-        {
-            spawnTimer = 0f;
-            SpawnEnemy(wave);
-            spawnedCount++;
-        }
-
-        if (deactiveCount >= totalSpawnCount)
-        {
+        if (runtimeData.IsWaveComplete)
             EndWave();
-        }
     }
 
+    // 웨이브 종료
     private void EndWave()
     {
         isWaveRunning = false;
         onWaveEnded?.Invoke();
-
         currentWaveIndex++;
+
         GameManager.Instance.InitPreparingTime();
     }
 
+    public bool IsWaveRunning() => isWaveRunning;
     private void HandleWaveStarted() =>
         GameManager.Instance.UpdateState(GameState.Battle);
 
     private void HandleWaveEnded() =>
         GameManager.Instance.UpdateState(GameState.Prepare);
 
+    // 구독 해제
     private void OnDestroy()
     {
         onWaveStarted -= HandleWaveStarted;
