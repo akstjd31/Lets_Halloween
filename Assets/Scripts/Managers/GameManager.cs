@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private EnemyFactionController enemyFactionController;
     [SerializeField] private GameState currentState;
     public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
-    [SerializeField] private float PreparingTime = 10f;   // 임시로 설정
+    [SerializeField] private float preparingTime = 10f;   // 임시로 설정
     private IFactionController activeFaction;
     private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
@@ -23,6 +23,7 @@ public class GameManager : Singleton<GameManager>
     {
         activeFaction = null;
         isFirstWave = true;
+        elapsedTime = preparingTime;
         
         UpdateState(GameState.Main);
     }
@@ -59,10 +60,17 @@ public class GameManager : Singleton<GameManager>
     public void OnClickReadyButton()
     {
         if (currentState.Equals(GameState.Prepare))
+        {
+            isFirstWave = false;
             UpdateState(GameState.Battle);
-
+        }
     }
 
+    public void InitPreparingTime()
+    {
+        elapsedTime = preparingTime;
+    }
+    
     // 준비시간 게산
     private void StartPreparing()
     {
@@ -96,8 +104,6 @@ public class GameManager : Singleton<GameManager>
             return;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
-
-        elapsedTime = PreparingTime;
 
         // 해당 진영 선택 후 초기화, 준비 단계로 변경
         activeFaction?.Initialize();
