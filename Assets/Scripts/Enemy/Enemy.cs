@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : Unit
+public class Enemy : Unit, IFaction
 {
     // 상수
     // 변수

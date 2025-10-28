@@ -352,96 +352,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &571488650
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 571488652}
-  - component: {fileID: 571488651}
-  m_Layer: 0
-  m_Name: EnemyFactionController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &571488651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571488650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba517e692b001a34e8418c0c09b64178, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 4892876140870344629, guid: 78f6f5fa1bc1aff418586871f4392020, type: 3}
---- !u!4 &571488652
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571488650}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &634559060
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 634559062}
-  - component: {fileID: 634559061}
-  m_Layer: 0
-  m_Name: PlayerFactionController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &634559061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634559060}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb7cf78a5a521f2479303e0ed2c91d56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8958406411661257147, guid: 25566ede7013c4a40acf0ddb2d3068e5, type: 3}
---- !u!4 &634559062
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634559060}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &664700045
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,9 +381,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94280cdee2a3e14d8413da5b6cebc81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerFactionController: {fileID: 634559061}
-  enemyFactionController: {fileID: 571488651}
-  elapesedTime: 0
+  playerFactionController: {fileID: 5337919979352625431, guid: f786b3daef05bc5469bea1bfe29537e8, type: 3}
+  enemyFactionController: {fileID: 8061425243140324091, guid: 51a0854f11f3fd94fa7c87281be01477, type: 3}
+  currentState: 0
+  PreparingTime: 10
+  elapsedTime: 0
 --- !u!4 &664700047
 Transform:
   m_ObjectHideFlags: 0
@@ -1313,5 +1225,3 @@ SceneRoots:
   - {fileID: 407985528}
   - {fileID: 684218660}
   - {fileID: 664700047}
-  - {fileID: 634559062}
-  - {fileID: 571488652}

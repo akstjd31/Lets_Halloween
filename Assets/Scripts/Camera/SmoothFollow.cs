@@ -8,6 +8,11 @@ public class SmoothFollow : MonoBehaviour
     [SerializeField] private float smoothSpeed;
     [SerializeField] Vector3 offset;
 
+    private void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    
     private void LateUpdate()
     {
         if (target == null)
