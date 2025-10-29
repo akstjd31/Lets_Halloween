@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillCoolDown : MonoBehaviour
 {
     SkillBase skillObj;
     public Animator _animator;
     bool isActivate = true;
+    GameObject button;
 
 
     // Start is called before the first frame update
@@ -14,6 +16,7 @@ public class SkillCoolDown : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         skillObj = transform.parent.GetComponent<SkillBase>();
+        button = transform.parent.GetChild(2).gameObject;
     }
 
     public void UseSkill()
@@ -29,10 +32,12 @@ public class SkillCoolDown : MonoBehaviour
     public void StartCoolDown()
     {
         isActivate = false;
+        button.SetActive(false);
     }
 
     public void EndCoolDown()
     {
         isActivate = true;
+        button.SetActive(true);
     }
 }

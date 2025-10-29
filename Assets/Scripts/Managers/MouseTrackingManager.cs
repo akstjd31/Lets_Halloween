@@ -4,37 +4,56 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class MouseTrackingManager : MonoBehaviour
 {
     [SerializeField] private GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
     GameObject target;
+    Renderer targetColor;
 
-    private SkillBase ActivateObject;
+    private GameObject ActivateObject;
 
     private SkillCoolDown skillCool;
 
     [SerializeField] LayerMask layermask;
-
+    [SerializeField] LayerMask layermask2;
+    [SerializeField] LayerMask layermask3;
+    [SerializeField] LayerMask activateMask;
     private static bool isClick = false;
+
+    bool clickEnable;
+
+    bool onBuild;
+    bool onMouseMap;
+    bool overActivate;
 
     private void Start()
     {
         // 레이어를 통해 레이를 감지하기 위해 바닥 레이어 설정
         layermask = 1 << LayerMask.NameToLayer("FLOOR");
+        layermask2 = 1 << LayerMask.NameToLayer("PlayerUnit_Projectile");
+        layermask3 = 1 << LayerMask.NameToLayer("EnableFLOOR");
+        activateMask = 1 << LayerMask.NameToLayer("PlayerUnit");
+
     }
 
     private void Update()
     {
         if (target != null && isClick == false && Input.GetMouseButtonDown(0))
         {
-            isClick = true;
-            SpawnActivateObj();
-            Destroy(target);
+            // UI 위하고 클릭이 활성화 되었을시
+            if (clickEnable == true && !EventSystem.current.IsPointerOverGameObject()) 
+            {
+                isClick = true;
+                SpawnActivateObj();
+                Destroy(target);
+            }
         }
     }
 
-    public void SpawnTarget(SkillBase obj)
+    public void SpawnTarget(GameObject obj)
     {
         ActivateObject = obj;
         StartCoroutine(CospawnTarget());
@@ -56,6 +75,10 @@ public class MouseTrackingManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
         {
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
+
+            targetColor = target.GetComponent<Renderer>();
+
+            
             while (!isClick)
             {
                 Ray rayTarget = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -64,6 +87,79 @@ public class MouseTrackingManager : MonoBehaviour
                 {
                     // 마우스 위치로 계속 좌표 위치를 변환
                     target.transform.position = hitTarget.point;
+
+                    target.transform.position += Vector3.up;
+
+                    // 빌드공간에 있을시 true
+                    onBuild = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask2);
+
+                    onMouseMap = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask3);
+
+                    
+
+                    if (ActivateObject != null)
+                    {
+                        Vector3 halfExtents = targetColor.bounds.extents;
+
+                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents , Vector3.down, target.transform.rotation, 10f, activateMask,QueryTriggerInteraction.Ignore);
+                        //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
+                        if (overActivate)
+                        {
+                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            Debug.Log("유닛 겹침");
+                            clickEnable = false;
+                            yield return null;
+                            continue;
+                        }
+                    }
+
+                   
+
+                    if (onMouseMap ==true && onBuild == true)
+                    {
+                        if (target.tag == "PlayerUnit")
+                        {
+                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            clickEnable = true;
+                            Debug.Log("타워 설치 지역 현재 플레이어 초록색");
+
+                        }
+
+                        else if (target.tag == "Skill")
+                        {
+                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            Debug.Log("타워 설치 지역 현재 스킬 빨간색");
+                            clickEnable = false;
+                        }
+
+                        yield return null;
+                    }
+
+                    else if (onMouseMap == true && onBuild == false)
+                    {
+                        if (target.tag == "PlayerUnit")
+                        {
+                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            Debug.Log("길 지역 현재 플레이어 빨간색");
+                            clickEnable = false;
+                        }
+
+                        else if (target.tag == "Skill")
+                        {
+                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            Debug.Log("길 지역 현재 스킬 초록색");
+                            clickEnable = true;
+                        }
+                        yield return null;
+                    }
+
+                    else
+                    {
+                        targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                        Debug.Log("그외 지역 빨간색");
+                        clickEnable = false;
+                    }
+
                     yield return null;
                 }
             }
@@ -73,15 +169,16 @@ public class MouseTrackingManager : MonoBehaviour
     private void SpawnActivateObj()
     {
         StartCoroutine(coSpawnActivateObj());
-        skillCool.UseSkill();
     }
 
     IEnumerator coSpawnActivateObj()
     {
         if (isClick)
         {
-            SkillBase obj = Instantiate(ActivateObject, target.transform.position, ActivateObject.transform.rotation);
-            obj.UseSkill();
+            skillCool.UseSkill();
+            GameObject obj = Instantiate(ActivateObject, target.transform.position, ActivateObject.transform.rotation);
+            SkillBase skillObj = obj.GetComponent<SkillBase>();
+            skillObj.UseSkill();
         }
         yield return null;
     }
