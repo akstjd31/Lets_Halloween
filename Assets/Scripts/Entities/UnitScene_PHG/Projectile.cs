@@ -2,12 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+enum statusEffect
+{
+    Slow,Stun
+}
+
 public class Projectile : MonoBehaviour
 {
     //투사체 속도
     [SerializeField] private float projectilemoveSpeed = 10;
-
     private Transform targetTransform;
+
+
+    
+
 
     void Update()
     {
@@ -19,6 +27,7 @@ public class Projectile : MonoBehaviour
     {
         if (targetTransform == null) { return; }
 
+        transform.rotation = Quaternion.LookRotation(targetTransform.position);
         transform.position = Vector3.MoveTowards(transform.position,
             targetTransform.position,
             projectilemoveSpeed * Time.deltaTime);
@@ -30,12 +39,27 @@ public class Projectile : MonoBehaviour
     {
         if (other.tag == "EnemyUnit")
         {
-            Debug.Log("적과 충돌");
+            Debug.Log("적 맞춤");
             gameObject.SetActive(false);
+
         }
     }
+
+
+
+
     public void SetTarget(Transform target)
     {
         targetTransform = target;
+    }
+
+    void Stun()
+    {
+
+    }
+
+    void Slow()
+    {
+
     }
 }

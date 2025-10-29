@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5880224637394324344}
   - component: {fileID: 8042222428010730220}
   - component: {fileID: 3712461640473361827}
-  - component: {fileID: 8696921953407354040}
-  m_Layer: 0
+  - component: {fileID: 4101283910558521770}
+  m_Layer: 8
   m_Name: HalloweenTank
   m_TagString: PlayerUnit_Projectile
   m_Icon: {fileID: 0}
@@ -136,10 +136,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!95 &8042222428010730220
 Animator:
@@ -173,7 +173,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -258,7 +258,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8696921953407354040
+--- !u!114 &4101283910558521770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,11 +267,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 480295469602302716}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 069fda051691ed9489ea9b5316c41bed, type: 3}
+  m_Script: {fileID: 11500000, guid: a5995cdd461b30943b4386d309311bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
-  attackDelay: 0.7
+  shootDelay: 0.3
 --- !u!1 &1417739073287571712
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 5994558989473845886}
   - component: {fileID: 395758172490726672}
   - component: {fileID: 6682561537776580315}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unit_Tank_Missile_A_Weapon_yup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9184990855802880467}
   - component: {fileID: 2430148663626853988}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RightMuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 4335933038226961729}
   - component: {fileID: 4316571876001580647}
   - component: {fileID: 1934251525104137829}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: unit_Tank_Missile_A_Mount_yup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6459170504571870884}
   - component: {fileID: 8356852297785019296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LeftMuzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,6 +599,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightPumpkin
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ffe329001d357a4a9641245924db42f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -672,6 +676,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4ffe329001d357a4a9641245924db42f, type: 3}
       propertyPath: m_Name
       value: LeftPumpkin
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4ffe329001d357a4a9641245924db42f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

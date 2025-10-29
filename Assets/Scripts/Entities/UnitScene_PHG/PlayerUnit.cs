@@ -23,37 +23,19 @@ public class PlayerUnit : MonoBehaviour
     private GameObject target;
 
     Weapon weapon;  //원거리타입 무기 가져옴
-    Weapon[] weapons; //소환체의 무기들 가져옴
 
     //시작시 애니메이터 , 오디오 소스 가져옴
     private void Start()
     {
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
-
-        if (gameObject.tag== "PlayerUnit_Projectile")
-        {
-            weapons = GetComponentsInChildren<Weapon>();
-        }
-
-        else if(gameObject.tag=="PlayerUnit")
-        {
-            weapon = GetComponentInChildren<Weapon>();
-        }
-           
+        weapon = GetComponentInChildren<Weapon>();
+        
     }
 
     //충돌 발생
     private void OnTriggerEnter(Collider other)
     {
-        //Collider thisObjectCollider = gameObject.GetComponent<Collider>();
-        //Collider otherObjectCollider = other.GetComponent<Collider>();
-
-        ////충돌한 유닛의 태그가 Player를 포함하고 있을경우 충돌무시
-        //if (other.tag.Contains("Player"))
-        //{
-        //    Physics.IgnoreCollision(thisObjectCollider, otherObjectCollider);   //트리거 충돌 무시
-        //}
         if (other.tag == "EnemyUnit")
         {
             Debug.Log("적군 진입");
@@ -62,26 +44,15 @@ public class PlayerUnit : MonoBehaviour
             attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
             target = other.gameObject;
         }
-       
     }
 
-    
 
     private void Update()
     {
         if (isAttack && target != null)  // 현재 공격 대상이 존재할 때만 회전
         {
             transform.LookAt(target.transform);
-        }
-
-        //유닛이면 어택 , 설치류면 Shoot
-        if (gameObject.tag == "PlayerUnit")
-        {
-            Attack();
-        }
-        else if (gameObject.tag == "PlayerUnit_Projectile")
-        {
-            foreach (var muzzle in weapons) { muzzle.Shoot(target.transform); }
+             Attack();
         }
     }
 

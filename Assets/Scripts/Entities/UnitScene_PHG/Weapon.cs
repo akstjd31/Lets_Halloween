@@ -14,7 +14,6 @@ public class Weapon : MonoBehaviour
 
     Transform targetTransform;
 
-
     private void Start()
     {
         Init();
@@ -27,7 +26,7 @@ public class Weapon : MonoBehaviour
 
         for(int i=0; i<projectilePrefabs.Length; i++)
         {
-            projectilePrefabs[i] = Instantiate(projectilePrefab,transform.position , Quaternion.identity);
+            projectilePrefabs[i]=Instantiate(projectilePrefab,transform.position , Quaternion.identity);
             projectilePrefabs[i].SetActive(false);  //비활성화
         }
     }
@@ -45,8 +44,4 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-
-
-
-
 }
