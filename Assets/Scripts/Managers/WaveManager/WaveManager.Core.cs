@@ -80,9 +80,8 @@ public partial class WaveManager
         enemyMover.Initialize();
         enemy.gameObject.SetActive(false);
 
-        activeEnemies.Remove(enemy);
-
         ReturnToPool(enemy);
+        activeEnemies.Remove(enemy);
 
         runtimeData.OnEnemyDeactivated();
     }

@@ -46,6 +46,8 @@ public partial class WaveManager
         Enemy enemy;
         if (pool.Count > 0)
         {
+
+            Debug.Log("적 생성! 현재 큐 카운트: " + pool.Count);
             enemy = pool.Dequeue();
             enemy.gameObject.SetActive(true);
         }
@@ -62,11 +64,21 @@ public partial class WaveManager
     {
         enemy.gameObject.SetActive(false);
 
-        if (!enemyPools.ContainsKey(enemy))
-            enemyPools[enemy] = new Queue<Enemy>();
+        // 프리팹 기준으로 반환
+        Enemy prefab = enemy.OriginalPrefab;
 
-        enemyPools[enemy].Enqueue(enemy);
+        if (prefab == null)
+        {
+            Debug.LogWarning($"{enemy.name}의 OriginalPrefab이 설정되지 않았습니다!");
+            return;
+        }
+
+        if (!enemyPools.ContainsKey(prefab))
+            enemyPools[prefab] = new Queue<Enemy>();
+
+        enemyPools[prefab].Enqueue(enemy);
     }
+
 
     // 적 생성 시도
     private void TrySpawnEnemy(Wave wave)
@@ -88,19 +100,18 @@ public partial class WaveManager
         }
     }
 
-    // 🔹 적 실제 생성 로직
     private void SpawnEnemy(SpawnInfo spawnInfo)
     {
-        Enemy prefab = spawnInfo.enemyPrefab;
+        // 풀 초기화 (최초 한 번만)
+        if (!enemyPools.ContainsKey(spawnInfo.enemyPrefab))
+            InitPool(spawnInfo.enemyPrefab);
 
-        // 해당 프리팹의 풀이 비어 있으면 초기화
-        if (!enemyPools.ContainsKey(prefab) || enemyPools[prefab].Count == 0)
-            InitPool(prefab);
-
-        Enemy enemy = GetEnemyFromPool(prefab);
+        // 풀에서 꺼내오기
+        Enemy enemy = GetEnemyFromPool(spawnInfo.enemyPrefab);
         activeEnemies.Add(enemy);
 
-        // 랜덤 Z 위치
+        enemy.SetOriginalPrefab(spawnInfo.enemyPrefab);
+
         Vector3 newPos = new Vector3(
             spawnPoint.position.x,
             spawnPoint.position.y,
@@ -110,6 +121,7 @@ public partial class WaveManager
         enemy.transform.position = newPos;
     }
 
-    // 🔹 웨이포인트 반환
+
+    // 웨이포인트 반환
     public Transform GetWaypoint(int idx) => waypoints[idx];
 }
