@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class StartGameSceneAdministrator : MonoBehaviour
 {
     [SerializeField] private Button inputStartButton;
-    [SerializeField] private Button inputHowToPlayButton;
+    [SerializeField] private Button inputRuelButton;
     [SerializeField] private Button inputQuiteButton;
 
 
@@ -19,7 +19,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
     private void OnEnable()
     {
         inputStartButton.onClick.AddListener(OnStartButtonClick);
-        inputHowToPlayButton.onClick.AddListener(OnHowToPlayButtonClick);
+        inputRuelButton.onClick.AddListener(OnRuelButtonClick);
         inputQuiteButton.onClick.AddListener(OnQuiteBottonClick);
         
     }
@@ -27,7 +27,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
     private void OnDestroy()
     {
         inputStartButton.onClick.RemoveListener(OnStartButtonClick);
-        inputQuiteButton.onClick.RemoveListener(OnHowToPlayButtonClick);
+        inputQuiteButton.onClick.RemoveListener(OnRuelButtonClick);
         inputQuiteButton.onClick.RemoveListener(OnQuiteBottonClick);
     }
 
@@ -39,7 +39,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
         Debug.Log("시작 버튼이 눌렸습니다.");
     }
 
-    public void OnHowToPlayButtonClick()
+    public void OnRuelButtonClick()
     {
         Debug.Log("플레이 방식 버튼이 눌렸습니다.");
     }

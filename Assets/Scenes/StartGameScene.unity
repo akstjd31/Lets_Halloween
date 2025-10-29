@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputStartButton: {fileID: 694696270}
-  inputOptionButton: {fileID: 1048935724}
+  inputHowToPlayButton: {fileID: 1048935724}
   inputQuiteButton: {fileID: 732358910}
 --- !u!1001 &993113408
 PrefabInstance:
@@ -1852,7 +1852,7 @@ GameObject:
   - component: {fileID: 1048935725}
   - component: {fileID: 1048935724}
   m_Layer: 5
-  m_Name: OptianButton
+  m_Name: HowToPlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
