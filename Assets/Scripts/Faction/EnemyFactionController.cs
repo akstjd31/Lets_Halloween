@@ -50,11 +50,14 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
         // if (!WaveManager.Instance.IsWaveRunning())
         //     WaveManager.Instance.StartWave();
 
-    } 
-    
+    }
+
     // 결과 페이즈
     public virtual void ResultPhase()
     {
-        
+
     }
+
+    // public virtual Unit GetUnit() => enemy;
+
 }

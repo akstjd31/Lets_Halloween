@@ -15,4 +15,5 @@ public interface IFactionController
 
     // 결과 단계
     void ResultPhase();
+    // Unit GetUnit();
 }

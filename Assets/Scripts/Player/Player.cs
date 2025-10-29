@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMove))]
@@ -15,17 +16,21 @@ public class Player : Unit, IFaction
     // 생성자
 
     // 메소드
-    public override void Initialize(string name, int id) => base.Initialize(name, id);
-
-    public void TakeDamage(int amount)
+    public override void Initialize(string name, int id)
     {
-        currentLife -= amount;
-        currentLife = Mathf.Max(currentLife, 0);
-        if (currentLife <= 0)
-            OnPlayerDead();
+        base.Initialize(name, id);
+        currentLife = maxLife;
     }
 
-    private void OnPlayerDead()
+    public override void TakeDamage(int damage)
+    {
+        currentLife -= damage;
+        currentLife = Mathf.Max(currentLife, 0);
+        if (currentLife <= 0)
+            OnDead();
+    }
+
+    public override void OnDead()
     {
         Debug.Log("게임 오버!");
     }

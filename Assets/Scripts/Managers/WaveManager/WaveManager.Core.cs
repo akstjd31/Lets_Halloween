@@ -5,6 +5,7 @@ using UnityEngine;
 public partial class WaveManager : Singleton<WaveManager>
 {
     [SerializeField] private List<Wave> waves = new List<Wave>();
+    [SerializeField] private Transform endpoint;
 
     public event Action onWaveStarted;
     public event Action onWaveEnded;
@@ -23,6 +24,8 @@ public partial class WaveManager : Singleton<WaveManager>
 
         onWaveStarted += HandleWaveStarted;
         onWaveEnded += HandleWaveEnded;
+
+        endPoint.GetComponent<EnemyDeathEventHandler>().onEnemyDeactivated += OnEnemyDeactivated;
     }
 
     // 웨이브 시작
@@ -62,6 +65,16 @@ public partial class WaveManager : Singleton<WaveManager>
 
         GameManager.Instance.InitPreparingTime();
     }
+
+    // 적 비활성화 (이벤트 액션) - 적이 목적지에 도달한 경우 해줘야 하는 작업
+    private void OnEnemyDeactivated(EnemyMover enemy)
+    {
+        enemy.gameObject.SetActive(false);
+        activeEnemies.Remove(enemy);
+        enemyPool.Enqueue(enemy);
+        runtimeData.OnEnemyDeactivated();
+    }
+
 
     // 현 웨이브
     public int GetWaveNumber() => currentWaveIndex + 1;

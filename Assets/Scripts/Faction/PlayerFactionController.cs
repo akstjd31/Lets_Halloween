@@ -65,4 +65,6 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     {
 
     }
+
+    // public virtual Unit GetUnit() => player;
 }

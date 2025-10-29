@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     // 기본적으로 생성된 적은 맵의 이동 경로에 따라 이동하게 됨
-    public event Action<EnemyMover> onEnemyDeactivated;
     [SerializeField] private int currentIndex;      // 현재 바라보는 스팟지점 인덱스
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
@@ -34,21 +33,5 @@ public class EnemyMover : MonoBehaviour
 
         if (Vector3.Distance(this.transform.position, target.position) < 1f)
             currentIndex++;
-    }
-
-    // 중복 호출 방지용 null 처리
-    private void OnDisable()
-    {
-        onEnemyDeactivated = null;
-    }
-    
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("EndPoint"))
-        {
-            onEnemyDeactivated?.Invoke(this);
-            this.gameObject.SetActive(false);
-        }
-           
     }
 }

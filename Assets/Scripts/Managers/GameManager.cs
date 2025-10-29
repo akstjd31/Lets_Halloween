@@ -14,6 +14,7 @@ public class GameManager : Singleton<GameManager>
     public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
     [SerializeField] private float preparingTime = 10f;   // 임시로 설정
     private IFactionController activeFaction;
+    // private Unit unit;                                    // 플레이어 or 적
     private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
     // 준비 단계에서 남은 시간
@@ -91,6 +92,7 @@ public class GameManager : Singleton<GameManager>
     {
         // 선택한 진영에 따른 컨트롤러 부여
         activeFaction = selectedFactionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
+        // unit = activeFaction.GetUnit();
 
         // 씬 넘어가기
         SceneManager.sceneLoaded += OnSceneLoaded;

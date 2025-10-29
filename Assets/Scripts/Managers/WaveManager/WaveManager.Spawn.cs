@@ -21,7 +21,6 @@ public partial class WaveManager
         {
             EnemyMover enemy = Instantiate(prefab, this.transform);
             enemy.gameObject.SetActive(false);
-            enemy.onEnemyDeactivated += OnEnemyDeactivated;
             enemyPool.Enqueue(enemy);
         }
     }
@@ -38,7 +37,6 @@ public partial class WaveManager
         else
         {
             enemy = Instantiate(prefab, transform);
-            enemy.onEnemyDeactivated += OnEnemyDeactivated;
         }
 
         return enemy;
@@ -57,7 +55,6 @@ public partial class WaveManager
             SpawnEnemy(spawnInfo);
             runtimeData.OnSpawned();
             wave.spawnInfos[spawnInfoIndex].spawnCount--;
-            Debug.Log("currentSpawnCount : " + wave.spawnInfos[spawnInfoIndex].spawnCount);
 
             // 해당 리스트에 존재하는 적 마리 수를 모두 생성한 상태이면 다음 인덱스로 넘어간다.
             if (wave.spawnInfos[spawnInfoIndex].spawnCount == 0)
@@ -83,15 +80,6 @@ public partial class WaveManager
         );
 
         enemy.transform.position = newPos;
-    }
-
-    // 적 비활성화 (이벤트 액션) - 적이 목적지에 도달한 경우 해줘야 하는 작업
-    private void OnEnemyDeactivated(EnemyMover enemy)
-    {
-        enemy.gameObject.SetActive(false);
-        activeEnemies.Remove(enemy);
-        enemyPool.Enqueue(enemy);
-        runtimeData.OnEnemyDeactivated();
     }
 
     public Transform GetWaypoint(int idx) => waypoints[idx];
