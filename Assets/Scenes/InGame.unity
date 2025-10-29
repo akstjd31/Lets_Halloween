@@ -385,6 +385,8 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 6066183204120994158, guid: 78f6f5fa1bc1aff418586871f4392020, type: 3}
       spawnCount: 3
       spawnInterval: 1
+  - waveNum: 2
+    spawnInfos:
     - enemyPrefab: {fileID: 6066183204120994158, guid: 78f6f5fa1bc1aff418586871f4392020, type: 3}
       spawnCount: 5
       spawnInterval: 2
@@ -481,19 +483,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 347509368}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 347509365}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &347509368
 MonoBehaviour:
   m_ObjectHideFlags: 0

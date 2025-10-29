@@ -6,6 +6,7 @@ public partial class WaveManager : Singleton<WaveManager>
 {
     [SerializeField] private List<Wave> waves = new List<Wave>();
     [SerializeField] private Transform endpoint;
+    private EnemyDeathEventHandler enemyDeathEventHandler;
 
     public event Action onWaveStarted;
     public event Action onWaveEnded;
@@ -19,13 +20,14 @@ public partial class WaveManager : Singleton<WaveManager>
 
     private void Start()
     {
+        if (endpoint != null)
+            enemyDeathEventHandler = endpoint.GetComponent<EnemyDeathEventHandler>();
+
         currentWaveIndex = 0;
         runtimeData = new WaveRuntimeData();
 
         onWaveStarted += HandleWaveStarted;
         onWaveEnded += HandleWaveEnded;
-
-        endPoint.GetComponent<EnemyDeathEventHandler>().onEnemyDeactivated += OnEnemyDeactivated;
     }
 
     // 웨이브 시작
@@ -33,9 +35,6 @@ public partial class WaveManager : Singleton<WaveManager>
     {
         if (currentWaveIndex >= waves.Count)
             return;
-
-        Wave wave = waves[currentWaveIndex];
-        runtimeData.Initialize(wave);
 
         isWaveRunning = true;
         onWaveStarted?.Invoke();
@@ -61,7 +60,6 @@ public partial class WaveManager : Singleton<WaveManager>
     {
         isWaveRunning = false;
         onWaveEnded?.Invoke();
-        currentWaveIndex++;
 
         GameManager.Instance.InitPreparingTime();
     }
@@ -69,6 +67,9 @@ public partial class WaveManager : Singleton<WaveManager>
     // 적 비활성화 (이벤트 액션) - 적이 목적지에 도달한 경우 해줘야 하는 작업
     private void OnEnemyDeactivated(EnemyMover enemy)
     {
+        // 초기화를 한 번 해준 다음에 비활성화
+        enemy.Initialize();
+
         enemy.gameObject.SetActive(false);
         activeEnemies.Remove(enemy);
         enemyPool.Enqueue(enemy);
@@ -80,17 +81,31 @@ public partial class WaveManager : Singleton<WaveManager>
 
     // 웨이브가 진행중인지?
     public bool IsWaveRunning() => isWaveRunning;
-    private void HandleWaveStarted() =>
+
+    private void HandleWaveStarted()
+    {
+        enemyDeathEventHandler.onEnemyDeactivated += OnEnemyDeactivated;
+
         GameManager.Instance.UpdateState(GameState.Battle);
-
-    private void HandleWaveEnded() =>
-        GameManager.Instance.UpdateState(GameState.Prepare);
-
+        Wave wave = waves[currentWaveIndex];
+        runtimeData.Initialize(wave);
+    }
+        
+    private void HandleWaveEnded()
+    {
+        GameManager.Instance.UpdateState(GameState.Prepare);       
+        currentWaveIndex++;
+        spawnInfoIndex = 0;
+    }
+        
     private void OnDestroy()
     {
         // 이벤트 해제
-        onWaveStarted = null;
-        onWaveEnded = null;
+        onWaveStarted -= HandleWaveStarted;
+        onWaveEnded -= HandleWaveEnded;
+
+        if (enemyDeathEventHandler != null)
+            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
 
         // 싱글톤 해제
         if (Instance == this)

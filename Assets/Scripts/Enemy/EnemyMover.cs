@@ -7,11 +7,11 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private int currentIndex;      // 현재 바라보는 스팟지점 인덱스
     [SerializeField] private float moveSpeed;
     [SerializeField] private float rotationSpeed;
-    private void Start()
+
+    public void Initialize()
     {
         currentIndex = 0;
     }
-
 
     void Update()
     {

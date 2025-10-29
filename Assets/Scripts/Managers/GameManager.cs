@@ -68,10 +68,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void InitPreparingTime()
-    {
-        elapsedTime = preparingTime;
-    }
+    public void InitPreparingTime() => elapsedTime = preparingTime;
     
     // 준비시간 게산
     private void CalPreparingTime()
