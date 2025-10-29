@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class EnemyDeathEventHandler : MonoBehaviour
 {
+    [SerializeField] private UIManager uiManager;
     public event Action<EnemyMover> onEnemyDeactivated;
     private Unit unit;
 
@@ -22,7 +23,12 @@ public class EnemyDeathEventHandler : MonoBehaviour
         {
             EnemyMover enemy = other.GetComponent<EnemyMover>();
             onEnemyDeactivated?.Invoke(enemy);
-            unit.TakeDamage(1);
+
+            if (unit is Player)
+            {
+                (unit as Player).TakeDamage(1);
+                uiManager?.UpdatePlayerLifeUI((unit as Player).CurrentLife);
+            }
         }
     }
 }

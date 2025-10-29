@@ -58,6 +58,5 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
 
     }
 
-    // public virtual Unit GetUnit() => enemy;
-
+    public virtual Unit GetUnit() => enemy;
 }

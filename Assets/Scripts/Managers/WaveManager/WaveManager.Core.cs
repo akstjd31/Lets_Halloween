@@ -75,7 +75,6 @@ public partial class WaveManager : Singleton<WaveManager>
         runtimeData.OnEnemyDeactivated();
     }
 
-
     // 현 웨이브
     public int GetWaveNumber() => currentWaveIndex + 1;
 

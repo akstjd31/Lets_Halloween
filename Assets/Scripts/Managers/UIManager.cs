@@ -7,15 +7,18 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button preparingButton;
     [SerializeField] private TextMeshProUGUI waveText;
     [SerializeField] private TextMeshProUGUI lifeText;
-    int wave;
 
     private void Start()
     {
-        wave = 1;
         preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
-        
+
         WaveManager.Instance.onWaveStarted += OnWaveStarted;
         WaveManager.Instance.onWaveEnded += OnWaveEnded;
+    }
+    
+    public void UpdatePlayerLifeUI(int life)
+    {
+        lifeText.text = $"Life: {life}";
     }
 
     private void OnWaveStarted()
