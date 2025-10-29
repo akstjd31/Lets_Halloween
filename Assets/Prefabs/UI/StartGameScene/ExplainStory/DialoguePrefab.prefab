@@ -101,8 +101,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB54C\uB294 \uBC14\uC57C\uD750\uB85C 2025\uB144 10\uC6D4 \uB2E4 \uC775\uC740"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 0168be586339b4d449e29ca04a499c3b, type: 2}
-  m_sharedMaterial: {fileID: -7582452051198216374, guid: 0168be586339b4d449e29ca04a499c3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b73566b262d36424fbb92d0b43b98e72, type: 2}
+  m_sharedMaterial: {fileID: -4874130268049285630, guid: b73566b262d36424fbb92d0b43b98e72, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -247.2203, y: 0, z: -237.63599, w: 0}
+  m_margin: {x: -625.2211, y: 0, z: -631.825, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

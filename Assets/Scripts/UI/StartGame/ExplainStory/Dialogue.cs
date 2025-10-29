@@ -20,6 +20,14 @@ public class Dialogue : MonoBehaviour
         Move();
     }
 
+    private void OnDestroy()
+    {
+        if (gameObject.activeSelf)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // 충돌 처리 충돌 상태에서 벗어날 때만 실행
     private void OnTriggerExit(Collider other)
     {

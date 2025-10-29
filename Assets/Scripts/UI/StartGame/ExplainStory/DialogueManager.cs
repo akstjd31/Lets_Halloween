@@ -12,7 +12,25 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject Dialogue2;
     [SerializeField] private GameObject Dialogue3;
     [SerializeField] private GameObject Dialogue4;
+    [Header("")]
     [SerializeField] private GameObject Dialogue5;
+    [SerializeField] private GameObject Dialogue6;
+    [SerializeField] private GameObject Dialogue7;
+    [SerializeField] private GameObject Dialogue8;
+    [Header("")]
+    [SerializeField] private GameObject Dialogue9;
+    [SerializeField] private GameObject Dialogue10;
+    [SerializeField] private GameObject Dialogue11;
+    [SerializeField] private GameObject Dialogue12;
+    [SerializeField] private GameObject Dialogue13;
+    [Header("")]
+    [SerializeField] private GameObject Dialogue14;
+    [SerializeField] private GameObject Dialogue15;
+    [SerializeField] private GameObject Dialogue16;
+    [SerializeField] private GameObject Dialogue17;
+    [SerializeField] private GameObject Dialogue18;
+    [SerializeField] private GameObject Dialogue19;
+    [Header("적 진영 설명 대사")]
 
     [Header("속성")]
     [SerializeField] private float spawnDelay = 1f;
@@ -50,6 +68,20 @@ public class DialogueManager : MonoBehaviour
         Dialogue3.SetActive(false);
         Dialogue4.SetActive(false);
         Dialogue5.SetActive(false);
+        Dialogue6.SetActive(false);
+        Dialogue7.SetActive(false);
+        Dialogue8.SetActive(false);
+        Dialogue9.SetActive(false);
+        Dialogue10.SetActive(false);
+        Dialogue11.SetActive(false);
+        Dialogue12.SetActive(false);
+        Dialogue13.SetActive(false);
+        Dialogue14.SetActive(false);
+        Dialogue15.SetActive(false);
+        Dialogue16.SetActive(false);
+        Dialogue17.SetActive(false);
+        Dialogue18.SetActive(false);
+        Dialogue19.SetActive(false);
 
         // 큐에 다이얼로그를 넣어준다.
         dialogues.Enqueue(Dialogue1);
@@ -57,6 +89,20 @@ public class DialogueManager : MonoBehaviour
         dialogues.Enqueue(Dialogue3);
         dialogues.Enqueue(Dialogue4);
         dialogues.Enqueue(Dialogue5);
+        dialogues.Enqueue(Dialogue6);
+        dialogues.Enqueue(Dialogue7);
+        dialogues.Enqueue(Dialogue8);
+        dialogues.Enqueue(Dialogue9);
+        dialogues.Enqueue(Dialogue10);
+        dialogues.Enqueue(Dialogue11);
+        dialogues.Enqueue(Dialogue12);
+        dialogues.Enqueue(Dialogue13);
+        dialogues.Enqueue(Dialogue14);
+        dialogues.Enqueue(Dialogue15);
+        dialogues.Enqueue(Dialogue16);
+        dialogues.Enqueue(Dialogue17);
+        dialogues.Enqueue(Dialogue18);
+        dialogues.Enqueue(Dialogue19);
     }
 
     private void SpawnDialogue()
@@ -82,6 +128,15 @@ public class DialogueManager : MonoBehaviour
             // 문단이 생기면 Idle 상태 값 변환하는 케이스 삽입
             case 4:
                 //Idle 상태를 참으로 변환
+                isIdleState = true;
+                break;
+            case 8:
+                isIdleState = true;
+                break;
+            case 13:
+                isIdleState = true;
+                break;
+            case 19:
                 isIdleState = true;
                 break;
             default:
