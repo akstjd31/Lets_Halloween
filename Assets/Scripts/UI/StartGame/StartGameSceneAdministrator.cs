@@ -5,13 +5,15 @@ using UnityEngine.UI;
 
 public class StartGameSceneAdministrator : MonoBehaviour
 {
+    [Header("버튼")]
     [SerializeField] private Button inputStartButton;
     [SerializeField] private Button inputRuelButton;
     [SerializeField] private Button inputQuiteButton;
+    [Header("패널")]
+    [SerializeField] private GameObject inputRuelPanels;
 
 
-
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -31,8 +33,14 @@ public class StartGameSceneAdministrator : MonoBehaviour
         inputQuiteButton.onClick.RemoveListener(OnQuiteBottonClick);
     }
 
-    // 게임 오브젝트를 명시적으로 활성화 함
-    private void Init() { gameObject.SetActive(true); }
+    
+    private void Init() 
+    {
+        // 게임 오브젝트를 명시적으로 활성화 함
+        gameObject.SetActive(true); 
+        // 패널 UI 비활성화
+        inputRuelPanels.SetActive(false);
+    }
 
     public void OnStartButtonClick()
     {
@@ -42,6 +50,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
     public void OnRuelButtonClick()
     {
         Debug.Log("플레이 방식 버튼이 눌렸습니다.");
+        inputRuelPanels.SetActive(true);
     }
 
     public void OnQuiteBottonClick()
@@ -50,6 +59,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
         QuitGame();
     }
 
+    // 실행시 프로그램 종료
     public void QuitGame()
     {
        #if UNITY_EDITOR
