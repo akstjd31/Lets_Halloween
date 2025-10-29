@@ -11,7 +11,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
     [SerializeField] private GameState currentState;
-    [SerializeField] private float preparingTime = 10f;   // 임시로 설정
+    [SerializeField] private float preparingTime = 60f;   // 임시로 설정
 
     public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
     private IFactionController activeFaction;

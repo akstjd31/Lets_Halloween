@@ -19,8 +19,11 @@ public class UIManager : MonoBehaviour
     // 구독 해제
     private void OnDestroy()
     {
-        WaveManager.Instance.onWaveStarted -= OnWaveStarted;
-        WaveManager.Instance.onWaveEnded -= OnWaveEnded;
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.onWaveStarted -= OnWaveStarted;
+            WaveManager.Instance.onWaveEnded -= OnWaveEnded;
+        }
     }
 
     public void UpdatePlayerLifeUI(int life)

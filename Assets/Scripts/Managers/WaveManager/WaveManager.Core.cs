@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class WaveManager : Singleton<WaveManager>
+public partial class WaveManager
 {
     [SerializeField] private List<Wave> waves = new List<Wave>();
-    [SerializeField] private Transform endpoint;
     private EnemyDeathEventHandler enemyDeathEventHandler;
 
     public event Action onWaveStarted;
@@ -20,8 +19,13 @@ public partial class WaveManager : Singleton<WaveManager>
 
     private void Start()
     {
-        if (endpoint != null)
-            enemyDeathEventHandler = endpoint.GetComponent<EnemyDeathEventHandler>();
+        for (int i = 0; i < waypoint.childCount; i++)
+        {
+            waypoints.Add(waypoint.GetChild(i));
+        }
+
+        if (endPoint != null)
+            enemyDeathEventHandler = endPoint.GetComponent<EnemyDeathEventHandler>();
 
         currentWaveIndex = 0;
         runtimeData = new WaveRuntimeData();
@@ -96,19 +100,13 @@ public partial class WaveManager : Singleton<WaveManager>
         GameManager.Instance.UpdateState(GameState.Prepare);       
         currentWaveIndex++;
         spawnInfoIndex = 0;
+        enemyPool.Clear();
     }
         
-    private void OnDestroy()
+    private void OnDisable()
     {
         // 이벤트 해제
-        onWaveStarted -= HandleWaveStarted;
-        onWaveEnded -= HandleWaveEnded;
-
-        if (enemyDeathEventHandler != null)
-            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
-
-        // 싱글톤 해제
-        if (Instance == this)
-            Instance = null;
+        onWaveStarted = null;
+        onWaveEnded = null;
     }
 }

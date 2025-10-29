@@ -4,15 +4,16 @@ using UnityEngine;
 public partial class WaveManager
 {
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private Transform[] waypoints;
+    [SerializeField] private Transform waypoint;
     [SerializeField] private Transform endPoint;
     [SerializeField] private float minZPos;
     [SerializeField] private float maxZPos;
     [SerializeField] private int poolSize;
     [SerializeField] private int spawnInfoIndex;
-    private List<EnemyMover> activeEnemies = new List<EnemyMover>();
+    [SerializeField] private List<EnemyMover> activeEnemies = new List<EnemyMover>();
 
     private Queue<EnemyMover> enemyPool = new Queue<EnemyMover>();
+    [SerializeField] private List<Transform> waypoints;
 
     // 미리 생성해두기 & 구독 
     private void InitPool(EnemyMover prefab)
