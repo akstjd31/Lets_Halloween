@@ -19,8 +19,8 @@ TagManager:
   - FLOOR
   - PlayerUnit
   - PlayerUnit_Projectile
-  - 
-  - 
+  - Enemy
+  - PlayerEnemyUnit
   - 
   - 
   - 

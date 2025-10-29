@@ -9,6 +9,16 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float projectilemoveSpeed = 10;
     private Transform targetTransform;
 
+    private int power;
+
+    public int Power => power;
+
+
+    //플레이어 혹은 플레이어 소환체 컴포넌트 가져옴
+    private void Start()
+    {
+        
+    }
 
     void Update()
     {
@@ -24,7 +34,11 @@ public class Projectile : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position,
             targetTransform.position,
             projectilemoveSpeed * Time.deltaTime);
+    }
 
+    public void SetTarget(Transform target)
+    {
+        targetTransform = target;
     }
 
     //적 유닛한테 맞으면 비활성화
@@ -32,15 +46,20 @@ public class Projectile : MonoBehaviour
     {
         if (other.tag.Contains("Enemy"))
         {
-            Debug.Log("적 맞춤");
-            gameObject.SetActive(false);
+            EnemyUnit enemy = other.GetComponent<EnemyUnit>();
 
+            if(enemy!= null)
+            {
+                enemy.TakeDamage(power);
+            }
+            gameObject.SetActive(false);
         }
     }
 
-    public void SetTarget(Transform target)
+    //투사체 공격력지정
+    public void SetPower(int _power)
     {
-        targetTransform = target;
+        power = _power;
     }
 
     //랜덤 상태이상 지정

@@ -15,11 +15,13 @@ public class PlayerUnit_Projectile : MonoBehaviour
 
     private bool isPlayerUnit; // 진영에따른 플레이어유닛 / 적군유닛 구분
 
-    private bool isAttack;
-
     private int lastAttackIndex;    //마지막으로 공격한 모션 인덱스
 
     private GameObject target;
+
+    [SerializeField] private int power;
+
+    public int Power => power;
 
     Weapon[] weapons; //소환체의 무기들 가져옴
 
@@ -32,43 +34,32 @@ public class PlayerUnit_Projectile : MonoBehaviour
     //충돌 발생
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyUnit")
+        if (other.tag.Contains ("Enemy"))
         {
             Debug.Log("적군 진입");
-            isAttack = true;
-            transform.LookAt(other.transform);  //타겟을 바라봄
-            shootTime = shootDelay;   //적군 바로공격할수있게 쿨타임 충전
-            target = other.gameObject;
+            shootTime = shootDelay;   //적군 바로공격할수있게 쿨타임 
         }
     }
 
-
-    private void Update()
+    private void OnTriggerStay(Collider other)
     {
-        if (isAttack && target != null)  // 현재 공격 대상이 존재할 때만 회전
+        if (other.gameObject.activeSelf && other.tag.Contains("Enemy"))
         {
-            transform.LookAt(target.transform);
+            transform.LookAt(other.transform);
+            target = other.gameObject;
             Attack();
         }
     }
 
-    // 적이 범위를 벗어나면 정지상태로 돌입
-    private void OnTriggerExit(Collider other)
-    {
-        isAttack = false;
-    }
-
     void Attack()
     {
-        if (isAttack == true && target != null)   //적이 범위안에있음
-        {
-            shootTime += Time.deltaTime;
+        shootTime += Time.deltaTime;
 
-            if (shootTime >= shootDelay)
-            {
-                foreach (var muzzle in weapons) { muzzle.Shoot(target.transform); }
-            }
+        if (shootTime >= shootDelay)
+        {
+            foreach (var muzzle in weapons) { muzzle.Shoot(target.transform); }
         }
+        
     }
   
     //효과음 재생

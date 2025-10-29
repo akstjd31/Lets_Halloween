@@ -443,7 +443,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
-  attackDelay: 0.5
+  power: 10
+  attackDelay: 3
 --- !u!82 &3884268287399989745
 AudioSource:
   m_ObjectHideFlags: 0
@@ -456,7 +457,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.508
+  m_Volume: 0.166
   m_Pitch: 1
   Loop: 0
   Mute: 0

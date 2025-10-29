@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
+  power: 8
   attackDelay: 0.8
 --- !u!82 &8139655673299800278
 AudioSource:

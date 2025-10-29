@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16226aa1b498677419b713efb43662a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 1
   rotateSpeed: 5
-  hp: 0
+  hp: 1
   EnemyName: MyEnemey

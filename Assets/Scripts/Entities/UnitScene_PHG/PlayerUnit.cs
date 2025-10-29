@@ -13,6 +13,8 @@ public class PlayerUnit : MonoBehaviour
 
     [SerializeField] private int power;
 
+    public int Power => power;
+
     [SerializeField] private float attackDelay;
     private float attackTime;
 
@@ -25,6 +27,8 @@ public class PlayerUnit : MonoBehaviour
     private GameObject target;
 
     Weapon weapon;  //원거리타입 무기 가져옴
+
+    EnemyUnit enemy;    //데미지를 줄 적유닛.
 
     //시작시 애니메이터 , 오디오 소스 가져옴
     private void Start()
@@ -44,15 +48,16 @@ public class PlayerUnit : MonoBehaviour
             transform.LookAt(other.transform);  //타겟을 바라봄
             attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
             target = other.gameObject;
+            enemy = other.GetComponent<EnemyUnit>();
         }
     }
 
     private void Update()
     {
-        if (isAttack && target != null)  // 현재 공격 대상이 존재할 때만 회전
+        if (isAttack && target.activeSelf)  // 현재 공격 대상이 존재할 때만 회전
         {
             transform.LookAt(target.transform);
-             Attack();
+            Attack();   
         }
     }
 
@@ -101,13 +106,8 @@ public class PlayerUnit : MonoBehaviour
         }
     }
 
+  
 
-    //투사체가 없는 유닛 공격 일정확률로 상태이상 걸고 데미지
-    //투사체가 있는 유닛은 투사체에 상태이상 넣을것임
-    void ShortRangeAttack()
-    {
-
-    }
 
     #region 유니티 애니메이션 함수
 
@@ -117,16 +117,20 @@ public class PlayerUnit : MonoBehaviour
         weapon.Shoot(target.transform);
     }
 
+    void TakeDamage()
+    {
+        if (enemy != null)
+        {
+            enemy.TakeDamage(power);
+        }
+    }
+
     //효과음 재생
     void AttackSound()
     {
         audioSource.Play();
     }
 
-    public void ApplyStatusEffect(StatusEffect type, float effectTime, float statusEffectPercent)
-    {
-        throw new System.NotImplementedException();
-    }
     #endregion
 
 }
