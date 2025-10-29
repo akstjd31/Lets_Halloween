@@ -29,12 +29,12 @@ public class UIManager : MonoBehaviour
         Debug.Log("웨이브 종료");
     }
 
-    private void OnDestroy()
-    {
-        if (WaveManager.Instance != null)
-        {
-            WaveManager.Instance.onWaveStarted -= OnWaveStarted;
-            WaveManager.Instance.onWaveEnded -= OnWaveEnded;
-        }
-    }
+    // private void OnDestroy()
+    // {
+    //     if (WaveManager.Instance != null)
+    //     {
+    //         WaveManager.Instance.onWaveStarted -= OnWaveStarted;
+    //         WaveManager.Instance.onWaveEnded -= OnWaveEnded;
+    //     }
+    // }
 }

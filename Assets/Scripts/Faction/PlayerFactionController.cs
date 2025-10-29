@@ -6,7 +6,6 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     [SerializeField] private GameObject playerPrefab;
     private Player player;
 
-
     // 초기화 부분
     public virtual void Initialize()
     {

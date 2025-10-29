@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class WaveManager
 {
@@ -16,6 +17,8 @@ public partial class WaveManager
         public Enemy enemyPrefab;
         public int spawnCount;
         public float spawnInterval;
+
+        public void DecreaseSpawnCount() => spawnCount--;
     }
 
     // 웨이브 당 총 생성 개수, 현재까지 스폰된 수, 비활성화된 오브젝트 수 등 확인 및 시간 관련
@@ -26,17 +29,12 @@ public partial class WaveManager
         public int spawnedCount { get; private set; }
         public int deactiveCount { get; private set; }
 
-        private int spawnInfoListIndex;
         private float spawnTimer;
-        private float currentInterval;
-
-        public bool IsWaveComplete => deactiveCount >= totalSpawnCount;
 
         public void Initialize(Wave wave)
         {
             spawnedCount = 0;
             deactiveCount = 0;
-            spawnInfoListIndex = 0;
             spawnTimer = 0f;
             totalSpawnCount = 0;
 

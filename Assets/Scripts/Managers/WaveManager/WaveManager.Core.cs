@@ -8,6 +8,9 @@ public partial class WaveManager : Singleton<WaveManager>
 
     public event Action onWaveStarted;
     public event Action onWaveEnded;
+    public bool IsWaveComplete => 
+        runtimeData.spawnedCount >= runtimeData.totalSpawnCount
+        && activeEnemies.Count == 0;
 
     private int currentWaveIndex;
     private bool isWaveRunning;
@@ -31,6 +34,8 @@ public partial class WaveManager : Singleton<WaveManager>
         Wave wave = waves[currentWaveIndex];
         runtimeData.Initialize(wave);
 
+        Debug.Log("totalSpawnCount = " + runtimeData.totalSpawnCount);
+
         isWaveRunning = true;
         onWaveStarted?.Invoke();
     }
@@ -46,7 +51,7 @@ public partial class WaveManager : Singleton<WaveManager>
         Wave wave = waves[currentWaveIndex];
         TrySpawnEnemy(wave);
 
-        if (runtimeData.IsWaveComplete)
+        if (IsWaveComplete)
             EndWave();
     }
 
@@ -67,10 +72,14 @@ public partial class WaveManager : Singleton<WaveManager>
     private void HandleWaveEnded() =>
         GameManager.Instance.UpdateState(GameState.Prepare);
 
-    // 구독 해제
     private void OnDestroy()
     {
-        onWaveStarted -= HandleWaveStarted;
-        onWaveEnded -= HandleWaveEnded;
+        // 이벤트 해제
+        onWaveStarted = null;
+        onWaveEnded = null;
+
+        // 싱글톤 해제
+        if (Instance == this)
+            Instance = null;
     }
 }

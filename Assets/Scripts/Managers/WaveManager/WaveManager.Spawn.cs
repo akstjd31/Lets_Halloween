@@ -9,6 +9,8 @@ public partial class WaveManager
     [SerializeField] private float minZPos;
     [SerializeField] private float maxZPos;
     [SerializeField] private int poolSize;
+    [SerializeField] private int spawnInfoIndex;
+    private List<EnemyMover> activeEnemies = new List<EnemyMover>();
 
     private Queue<EnemyMover> enemyPool = new Queue<EnemyMover>();
 
@@ -17,11 +19,13 @@ public partial class WaveManager
     {
         for (int i = 0; i < poolSize; i++)
         {
-            EnemyMover enemy = Instantiate(prefab, transform);
+            EnemyMover enemy = Instantiate(prefab, this.transform);
             enemy.gameObject.SetActive(false);
             enemy.onEnemyDeactivated += OnEnemyDeactivated;
             enemyPool.Enqueue(enemy);
         }
+
+        spawnInfoIndex = 0;
     }
 
     // 꺼내서 갖다쓰기 else 없으면 생성
@@ -45,12 +49,20 @@ public partial class WaveManager
     // 생성 가능 여부 확인 및 생성
     private void TrySpawnEnemy(Wave wave)
     {
-        var spawnInfo = wave.spawnInfos[runtimeData.spawnedCount % wave.spawnInfos.Count];
+        if (spawnInfoIndex >= wave.spawnInfos.Count)
+            return;
+            
+        var spawnInfo = wave.spawnInfos[spawnInfoIndex];
 
         if (runtimeData.CanSpawn(spawnInfo.spawnInterval))
         {
             SpawnEnemy(spawnInfo);
             runtimeData.OnSpawned();
+            wave.spawnInfos[spawnInfoIndex].DecreaseSpawnCount();
+
+            // 해당 리스트에 존재하는 적 마리 수를 모두 생성한 상태이면 다음 인덱스로 넘어간다.
+            if (wave.spawnInfos[spawnInfoIndex].spawnCount <= 0)
+                spawnInfoIndex++;
         }
     }
 
@@ -62,6 +74,7 @@ public partial class WaveManager
             InitPool(spawnInfo.enemyPrefab.GetComponent<EnemyMover>());
 
         EnemyMover enemy = GetEnemyFromPool(spawnInfo.enemyPrefab.GetComponent<EnemyMover>());
+        activeEnemies.Add(enemy);
 
         // 랜덤 Z 위치
         Vector3 newPos = new Vector3(
@@ -77,6 +90,7 @@ public partial class WaveManager
     private void OnEnemyDeactivated(EnemyMover enemy)
     {
         enemy.gameObject.SetActive(false);
+        activeEnemies.Remove(enemy);
         enemyPool.Enqueue(enemy);
         runtimeData.OnEnemyDeactivated();
     }
