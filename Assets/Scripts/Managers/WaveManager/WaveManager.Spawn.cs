@@ -24,8 +24,6 @@ public partial class WaveManager
             enemy.onEnemyDeactivated += OnEnemyDeactivated;
             enemyPool.Enqueue(enemy);
         }
-
-        spawnInfoIndex = 0;
     }
 
     // 꺼내서 갖다쓰기 else 없으면 생성
@@ -58,10 +56,11 @@ public partial class WaveManager
         {
             SpawnEnemy(spawnInfo);
             runtimeData.OnSpawned();
-            wave.spawnInfos[spawnInfoIndex].DecreaseSpawnCount();
+            wave.spawnInfos[spawnInfoIndex].spawnCount--;
+            Debug.Log("currentSpawnCount : " + wave.spawnInfos[spawnInfoIndex].spawnCount);
 
             // 해당 리스트에 존재하는 적 마리 수를 모두 생성한 상태이면 다음 인덱스로 넘어간다.
-            if (wave.spawnInfos[spawnInfoIndex].spawnCount <= 0)
+            if (wave.spawnInfos[spawnInfoIndex].spawnCount == 0)
                 spawnInfoIndex++;
         }
     }

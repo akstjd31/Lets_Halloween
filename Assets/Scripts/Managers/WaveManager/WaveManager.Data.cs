@@ -17,8 +17,6 @@ public partial class WaveManager
         public Enemy enemyPrefab;
         public int spawnCount;
         public float spawnInterval;
-
-        public void DecreaseSpawnCount() => spawnCount--;
     }
 
     // 웨이브 당 총 생성 개수, 현재까지 스폰된 수, 비활성화된 오브젝트 수 등 확인 및 시간 관련
