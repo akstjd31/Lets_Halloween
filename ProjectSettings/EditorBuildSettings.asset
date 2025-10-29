@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartGameScene.unity
+    guid: 4de8baeb9683b0243857b04efe447008
+  - enabled: 1
+    path: Assets/Scenes/SetUpGameScene.unity
+    guid: af4272f57c245e84b920c5a2c9cd95ab
+  - enabled: 1
     path: Assets/Scenes/SelectFaction.unity
     guid: caab34db992ef4a4589dba7b0fd76e7c
   - enabled: 1
-    path: Assets/Scenes/InGame.unity
-    guid: 71daa481f43b17740b4c2a66a1a4301d
+    path: Assets/Scenes/ShopSkillUI.unity
+    guid: fd8e5dc316fdbf34abe6c350fda5dc67
   m_configObjects: {}

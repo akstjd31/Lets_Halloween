@@ -101,8 +101,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB54C\uB294 \uBC14\uC57C\uD750\uB85C 2025\uB144 10\uC6D4 \uB2E4 \uC775\uC740"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b73566b262d36424fbb92d0b43b98e72, type: 2}
-  m_sharedMaterial: {fileID: -4874130268049285630, guid: b73566b262d36424fbb92d0b43b98e72, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 70e93ba67cd23c5478257b464a0e4f71, type: 2}
+  m_sharedMaterial: {fileID: 3037227520436792950, guid: 70e93ba67cd23c5478257b464a0e4f71, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

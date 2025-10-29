@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGameSceneAdministrator : MonoBehaviour
@@ -11,12 +12,29 @@ public class StartGameSceneAdministrator : MonoBehaviour
     [SerializeField] private Button inputQuiteButton;
     [Header("패널")]
     [SerializeField] private GameObject inputRuelPanels;
+    [Header("카메라")]
+    [SerializeField] private GameObject inputMainCamera;
+    [SerializeField] private GameObject inputSubCamera;
+    [Header("캔버스")]
+    [SerializeField] private GameObject inputMainCanvas;
+    [SerializeField] private GameObject inputSubCanvas;
+    [SerializeField] private GameObject inputSpawnManager;
 
+    private int changeCameraCount = 0;
 
-    private void Start()
+    private void Awake()
     {
         Init();
     }
+
+    private void Update()
+    {
+        // 스폰 매니저가 진행 중인 도중 아래 내용 진행하지 않음
+        if (inputSpawnManager.activeSelf) { return;  }
+
+        ChangeCamera();
+    }
+
 
     private void OnEnable()
     {
@@ -38,6 +56,14 @@ public class StartGameSceneAdministrator : MonoBehaviour
     {
         // 게임 오브젝트를 명시적으로 활성화 함
         gameObject.SetActive(true); 
+        // 서브 카메라 활성화 
+        inputSubCamera.SetActive(true);
+        // 메인 카메라 비활성화
+        inputMainCamera.SetActive(false);
+        //서브 캔버스 활성화
+        inputSubCanvas.SetActive(true);
+        // 메인 캔버스 비활성화
+        inputMainCanvas.SetActive(false);
         // 패널 UI 비활성화
         inputRuelPanels.SetActive(false);
     }
@@ -45,6 +71,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
     public void OnStartButtonClick()
     {
         Debug.Log("시작 버튼이 눌렸습니다.");
+        SceneManager.LoadScene(1);
     }
 
     public void OnRuelButtonClick()
@@ -67,6 +94,21 @@ public class StartGameSceneAdministrator : MonoBehaviour
         #else
             Application.Quit();
         #endif
+    }
+
+    private void ChangeCamera()
+    {
+        if(changeCameraCount < 1)
+        {
+            // 카메라 전환
+            inputMainCamera.SetActive(true);
+            inputSubCamera.SetActive(false);
+            // 캔버스 전환
+            inputMainCanvas.SetActive(true);
+            inputSubCanvas.SetActive(false);
+        }
+        // 처음이 아닌 경우 넘어간다.
+        else { return; }
     }
 
 }
