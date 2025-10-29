@@ -9,9 +9,10 @@ public partial class WaveManager
 
     public event Action onWaveStarted;
     public event Action onWaveEnded;
-    public bool IsWaveComplete => 
-        runtimeData.spawnedCount >= runtimeData.totalSpawnCount
-        && activeEnemies.Count == 0;
+
+    public bool IsWaveComplete =>
+        runtimeData.spawnedCount >= runtimeData.totalSpawnCount &&
+        activeEnemies.Count == 0;
 
     private int currentWaveIndex;
     private bool isWaveRunning;
@@ -19,11 +20,11 @@ public partial class WaveManager
 
     private void Start()
     {
+        // 웨이포인트 세팅
         for (int i = 0; i < waypoint.childCount; i++)
-        {
             waypoints.Add(waypoint.GetChild(i));
-        }
 
+        // 목적지 오브젝트의 이벤트 핸들러 참조
         if (endPoint != null)
             enemyDeathEventHandler = endPoint.GetComponent<EnemyDeathEventHandler>();
 
@@ -44,7 +45,7 @@ public partial class WaveManager
         onWaveStarted?.Invoke();
     }
 
-    // 웨이브 진행 중
+    // 웨이브 진행
     public void RunWave()
     {
         if (!isWaveRunning)
@@ -68,45 +69,65 @@ public partial class WaveManager
         GameManager.Instance.InitPreparingTime();
     }
 
-    // 적 비활성화 (이벤트 액션) - 적이 목적지에 도달한 경우 해줘야 하는 작업
-    private void OnEnemyDeactivated(EnemyMover enemy)
+    private void OnEnemyDeactivated(Enemy enemy)
     {
-        // 초기화를 한 번 해준 다음에 비활성화
-        enemy.Initialize();
+        if (enemy == null)
+            return;
 
+        EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();    
+
+        // 적 비활성화 및 초기화
+        enemyMover.Initialize();
         enemy.gameObject.SetActive(false);
+
         activeEnemies.Remove(enemy);
-        enemyPool.Enqueue(enemy);
+
+        ReturnToPool(enemy);
+
         runtimeData.OnEnemyDeactivated();
     }
 
-    // 현 웨이브
+    // 현재 웨이브 번호 반환
     public int GetWaveNumber() => currentWaveIndex + 1;
 
-    // 웨이브가 진행중인지?
+    // 웨이브 진행 중인지 확인
     public bool IsWaveRunning() => isWaveRunning;
 
+    // 웨이브 시작 시점 (이벤트 구독 등)
     private void HandleWaveStarted()
     {
-        enemyDeathEventHandler.onEnemyDeactivated += OnEnemyDeactivated;
+        // 이벤트 구독 (중복 방지)
+        if (enemyDeathEventHandler != null)
+        {
+            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
+            enemyDeathEventHandler.onEnemyDeactivated += OnEnemyDeactivated;
+        }
 
         GameManager.Instance.UpdateState(GameState.Battle);
+
         Wave wave = waves[currentWaveIndex];
         runtimeData.Initialize(wave);
     }
-        
+
+    // 웨이브 종료 시점 (이벤트 해제, 인덱스 증가)
     private void HandleWaveEnded()
     {
-        GameManager.Instance.UpdateState(GameState.Prepare);       
+        GameManager.Instance.UpdateState(GameState.Prepare);
+
+        if (enemyDeathEventHandler != null)
+            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
+
         currentWaveIndex++;
         spawnInfoIndex = 0;
-        enemyPool.Clear();
     }
-        
+
+    // 안전한 해제
     private void OnDisable()
     {
-        // 이벤트 해제
         onWaveStarted = null;
         onWaveEnded = null;
+
+        if (enemyDeathEventHandler != null)
+            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
     }
 }

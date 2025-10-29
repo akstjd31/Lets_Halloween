@@ -11,7 +11,7 @@ public class EnemyDeathEventHandler : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     
     // 이전에 구독 해제를 안전하게 하는 방법으로 onEnemyDeactivated 이벤트를 사용
-    public event Action<EnemyMover> onEnemyDeactivated; 
+    public event Action<Enemy> onEnemyDeactivated; 
     
     private Unit unit;
 
@@ -42,7 +42,7 @@ public class EnemyDeathEventHandler : MonoBehaviour
 
     private void HandleEnemyCollision(Collider enemyCollider)
     {
-        EnemyMover enemy = enemyCollider.GetComponent<EnemyMover>();
+        Enemy enemy = enemyCollider.GetComponent<Enemy>();
         
         if (enemy == null)
         {
