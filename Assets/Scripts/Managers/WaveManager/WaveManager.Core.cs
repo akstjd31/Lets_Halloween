@@ -34,8 +34,6 @@ public partial class WaveManager : Singleton<WaveManager>
         Wave wave = waves[currentWaveIndex];
         runtimeData.Initialize(wave);
 
-        Debug.Log("totalSpawnCount = " + runtimeData.totalSpawnCount);
-
         isWaveRunning = true;
         onWaveStarted?.Invoke();
     }
@@ -65,6 +63,10 @@ public partial class WaveManager : Singleton<WaveManager>
         GameManager.Instance.InitPreparingTime();
     }
 
+    // 현 웨이브
+    public int GetWaveNumber() => currentWaveIndex + 1;
+
+    // 웨이브가 진행중인지?
     public bool IsWaveRunning() => isWaveRunning;
     private void HandleWaveStarted() =>
         GameManager.Instance.UpdateState(GameState.Battle);

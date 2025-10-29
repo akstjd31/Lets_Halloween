@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button preparingButton;
     [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] private TextMeshProUGUI lifeText;
     int wave;
 
     private void Start()
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
     private void OnWaveStarted()
     {
         Debug.Log("웨이브 시작");
-        waveText.text = $"Wave {wave++}";
+        waveText.text = $"Wave {WaveManager.Instance.GetWaveNumber()}";
         // 상점, 준비버튼 등 비활성화 작업
     }
 
@@ -28,13 +29,4 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("웨이브 종료");
     }
-
-    // private void OnDestroy()
-    // {
-    //     if (WaveManager.Instance != null)
-    //     {
-    //         WaveManager.Instance.onWaveStarted -= OnWaveStarted;
-    //         WaveManager.Instance.onWaveEnded -= OnWaveEnded;
-    //     }
-    // }
 }

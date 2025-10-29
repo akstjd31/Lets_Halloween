@@ -9,6 +9,7 @@ TagManager:
   - PlayerUnit
   - EnemyUnit
   - PlayerUnit_Projectile
+  - Skill
   layers:
   - Default
   - TransparentFX

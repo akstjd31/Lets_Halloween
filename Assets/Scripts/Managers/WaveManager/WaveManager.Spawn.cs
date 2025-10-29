@@ -85,7 +85,7 @@ public partial class WaveManager
         enemy.transform.position = newPos;
     }
 
-    // 적 비활성화 (이벤트 액션)
+    // 적 비활성화 (이벤트 액션) - 적이 목적지에 도달한 경우 해줘야 하는 작업
     private void OnEnemyDeactivated(EnemyMover enemy)
     {
         enemy.gameObject.SetActive(false);
