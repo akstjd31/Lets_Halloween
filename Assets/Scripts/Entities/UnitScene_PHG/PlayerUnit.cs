@@ -11,6 +11,8 @@ public class PlayerUnit : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
 
+    [SerializeField] private int power;
+
     [SerializeField] private float attackDelay;
     private float attackTime;
 
@@ -30,13 +32,12 @@ public class PlayerUnit : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         weapon = GetComponentInChildren<Weapon>();
-        
     }
 
     //충돌 발생
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyUnit")
+        if (other.tag.Contains("Enemy"))
         {
             Debug.Log("적군 진입");
             isAttack = true;
@@ -45,7 +46,6 @@ public class PlayerUnit : MonoBehaviour
             target = other.gameObject;
         }
     }
-
 
     private void Update()
     {
@@ -100,7 +100,16 @@ public class PlayerUnit : MonoBehaviour
             }
         }
     }
-  
+
+
+    //투사체가 없는 유닛 공격 일정확률로 상태이상 걸고 데미지
+    //투사체가 있는 유닛은 투사체에 상태이상 넣을것임
+    void ShortRangeAttack()
+    {
+
+    }
+
+    #region 유니티 애니메이션 함수
 
     //유니티 애니메이션 함수
     void Shoot()
@@ -114,5 +123,10 @@ public class PlayerUnit : MonoBehaviour
         audioSource.Play();
     }
 
+    public void ApplyStatusEffect(StatusEffect type, float effectTime, float statusEffectPercent)
+    {
+        throw new System.NotImplementedException();
+    }
+    #endregion
 
 }

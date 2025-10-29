@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
-  shootDelay: 0.3
+  shootDelay: 0.4
 --- !u!1 &1417739073287571712
 GameObject:
   m_ObjectHideFlags: 0

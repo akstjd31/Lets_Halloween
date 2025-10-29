@@ -2,19 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum statusEffect
-{
-    Slow,Stun
-}
 
 public class Projectile : MonoBehaviour
 {
     //투사체 속도
     [SerializeField] private float projectilemoveSpeed = 10;
     private Transform targetTransform;
-
-
-    
 
 
     void Update()
@@ -37,7 +30,7 @@ public class Projectile : MonoBehaviour
     //적 유닛한테 맞으면 비활성화
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "EnemyUnit")
+        if (other.tag.Contains("Enemy"))
         {
             Debug.Log("적 맞춤");
             gameObject.SetActive(false);
@@ -45,21 +38,15 @@ public class Projectile : MonoBehaviour
         }
     }
 
-
-
-
     public void SetTarget(Transform target)
     {
         targetTransform = target;
     }
 
-    void Stun()
+    //랜덤 상태이상 지정
+    void StatusEffect()
     {
 
     }
 
-    void Slow()
-    {
-
-    }
 }

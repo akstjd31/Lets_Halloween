@@ -443,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
-  attackDelay: 1
+  attackDelay: 0.5
 --- !u!82 &3884268287399989745
 AudioSource:
   m_ObjectHideFlags: 0

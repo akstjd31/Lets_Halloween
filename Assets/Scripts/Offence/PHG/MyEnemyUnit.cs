@@ -9,7 +9,16 @@ public class MyEnemyUnit : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     private int currentWayPointIndex = 0;
 
-    [SerializeField] private Transform wayPointBox;
+    private Transform wayPointBox;
+    [SerializeField] private int hp;
+    [SerializeField] private string EnemyName;
+
+
+    private void Start()
+    {
+        wayPointBox = GameObject.Find("WayPoint").transform;
+    }
+
 
     //웨이포인트 충돌처리
     private void OnTriggerEnter(Collider other)
@@ -47,8 +56,11 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
+    //엔드포인트 도달시 라운드가 마지막이 아니라면 다음라운드 , 마지막이면 승리
+    void ClearRound()
+    {
 
-
+    }
 
 
 
