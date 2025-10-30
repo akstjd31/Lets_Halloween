@@ -25,13 +25,13 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         lifes = new List<Image>();
-        
+
         if (GameManager.Instance != null)
         {
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
 
             Unit unit = GameManager.Instance.gameOptionData.unit;
-            moneyText.text = (unit as Player)?.Money.ToString();
+            moneyText.text = (unit as Player)?.Money.ToString("N0");
             
             SetPreparingTimer();
         }
@@ -98,6 +98,10 @@ public class UIManager : MonoBehaviour
         // 준비 버튼 활성화
         Debug.Log("웨이브 종료");
 
+        // 텍스트 업데이트
+        Unit unit = GameManager.Instance.gameOptionData.unit;
+        moneyText.text = (unit as Player)?.Money.ToString("N0");
+            
         SetPreparingTimer();
         preparingButton.gameObject.SetActive(true);
         preparingTimer.SetActive(true);

@@ -83,7 +83,6 @@ public partial class WaveManager
         ReturnToPool(enemy);
         activeEnemies.Remove(enemy);
 
-        runtimeData.OnEnemyDeactivated();
         Debug.Log("적 회수! 현재 맵에 존재하는 적 = " + activeEnemies.Count);
     }
 
@@ -117,6 +116,11 @@ public partial class WaveManager
         if (enemyDeathEventHandler != null)
             enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
 
+        // 보상 지급
+        Unit unit = GameManager.Instance.gameOptionData.unit;
+        (unit as Player)?.ReceiveReward(waves[currentWaveIndex].reward);
+
+        // 세팅
         currentWaveIndex++;
         spawnInfoIndex = 0;
     }

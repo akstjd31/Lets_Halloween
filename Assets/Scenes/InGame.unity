@@ -356,11 +356,13 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 3992656040652772640, guid: 7264f1a2844e97946903f1b8b27ac508, type: 3}
       spawnCount: 4
       spawnInterval: 2
+    reward: 100
   - waveNum: 1
     spawnInfos:
     - enemyPrefab: {fileID: 3992656040652772640, guid: 7264f1a2844e97946903f1b8b27ac508, type: 3}
       spawnCount: 5
       spawnInterval: 2
+    reward: 444
   spawnPoint: {fileID: 26541620}
   waypoint: {fileID: 26541618}
   endPoint: {fileID: 26541619}
