@@ -26,7 +26,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
     [SerializeField] private GameState currentState;
-    [SerializeField] private float preparingTime = 60f;   // 임시로 설정
+    [SerializeField] private float preparingTime;   // 임시로 설정
     public IFactionController selectedFactionController;
 
     public GameOptionData gameOptionData;
@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
     private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
     // 준비 단계에서 남은 시간
-    [SerializeField] private float elapsedTime;
+    public float elapsedTime;
 
     private void Start()
     {

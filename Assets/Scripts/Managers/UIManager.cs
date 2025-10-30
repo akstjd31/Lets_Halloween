@@ -12,19 +12,25 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Transform life;
     [SerializeField] private Image heart, darkHeart;    // 하트 / 빈하트
     [SerializeField] private List<Image> lifes;
+    [SerializeField] private GameObject preparingTimer;
+    private Timer timer;
 
     private void Awake()
     {
         preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
+        timer = preparingTimer.transform.GetChild(0).GetComponent<Timer>();
     }
 
     private void Start()
     {
         if (GameManager.Instance != null)
+        {
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
-
-        UpdatePlayerLifeUI(3, 3);    
-
+            SetPreparingTimer();
+        }
+            
+        UpdatePlayerLifeUI(3, 3);
+        
         WaveManager.Instance.onWaveStarted += OnWaveStarted;
         WaveManager.Instance.onWaveEnded += OnWaveEnded;
     }
@@ -37,6 +43,13 @@ public class UIManager : MonoBehaviour
             WaveManager.Instance.onWaveStarted -= OnWaveStarted;
             WaveManager.Instance.onWaveEnded -= OnWaveEnded;
         }
+    }
+
+    private void SetPreparingTimer()
+    {
+        timer.timeRemaining = GameManager.Instance.elapsedTime;
+        timer.minutes = (int)(timer.timeRemaining / 60);
+        timer.seconds = (int)(timer.timeRemaining % 60);
     }
 
     // 라이프에 따른 하트 활성화/비활성화
@@ -70,13 +83,17 @@ public class UIManager : MonoBehaviour
 
         // 상점, 준비버튼 등 비활성화 작업
         preparingButton.gameObject.SetActive(false);
+        preparingTimer.SetActive(false);
     }
 
     private void OnWaveEnded()
     {
         // 준비 버튼 활성화
         Debug.Log("웨이브 종료");
+
+        SetPreparingTimer();
         preparingButton.gameObject.SetActive(true);
+        preparingTimer.SetActive(true);
         waveText.text = $"Wave {WaveManager.Instance.GetWaveNumber()}";
     }
 }

@@ -597,7 +597,7 @@ MonoBehaviour:
   playerFactionController: {fileID: 5337919979352625431, guid: f786b3daef05bc5469bea1bfe29537e8, type: 3}
   enemyFactionController: {fileID: 8061425243140324091, guid: 51a0854f11f3fd94fa7c87281be01477, type: 3}
   currentState: 0
-  preparingTime: 60
+  preparingTime: 10
   elapsedTime: 0
 --- !u!4 &664700047
 Transform:
