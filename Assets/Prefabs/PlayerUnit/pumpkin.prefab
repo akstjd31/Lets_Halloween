@@ -52,6 +52,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: pumpkin
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd0a990ad3a9ff848a8c7d7e5363b1e0, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bd0a990ad3a9ff848a8c7d7e5363b1e0, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -87,7 +95,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.6
+  m_Radius: 0.7
   m_Center: {x: -0.0000008046627, y: 0.34661704, z: -0.00000017881393}
 --- !u!114 &-1055950947959154518
 MonoBehaviour:
