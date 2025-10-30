@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 7447137703020310652}
   - component: {fileID: 6737012400214426981}
   - component: {fileID: 6466672792464262591}
-  - component: {fileID: 5748570943250290601}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Jack
-  m_TagString: PlayerUnit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6048632085746885372}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.3676147, y: 1.4765625, z: 1.1248769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -119,32 +118,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f4c40f49b593b46be9c24b200e1ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: "\uC7AD\uC624\uB79C\uD134"
-  skillCooldown: 10
-  skillDuration: 10
-  skillRange: 5
+  timetext: {fileID: 0}
   enemySpeed: 1
-  power: 0
---- !u!136 &5748570943250290601
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6048632085746885372}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}

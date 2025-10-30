@@ -350,12 +350,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9663eea050fe10f4f8fdea33347a47a4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3884268287399989745}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9663eea050fe10f4f8fdea33347a47a4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -2930141579514568627}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9663eea050fe10f4f8fdea33347a47a4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -3300952708169606522}
   m_SourcePrefab: {fileID: 100100000, guid: 9663eea050fe10f4f8fdea33347a47a4, type: 3}
 --- !u!4 &2991025198269427508 stripped
 Transform:
@@ -451,8 +445,6 @@ MonoBehaviour:
   attackAudio: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
   power: 10
   attackDelay: 3
-  statusEffects: 0
-  statusEffectPercent: 0
 --- !u!82 &3884268287399989745
 AudioSource:
   m_ObjectHideFlags: 0
@@ -549,32 +541,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-2930141579514568627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5457591930561043787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f7874a5427e084792fffec7e327625, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0
---- !u!114 &-3300952708169606522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5457591930561043787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba1a6f6b462d154896202d0f243b17f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLife: 100
 --- !u!4 &6414794200644620910 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2196004506624635508, guid: 9663eea050fe10f4f8fdea33347a47a4, type: 3}

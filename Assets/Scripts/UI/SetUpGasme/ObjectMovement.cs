@@ -36,7 +36,7 @@ public class ObjectMovement : MonoBehaviour
         //Spin();
         delayTimerForUpdate += Time.deltaTime;
         // 애니메이션 상태 갱신
-        if (delayTimerForUpdate > animationDelay) { UpdateAnimation();}
+        //if (delayTimerForUpdate > animationDelay) { UpdateAnimation();}
         
 
         // 매서드를 사용했다면 타이머 갱신
@@ -64,7 +64,7 @@ public class ObjectMovement : MonoBehaviour
     {
         // 캐릭터가 카메라를 바라보도록 설정
         //inputEnemy.transform.LookAt(inputCamera.transform);
-        inputEnemyAnimator.SetBool("Loop", false);
+        //inputEnemyAnimator.SetBool("Loop", false);
         inputEnemyAnimator.SetBool("isClicked", true);
         isUsed = true;
     }
