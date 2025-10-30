@@ -9,7 +9,15 @@ public class SelectDifficultyManager : MonoBehaviour
     [SerializeField] private GameObject normalButton;
     [SerializeField] private GameObject hardButton;
     [SerializeField] private GameObject ChooseButton;
-    //
+    [Header("이미지")]
+    [SerializeField] private GameObject easyButtonImage;
+    [SerializeField] private GameObject normalButtonImage;
+    [SerializeField] private GameObject hardButtonImage;
+    [Header("캐릭터")]
+    [SerializeField] private GameObject easyCharacter;
+    [SerializeField] private GameObject normalCharacter;
+    [SerializeField] private GameObject HardCharacter;
+
     // 버튼이 처음 클릭되었는지 판단할 변수
     private bool isFirstClicked = false;
 
@@ -21,15 +29,53 @@ public class SelectDifficultyManager : MonoBehaviour
         normalButton.SetActive(true);
         hardButton.SetActive(true);
         ChooseButton.SetActive(false);
+        // 이미지는 비활성화
+        easyButtonImage.SetActive(false);
+        normalButtonImage.SetActive(false);
+        hardButtonImage.SetActive(false);
+        // 캐릭터 비활성화
+        easyCharacter.SetActive(false);
+        normalCharacter.SetActive(false);
+        hardButtonImage.SetActive(false);  
+    }
+    private void Awake()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        // 명시적으로 버튼 활성화 설정
+        easyButton.SetActive(true);
+        normalButton.SetActive(true);
+        hardButton.SetActive(true);
+        ChooseButton.SetActive(false);
+        // 이미지는 비활성화
+        easyButtonImage.SetActive(false);
+        normalButtonImage.SetActive(false);
+        hardButtonImage.SetActive(false);
+        // 캐릭터 비활성화
+        easyCharacter.SetActive(false);
+        normalCharacter.SetActive(false);
+        hardButtonImage.SetActive(false);
     }
 
     public void OnEasyButtonClick()
     {
+        // 처음 클릭을 한 경우에만 진행
         if (!isFirstClicked)
         {
             isFirstClicked = true;
             ChooseButton.SetActive(true);
         }
+        // 관련 이미지만 비활성화 하고 나머지는 활성화
+        easyButtonImage.SetActive(true);
+        normalButtonImage.SetActive(false);
+        hardButtonImage.SetActive(false);
+        // 해당 캐릭터만 활성화
+        easyCharacter.SetActive(true);
+        normalCharacter.SetActive(false);
+        hardButtonImage.SetActive(false);
     }
     public void OnNormalClick()
     {
@@ -38,6 +84,13 @@ public class SelectDifficultyManager : MonoBehaviour
             isFirstClicked = true;
             ChooseButton.SetActive(true);
         }
+        easyButtonImage.SetActive(false);
+        normalButtonImage.SetActive(true);
+        hardButtonImage.SetActive(false);
+
+        easyCharacter.SetActive(false);
+        normalCharacter.SetActive(true);
+        hardButtonImage.SetActive(false);
     }
     public void OnHardButtonClick()
     {
@@ -46,5 +99,12 @@ public class SelectDifficultyManager : MonoBehaviour
             isFirstClicked = true;
             ChooseButton.SetActive(true);
         }
+        easyButtonImage.SetActive(false);
+        normalButtonImage.SetActive(false);
+        hardButtonImage.SetActive(true);
+
+        easyCharacter.SetActive(false);
+        normalCharacter.SetActive(false);
+        hardButtonImage.SetActive(true);
     }
 }
