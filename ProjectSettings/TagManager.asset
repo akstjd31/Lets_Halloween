@@ -19,12 +19,12 @@ TagManager:
   - 
   - Water
   - UI
+  - FLOOR
+  - PlayerUnit
+  - PlayerUnit_Projectile
+  - Enemy
   - PlayerEnemyUnit
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Projectile
   - 
   - 
   - 

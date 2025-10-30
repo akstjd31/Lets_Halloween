@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button preparingButton;
     [SerializeField] private TextMeshProUGUI waveText, difficultyText;
     [SerializeField] private Transform life;
-    [SerializeField] private Image heart, darkHeart;    // 하트 / 빈하트
+    [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
     [SerializeField] private Text moneyText;
     [SerializeField] private GameObject preparingTimer;
     [SerializeField] private ParticleImage coinAttractionParticle;
@@ -82,7 +82,7 @@ public class UIManager : MonoBehaviour
         // 생성이 되어있다면 스프라이트만 변경
         for (int i = 0; i < maxLife; i++)
         {
-            lifes[i].sprite = i < currentLife ? heart.sprite : darkHeart.sprite;
+            lifes[i].sprite = i < currentLife ? heart.sprite : heartDark.sprite;
         }
     }
 

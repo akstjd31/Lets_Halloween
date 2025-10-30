@@ -23,7 +23,7 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
         // 선택한 진영이 아닌 경우
         else
         {
-
+            
         }
     }
 

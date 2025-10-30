@@ -12,16 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SetUpGameScene.unity
     guid: af4272f57c245e84b920c5a2c9cd95ab
   - enabled: 1
-    path: Assets/Scenes/SelectFaction.unity
-    path: Assets/Scenes/SelectScene.unity
-    guid: caab34db992ef4a4589dba7b0fd76e7c
-  - enabled: 1
     path: Assets/Scenes/ShopSkillUI.unity
     guid: fd8e5dc316fdbf34abe6c350fda5dc67
   - enabled: 1
-    path: Assets/Scenes/InGame.unity
-    guid: 71daa481f43b17740b4c2a66a1a4301d
-  - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: bb247e8ff01f9124d9205f90fcc4552d
+  - enabled: 1
+    path: Assets/Scenes/InGameScene.unity
+    guid: c6b7c37328e1b434eb05677f349612a3
   m_configObjects: {}

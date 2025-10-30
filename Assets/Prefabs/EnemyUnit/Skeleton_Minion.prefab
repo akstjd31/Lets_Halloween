@@ -296,6 +296,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 009b449e488f6dc469ae8dd20a28bd2d, type: 3}
       insertIndex: -1
       addedObject: {fileID: -6313361111962484335}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 009b449e488f6dc469ae8dd20a28bd2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3578424612393255597}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 009b449e488f6dc469ae8dd20a28bd2d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7347518302979868967}
   m_SourcePrefab: {fileID: 100100000, guid: 009b449e488f6dc469ae8dd20a28bd2d, type: 3}
 --- !u!1 &292420488402854220 stripped
 GameObject:
@@ -386,3 +392,30 @@ MonoBehaviour:
   moveSpeed: 8
   maxHp: 12
   EnemyName: Enemy_Minion
+--- !u!114 &3578424612393255597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292420488402854220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b24f7c1016c01147a7f54a958819451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentIndex: 0
+  moveSpeed: 20
+  rotationSpeed: 5
+--- !u!114 &7347518302979868967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292420488402854220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07328dd543aa0ca4a9ab6cd6e977b8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

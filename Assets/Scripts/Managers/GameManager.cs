@@ -23,16 +23,13 @@ public struct GameOptionData
 
 public class GameManager : Singleton<GameManager>
 {
+    public IFactionController selectedFactionController;
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
     [SerializeField] private GameState currentState;
     [SerializeField] private float preparingTime;   // 임시로 설정
-    public IFactionController selectedFactionController;
-
+    
     public GameOptionData gameOptionData;
-    // public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
-    // private IFactionController activeFaction;
-    // private Unit unit;                                    // 플레이어 or 적
     private bool isFirstWave;                             // 첫 번째 웨이브인가?
 
     // 준비 단계에서 남은 시간
@@ -109,13 +106,13 @@ public class GameManager : Singleton<GameManager>
 
         // 씬 넘어가기
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("InGameScene");
     }
 
     // 다음 씬에서 초기화하기 위함
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "InGame")
+        if (scene.name != "InGameScene")
             return;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -134,12 +131,13 @@ public class GameManager : Singleton<GameManager>
     public void SelectFaction(int buttonIdx)
     {
         gameOptionData.factionType = (FactionType)buttonIdx;
+        StartGame();    // 임시 (테스트)
     }
 
     // 난이도 선택
     public void SelectDifficulty(int buttonIdx)
     {
         gameOptionData.difficulty = (Difficulty)buttonIdx;
-        StartGame();
+        //StartGame();
     }
 }

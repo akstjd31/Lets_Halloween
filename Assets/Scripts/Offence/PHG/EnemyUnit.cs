@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
 {
-    //ÇÁ·ÎÅäÅ¸ÀÔ
-    [SerializeField] private float moveSpeed;   //È¸Àü¼Óµµ´Â ÀÌµ¿¼Óµµ¿Í °°°Ô ¸ÂÃâ°Í
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+    [SerializeField] private float moveSpeed;   //È¸ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
@@ -17,21 +17,21 @@ public class EnemyUnit : MonoBehaviour
 
     Animator animator;
 
-    bool isDie = false;     //À¯´Ö »ý»ç¿©ºÎÈ®ÀÎ
+    bool isDie = false;     //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç¿©ï¿½ï¿½È®ï¿½ï¿½
 
 
     private void Start()
     {
-        wayPointBox = GameObject.Find("WayPoint").transform;
+        wayPointBox = GameObject.Find("Waypoints").transform;
         animator = GetComponent<Animator>();
         currentHp = maxHp;
     }
 
 
-    //¿þÀÌÆ÷ÀÎÆ® Ãæµ¹Ã³¸®
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½æµ¹Ã³ï¿½ï¿½
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("WayPoint"))
+        if (other.name.Contains("Waypoints"))
         {
             if (wayPointBox == null) { return; }
 
@@ -40,9 +40,9 @@ public class EnemyUnit : MonoBehaviour
             if (currentWayPointIndex >= wayPointBox.childCount) { currentWayPointIndex = 0; }
         }
 
-        if (other.tag == "EndPoint")
+        if (other.tag == "Endpoint")
         {
-            Debug.Log($"{gameObject.name} ³¡ÁöÁ¡ µµ´Þ");
+            Debug.Log($"{gameObject.name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             gameObject.SetActive(false);
         }
 
@@ -53,7 +53,7 @@ public class EnemyUnit : MonoBehaviour
         MoveObj();
     }
 
-    //¿ÀºêÁ§Æ® ÀÌµ¿
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìµï¿½
     private void MoveObj()
     {
         if (wayPointBox == null) { return; }
@@ -72,7 +72,7 @@ public class EnemyUnit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log($"µ¥¹ÌÁö {damage}ÀÔÀ½");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {damage}ï¿½ï¿½ï¿½ï¿½");
         currentHp = currentHp - damage;
 
         if (currentHp <= 0 && isDie==false)
@@ -83,13 +83,13 @@ public class EnemyUnit : MonoBehaviour
         }
     }
  
-    //»ý¼º½Ã ÇÃ·¹ÀÌ¾î°¡ °¡´ÂÀ§Ä¡ ´øÁ®ÁÜ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void SetWayPoint(int wayPointIndex)
     {
         currentWayPointIndex = wayPointIndex;
     }
 
-    //À¯´ÏÆ¼ ÀÌº¥Æ® ÇÔ¼ö
+    //ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½Ìºï¿½Æ® ï¿½Ô¼ï¿½
     void Die()
     {
        gameObject.SetActive(false);   
