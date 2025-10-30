@@ -83,7 +83,7 @@ public class DialogueManager : MonoBehaviour
             inputSubCanvas.SetActive(false);
             inputMainCamera.SetActive(true);
             inputMainCanvas.SetActive(true);
-            DataManager.IsFirstPlayingStoryPlot = false;
+            StartGameSceneAdministrator.IsFirstPlayingStoryPlot = false;
         }
 
         // 페이드 인 종료되면 타이틀 활성화
@@ -112,7 +112,7 @@ public class DialogueManager : MonoBehaviour
         // 대기 시간을 초과하면 생산 매니저 비활성화 및 줄거리 감상 체크
         if( cameraDelayTiemr > cameraChangeDelay)
         {
-            DataManager.IsFirstPlayingStoryPlot = false;
+            StartGameSceneAdministrator.IsFirstPlayingStoryPlot = false;
             gameObject.SetActive(false);
         }
 

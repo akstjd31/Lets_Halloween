@@ -87,7 +87,7 @@ public class StartGameSceneAdministrator : MonoBehaviour
     {
         Debug.Log("시작 버튼이 눌렸습니다.");
         // 셋 업 게임 씬 로드
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("SetUpGameScene");
         
     }
 

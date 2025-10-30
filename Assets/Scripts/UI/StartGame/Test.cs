@@ -15,11 +15,6 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.anyKeyDown) 
-        {
-            Debug.Log("입력 받음");
-            
-            SceneManager.LoadScene(2);  
-        }
+        
     }
 }
