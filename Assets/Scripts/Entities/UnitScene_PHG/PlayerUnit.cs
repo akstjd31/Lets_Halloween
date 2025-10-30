@@ -50,6 +50,7 @@ public class PlayerUnit : MonoBehaviour
             target = other.gameObject;
             enemy = other.GetComponent<EnemyUnit>();
         }
+
     }
 
     private void Update()
@@ -64,7 +65,11 @@ public class PlayerUnit : MonoBehaviour
     // 적이 범위를 벗어나면 정지상태로 돌입
     private void OnTriggerExit(Collider other)
     {
-        isAttack = false;
+        if (other.tag.Contains("Enemy"))
+        {
+            isAttack = false;
+        }
+        
     }
 
     void Attack()
@@ -107,7 +112,6 @@ public class PlayerUnit : MonoBehaviour
     }
 
   
-
 
     #region 유니티 애니메이션 함수
 

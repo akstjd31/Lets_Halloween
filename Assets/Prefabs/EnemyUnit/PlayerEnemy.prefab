@@ -64,13 +64,33 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7355359731004640977, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3353135357077922923, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
       propertyPath: m_Name
       value: PlayerEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
       propertyPath: m_TagString
       value: EnemyUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3954419226740373000, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4081738101356072269, guid: 47c98199281b12e41ba402d07f9ebbf6, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -154,4 +174,12 @@ MonoBehaviour:
   moveSpeed: 1
   rotateSpeed: 5
   hp: 1
-  EnemyName: MyEnemey
+  EnemyName: MyEnemy
+  myEnemyUnitArray:
+  - {fileID: 292420488402854220, guid: 7264f1a2844e97946903f1b8b27ac508, type: 3}
+  - {fileID: 8599573947495450858, guid: 578f3b6be84c21a42a3d29a1458cbf62, type: 3}
+  - {fileID: 816919481145115317, guid: d51128c48f37ce649aed2566c191100e, type: 3}
+  - {fileID: 991086113545292893, guid: 77d197b4ca1450847a6fcfd0f00567f6, type: 3}
+  - {fileID: 1113319050825641960, guid: 9bdb75fc3b0f0cd4798fc10053ce9464, type: 3}
+  roundClearText: {fileID: 0}
+  spawnDelay: 1

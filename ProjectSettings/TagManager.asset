@@ -9,6 +9,7 @@ TagManager:
   - PlayerUnit
   - EnemyUnit
   - PlayerUnit_Projectile
+  - StartPoint
   layers:
   - Default
   - TransparentFX

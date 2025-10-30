@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
 {
     //프로토타입
     [SerializeField] private float moveSpeed;   //회전속도는 이동속도와 같게 맞출것
-
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
@@ -16,7 +16,9 @@ public class EnemyUnit : MonoBehaviour
     private int currentHp;
 
     Animator animator;
-    
+
+    bool isDie = false;     //유닛 생사여부확인
+
 
     private void Start()
     {
@@ -64,7 +66,6 @@ public class EnemyUnit : MonoBehaviour
         {
             currentWayPointIndex++;
         }
-      
     }
 
     public void TakeDamage(int damage)
@@ -72,22 +73,24 @@ public class EnemyUnit : MonoBehaviour
         Debug.Log($"데미지 {damage}입음");
         currentHp = currentHp - damage;
 
-        if (currentHp <= 0)
+        if (currentHp <= 0 && isDie==false)
         {
-            Die();
+            moveSpeed = 0;
+            isDie = true;
+            animator.SetTrigger("Die");
         }
     }
-    
+ 
+    //생성시 플레이어가 가는위치 던져줌
+    public void SetWayPoint(int wayPointIndex)
+    {
+        currentWayPointIndex = wayPointIndex;
+    }
+
+    //유니티 이벤트 함수
     void Die()
     {
-        animator.SetTrigger("Die");
-
-        AnimatorStateInfo currentAction = animator.GetCurrentAnimatorStateInfo(0);
-
-        if(!currentAction.IsTag("Die"))
-        {
-            gameObject.SetActive(false);
-        }
+       gameObject.SetActive(false);   
     }
 
   

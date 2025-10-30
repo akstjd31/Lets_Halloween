@@ -13,12 +13,8 @@ public class Projectile : MonoBehaviour
 
     public int Power => power;
 
+    WaitForSeconds activeStatus;
 
-    //플레이어 혹은 플레이어 소환체 컴포넌트 가져옴
-    private void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -51,7 +47,13 @@ public class Projectile : MonoBehaviour
             if(enemy!= null)
             {
                 enemy.TakeDamage(power);
+                gameObject.SetActive(false);
             }
+        }
+
+        else if(other.tag =="EndPoint")
+        {
+            Debug.Log("투사체 앤드포인트 도달 , 사라짐");
             gameObject.SetActive(false);
         }
     }
