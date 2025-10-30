@@ -17,6 +17,11 @@ public class SelectDifficultyManager : MonoBehaviour
     [SerializeField] private GameObject easyCharacter;
     [SerializeField] private GameObject normalCharacter;
     [SerializeField] private GameObject HardCharacter;
+    [Header("설명문")] 
+    [SerializeField] private GameObject easyText;
+    [SerializeField] private GameObject normalText;
+    [SerializeField] private GameObject hardText;
+
 
     // 버튼이 처음 클릭되었는지 판단할 변수
     private bool isFirstClicked = false;
@@ -36,11 +41,15 @@ public class SelectDifficultyManager : MonoBehaviour
         // 캐릭터 비활성화
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(false);
-        hardButtonImage.SetActive(false);  
+        hardButtonImage.SetActive(false);
+        // 텍스트 비활성화 
+        easyText.SetActive(false);
+        normalText.SetActive(false);
+        hardText.SetActive(false);
     }
     private void Awake()
     {
-        Init();
+        //Init();
     }
 
     private void Init()
@@ -76,6 +85,10 @@ public class SelectDifficultyManager : MonoBehaviour
         easyCharacter.SetActive(true);
         normalCharacter.SetActive(false);
         hardButtonImage.SetActive(false);
+        // 해당 텍스트만 활성화
+        easyText.SetActive(true);
+        normalText.SetActive(false);
+        hardText.SetActive(false);
     }
     public void OnNormalClick()
     {
@@ -91,6 +104,10 @@ public class SelectDifficultyManager : MonoBehaviour
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(true);
         hardButtonImage.SetActive(false);
+
+        easyText.SetActive(false);
+        normalText.SetActive(true);
+        hardText.SetActive(false);
     }
     public void OnHardButtonClick()
     {
@@ -106,5 +123,9 @@ public class SelectDifficultyManager : MonoBehaviour
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(false);
         hardButtonImage.SetActive(true);
+
+        easyText.SetActive(false);
+        normalText.SetActive(false);
+        hardText.SetActive(true);
     }
 }
