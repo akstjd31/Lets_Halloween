@@ -384,7 +384,8 @@ MonoBehaviour:
   playerFactionController: {fileID: 5337919979352625431, guid: f786b3daef05bc5469bea1bfe29537e8, type: 3}
   enemyFactionController: {fileID: 8061425243140324091, guid: 51a0854f11f3fd94fa7c87281be01477, type: 3}
   currentState: 0
-  PreparingTime: 10
+  selectedFactionType: 0
+  preparingTime: 10
   elapsedTime: 0
 --- !u!4 &664700047
 Transform:
@@ -1166,9 +1167,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 664700046}
+      - m_Target: {fileID: 664700045}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SelectFaction
+        m_MethodName: 
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

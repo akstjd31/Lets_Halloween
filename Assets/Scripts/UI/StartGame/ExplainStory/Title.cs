@@ -31,7 +31,7 @@ public class Title : MonoBehaviour
     private void Move()
     {
         // 앞으로 멀어지도록 이동 구현
-        Debug.Log($"{transform.position.x}, {transform.position.y}, {transform.position.z}");
+        //Debug.Log($"{transform.position.x}, {transform.position.y}, {transform.position.z}");
         //transform.position += moveSpeed * Vector3.forward * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, moveSpeed * Time.deltaTime);
         transform.localScale -= changingScaleSpeed * changeScaleDirection * Time.deltaTime;

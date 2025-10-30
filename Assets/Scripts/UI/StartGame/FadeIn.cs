@@ -37,7 +37,7 @@ public class FadeIn : MonoBehaviour
         if(fadeTimer <= fadeTime)
         {
             inputFadePanel.GetComponent<CanvasRenderer>().SetAlpha(Mathf.Lerp(1f, 0f, fadeTimer / fadeTime ));
-            Debug.Log("페이드 인 실행 중입니다");
+            //Debug.Log("페이드 인 실행 중입니다");
         }
         //페이드 실행이 끝나면 콜백 함수 호출
 
