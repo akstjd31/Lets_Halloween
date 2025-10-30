@@ -10,7 +10,7 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     public virtual void Initialize()
     {
         // 선택한 진영과 일치한다면
-        if (GameManager.Instance.selectedFactionType.Equals(FactionType))
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
             GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
             Debug.Log("적 생성됨!");
@@ -47,17 +47,16 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     public virtual void BattlePhase()
     {
         // 웨이브 시작
-        if (!WaveManager.Instance.isWaveRunning)
-            WaveManager.Instance.StartWave();
+        // if (!WaveManager.Instance.IsWaveRunning())
+        //     WaveManager.Instance.StartWave();
 
+    }
 
-        if (WaveManager.Instance.isWaveRunning)
-            WaveManager.Instance.RunWave();
-    } 
-    
     // 결과 페이즈
     public virtual void ResultPhase()
     {
-        
+
     }
+
+    public virtual Unit GetUnit() => enemy;
 }

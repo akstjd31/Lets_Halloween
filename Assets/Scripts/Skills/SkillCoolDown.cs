@@ -17,6 +17,8 @@ public class SkillCoolDown : MonoBehaviour
         skillbutton = GetComponentInParent<SkillButton>();
     }
 
+    GameObject button;
+
 
     // Start is called before the first frame update
     void OnEnable()
@@ -26,7 +28,6 @@ public class SkillCoolDown : MonoBehaviour
         skillObj = skillbutton.skillPrefab.GetComponent<SkillBase>();
         Debug.Log($"ÄðÅ¸ÀÓ : {skillObj.skillCooldown}");
         button = transform.parent.gameObject;
-        
     }
 
     public void UseSkill()

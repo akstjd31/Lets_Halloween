@@ -6,6 +6,11 @@ public interface IEntity
 {
     string Name { get; set; }
     int ID { get; set; }
+    int HP { get; set; }
 
     void Initialize(string name, int id);
+
+    void TakeDamage(int damage);
+
+    void OnDead();
 }
