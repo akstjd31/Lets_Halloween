@@ -92,6 +92,7 @@ public class EnemyUnit : MonoBehaviour
     //유니티 이벤트 함수
     void Die()
     {
+        //Destroy(gameObject);
        gameObject.SetActive(false);   
     }
 

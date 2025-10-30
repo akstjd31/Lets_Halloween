@@ -57,8 +57,6 @@ public class Weapon : MonoBehaviour
                 projectile.SetPower(playerUnit.Power);
             }
         }
-
-       
     }
 
     public void Shoot(Transform target)

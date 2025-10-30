@@ -12,7 +12,6 @@ TagManager:
   - StartPoint
   - Projectile
   - Skill
-
   layers:
   - Default
   - TransparentFX

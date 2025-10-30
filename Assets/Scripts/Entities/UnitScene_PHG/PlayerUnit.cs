@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 
-public class PlayerUnit : MonoBehaviour , IStatusEffectUnitUnit
+public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
 {
     [SerializeField] private AudioClip attackAudio;
     private Animator animator;

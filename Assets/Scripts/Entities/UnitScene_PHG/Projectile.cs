@@ -50,6 +50,10 @@ public class Projectile : MonoBehaviour
                 enemy.TakeDamage(power);
                 gameObject.SetActive(false);
             }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         else if(other.tag =="EndPoint")

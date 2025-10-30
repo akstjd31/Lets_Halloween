@@ -10,7 +10,7 @@ public enum ActiveStatusEffect
     PowerUp,AttackSpeedUp, MoveSpeedUp, StatusImmunity
 }
 
-public interface IStatusEffectUnitUnit
+public interface IStatusEffectUnitPassive
 {
     //상태이상 적용시간과 적용확률 받아와서 상태이상 적용
     void ApplyStatusEffect(PassiveStatusEffect type, float effectTime);

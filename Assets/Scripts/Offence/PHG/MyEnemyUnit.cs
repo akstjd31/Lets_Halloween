@@ -7,7 +7,6 @@ public class MyEnemyUnit : MonoBehaviour
 {
     //프로토타입
     [SerializeField] private float moveSpeed;
-
     public float MoveSpeed => moveSpeed;
 
     [SerializeField] private float rotateSpeed;
@@ -20,20 +19,23 @@ public class MyEnemyUnit : MonoBehaviour
     //적군진영 플레이어만 이용가능함
     [SerializeField] private GameObject[] myEnemyUnitArray;
 
-    private Vector3 startPosition;
-
     [SerializeField] GameObject roundClearText; //임시
 
     //몹 스폰 딜레이
     [SerializeField] private float spawnDelay;
     private float spawnTime = 0;
 
-
+    //유닛 소환객체수 제한
+    [SerializeField] private int maxUnitCount = 20;
+    private int currentUnitCount;   
+    //private Dictionary<EnemyUnit, Queue<EnemyUnit>> enemyPools; //적군 유닛 담아둘 Dic
+    
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
         roundClearText.SetActive(false);
+        currentUnitCount = 0;
     }
 
     private void OnEnable()
@@ -66,7 +68,11 @@ public class MyEnemyUnit : MonoBehaviour
     {
         spawnTime += Time.deltaTime;
         MoveObj();
-        CreateEnemyUnit();
+
+        if (currentUnitCount < maxUnitCount)
+        {
+            CreateEnemyUnit();
+        }
     }
 
     //오브젝트 이동
@@ -108,10 +114,10 @@ public class MyEnemyUnit : MonoBehaviour
 
             case "T":
                 SpawnUnit(4, currentWayPointIndex);
-                spawnTime -= 1; //골렘은 소환후 1초 딜레이 더줌
                 break;
         }
     }
+
     //키입력에 따른 몬스터 소환
     private void SpawnUnit(int mobIndex, int WayPointIndex)
     {
@@ -120,6 +126,7 @@ public class MyEnemyUnit : MonoBehaviour
             GameObject mob = Instantiate(myEnemyUnitArray[mobIndex], transform.position, transform.rotation);
             mob.GetComponent<EnemyUnit>().SetWayPoint(currentWayPointIndex);
             spawnTime = 0;
+            currentUnitCount++;
         }
     }
 
