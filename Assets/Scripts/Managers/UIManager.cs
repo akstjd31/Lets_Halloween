@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
+using AssetKits.ParticleImage;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText, difficultyText;
     [SerializeField] private Transform life;
     [SerializeField] private Image heart, darkHeart;    // 하트 / 빈하트
-    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private Text moneyText;
     [SerializeField] private GameObject preparingTimer;
+    [SerializeField] private ParticleImage coinAttractionParticle;
     private List<Image> lifes;
     private Timer timer;
 
@@ -100,6 +102,7 @@ public class UIManager : MonoBehaviour
 
         // 텍스트 업데이트
         Unit unit = GameManager.Instance.gameOptionData.unit;
+        coinAttractionParticle.Play();
         moneyText.text = (unit as Player)?.Money.ToString("N0");
             
         SetPreparingTimer();

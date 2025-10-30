@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerMove))]
 public class Player : Unit, IFaction
@@ -40,5 +39,6 @@ public class Player : Unit, IFaction
     public override void OnDead()
     {
         //Debug.Log("게임 오버!");
+        //SceneManager.LoadScene("Defeat");
     }
 }

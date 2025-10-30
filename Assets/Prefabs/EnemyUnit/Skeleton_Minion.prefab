@@ -387,7 +387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentIndex: 0
-  moveSpeed: 10
+  moveSpeed: 15
   rotationSpeed: 4
 --- !u!114 &3992656040652772640
 MonoBehaviour:
