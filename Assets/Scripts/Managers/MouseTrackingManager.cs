@@ -7,14 +7,15 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-public class MouseTrackingManager : MonoBehaviour
+public class MouseTrackingManager : Singleton<MouseTrackingManager>
 {
     [SerializeField] private GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
     GameObject target;
     Renderer targetColor;
 
-    private GameObject ActivateObject;
-
+    private GameObject ActivateUnitObject;
+    private SkillBase ActivateSkillObject;
+    
     private SkillCoolDown skillCool;
 
     [SerializeField] LayerMask layermask;
@@ -22,6 +23,8 @@ public class MouseTrackingManager : MonoBehaviour
     [SerializeField] LayerMask layermask3;
     [SerializeField] LayerMask activateMask;
     private static bool isClick = false;
+
+    private ParentButton activeButton;
 
     bool clickEnable;
 
@@ -46,18 +49,38 @@ public class MouseTrackingManager : MonoBehaviour
             // UI 위하고 클릭이 활성화 되었을시
             if (clickEnable == true && !EventSystem.current.IsPointerOverGameObject()) 
             {
+
+                
+
                 isClick = true;
-                SpawnActivateObj();
+
+                if (ActivateSkillObject != null)
+                {
+                    SpawnActivateObj(ActivateSkillObject,null);
+                }
+
+                else if (ActivateUnitObject != null)
+                {
+                    SpawnActivateObj(null,ActivateUnitObject);
+                }
+
                 Destroy(target);
             }
         }
     }
 
-    public void SpawnTarget(GameObject obj)
+    public void SpawnTargetSkill(SkillBase obj)
     {
-        ActivateObject = obj;
+        ActivateSkillObject = obj;
         StartCoroutine(CospawnTarget());
     }
+
+    public void SpawnTargetUnit(GameObject obj)
+    {
+        ActivateUnitObject = obj;
+        StartCoroutine(CospawnTarget());
+    }
+
 
     public void SetAnim(SkillCoolDown skillCoolDown)
     {
@@ -66,6 +89,8 @@ public class MouseTrackingManager : MonoBehaviour
 
     IEnumerator CospawnTarget()
     {
+        Destroy(target);
+
         isClick = false;
         // 카메라에서 마우스 위치로 레이를 쏩니다
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -77,7 +102,6 @@ public class MouseTrackingManager : MonoBehaviour
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
 
             targetColor = target.GetComponent<Renderer>();
-
             
             while (!isClick)
             {
@@ -95,9 +119,7 @@ public class MouseTrackingManager : MonoBehaviour
 
                     onMouseMap = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask3);
 
-                    
-
-                    if (ActivateObject != null)
+                    if (ActivateUnitObject != null || ActivateSkillObject != null)
                     {
                         Vector3 halfExtents = targetColor.bounds.extents;
 
@@ -112,8 +134,6 @@ public class MouseTrackingManager : MonoBehaviour
                             continue;
                         }
                     }
-
-                   
 
                     if (onMouseMap ==true && onBuild == true)
                     {
@@ -166,22 +186,42 @@ public class MouseTrackingManager : MonoBehaviour
         }
     }
 
-    private void SpawnActivateObj()
+    private void SpawnActivateObj(SkillBase skill, GameObject unit)
     {
-        StartCoroutine(coSpawnActivateObj());
+        StartCoroutine(coSpawnActivateObj(skill,unit));
     }
 
-    IEnumerator coSpawnActivateObj()
+    IEnumerator coSpawnActivateObj(SkillBase skill, GameObject unit)
     {
+
+
         if (isClick)
         {
             skillCool.UseSkill();
-            GameObject obj = Instantiate(ActivateObject, target.transform.position, ActivateObject.transform.rotation);
-            SkillBase skillObj = obj.GetComponent<SkillBase>();
-            skillObj.UseSkill();
+
+            if (skill != null)
+            {
+                var obj = Instantiate(skill, target.transform.position, skill.transform.rotation);
+                SkillBase skillObj = obj.GetComponent<SkillBase>();
+                skillObj.UseSkill();
+
+                if (activeButton != null)
+                {
+                    SkillButton a = activeButton.GetComponent<SkillButton>();
+                    a.RemoveCount();
+                }
+            }
+
+            else if (unit != null)
+            {
+                var obj = Instantiate(unit, target.transform.position, unit.transform.rotation);
+            }
         }
         yield return null;
     }
 
-
+    public void SetActiveButton(ParentButton button)
+    {
+        activeButton = button;
+    }
 }

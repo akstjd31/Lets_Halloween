@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class SkillBase : MonoBehaviour, ISkil
 {
+    [SerializeField] public string skillName;
+    [SerializeField] public float skillCooldown;
+    [SerializeField] private float skillDuration;
+    [SerializeField] private float skillRange;
+
     public string _name { get; set; }              // 이름
     public float _cooldown { get; set; }           // 쿨타임
     public float _currentCooldown { get; set; }    // 현재 쿨타임
@@ -22,6 +27,7 @@ public class SkillBase : MonoBehaviour, ISkil
 
     void Start()
     {
+        IsReady = true;
 
         collider = GetComponent<SphereCollider>();
 
@@ -30,6 +36,15 @@ public class SkillBase : MonoBehaviour, ISkil
             collider.radius = _range;
         }
     }
+
+    protected virtual void OnEnable()
+    {
+        _name = skillName;
+        _cooldown = skillCooldown;
+        _duration = skillDuration;
+        _range = skillRange;
+    }
+
 
     public void UpdateTime(float durationTime)
     {
@@ -40,8 +55,8 @@ public class SkillBase : MonoBehaviour, ISkil
         {
             endSkill = true;
         }
-
-        //Debug.Log($"지속{_currentDuration}");
+        Debug.Log($"지속시간{_duration}");
+        Debug.Log($"지속{_currentDuration}");
     }
     public void StartTime()
     {

@@ -6,29 +6,6 @@ public class JackOLentern : SkillBase
 {
     [SerializeField] private float enemySpeed;
     [SerializeField] private float power;
-    [SerializeField] private float coolTime;
-    [SerializeField] private float duration;
-    [SerializeField] private float range;
-    
-    void OnEnable()
-    {
-        _name = "¿Ëø¿∑£≈œ";
-        _cooldown = coolTime;
-        IsReady = true;
-        _range = range;
-        _duration = duration;
-        endSkill = false;
-    }
-
-    private void SetValue()
-    {
-        _name = "¿Ëø¿∑£≈œ";
-        _cooldown = coolTime;
-        IsReady = true;
-        _range = range;
-        _duration = duration;
-        endSkill = false;
-    }
 
     override public void OnTriggerEnter(Collider other)
     {
