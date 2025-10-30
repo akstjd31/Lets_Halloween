@@ -84,6 +84,7 @@ public partial class WaveManager
         activeEnemies.Remove(enemy);
 
         runtimeData.OnEnemyDeactivated();
+        Debug.Log("적 회수! 현재 맵에 존재하는 적 = " + activeEnemies.Count);
     }
 
     // 현재 웨이브 번호 반환

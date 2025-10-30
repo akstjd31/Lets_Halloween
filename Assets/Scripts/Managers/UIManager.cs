@@ -1,23 +1,34 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
+using System.Collections.Generic;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button preparingButton;
-    [SerializeField] private TextMeshProUGUI waveText, lifeText, difficultyText;
+    [SerializeField] private TextMeshProUGUI waveText, difficultyText;
+    [SerializeField] private Transform life;
+    [SerializeField] private Image heart, darkHeart;    // 하트 / 빈하트
+    [SerializeField] private List<Image> lifes;
+
+    private void Awake()
+    {
+        preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
+    }
 
     private void Start()
     {
-        preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
-
         if (GameManager.Instance != null)
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
-            
+
+        UpdatePlayerLifeUI(3, 3);    
+
         WaveManager.Instance.onWaveStarted += OnWaveStarted;
         WaveManager.Instance.onWaveEnded += OnWaveEnded;
     }
-    
+
     // 구독 해제
     private void OnDestroy()
     {
@@ -28,9 +39,29 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdatePlayerLifeUI(int life)
+    // 라이프에 따른 하트 활성화/비활성화
+    public void UpdatePlayerLifeUI(int maxLife, int currentLife)
     {
-        lifeText.text = $"Life: {life}";
+        if (maxLife < 1 || currentLife < 0)
+            return;
+
+        // 만약 처음이면 새로 만든다.
+        if (!lifes.Any())
+        {
+            for (int i = 0; i < maxLife; i++)
+            {
+                Image heartPrefab = Instantiate(heart, Vector3.zero, Quaternion.identity, life);
+                lifes.Add(heartPrefab);
+            }
+
+            return;
+        }
+
+        // 생성이 되어있다면 스프라이트만 변경
+        for (int i = 0; i < maxLife; i++)
+        {
+            lifes[i].sprite = i < currentLife ? heart.sprite : darkHeart.sprite;
+        }
     }
 
     private void OnWaveStarted()

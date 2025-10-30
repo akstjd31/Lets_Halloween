@@ -33,6 +33,5 @@ public class Player : Unit, IFaction
     public override void OnDead()
     {
         Debug.Log("게임 오버!");
-        Application.Quit(1);
     }
 }

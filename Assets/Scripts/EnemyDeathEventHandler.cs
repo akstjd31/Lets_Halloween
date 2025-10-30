@@ -34,7 +34,6 @@ public class EnemyDeathEventHandler : MonoBehaviour
             // 2. 적 오브젝트 감지
             if (hit.collider.CompareTag("Enemy"))
             {
-                Debug.Log("1111");
                 HandleEnemyCollision(hit.collider);
             }
         }
@@ -49,19 +48,17 @@ public class EnemyDeathEventHandler : MonoBehaviour
             return;
         }
         
-        // 1. 이벤트 호출
-        // 구독자들에게 적이 비활성화(처리)되었음을 알림
         onEnemyDeactivated?.Invoke(enemy);
 
         // 2. 플레이어 데미지 로직
-        if (unit is Player player) // C# 7.0 이상의 패턴 매칭을 사용하여 더 깔끔하게 캐스팅
+        if (unit is Player player)
         {
             player.TakeDamage(1);
             
             // uiManager가 할당되어 있는지 확인
             if (uiManager != null)
             {
-                uiManager.UpdatePlayerLifeUI(player.CurrentLife);
+                uiManager.UpdatePlayerLifeUI(player.maxLife, player.CurrentLife);
             }
         }
     }

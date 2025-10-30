@@ -46,8 +46,6 @@ public partial class WaveManager
         Enemy enemy;
         if (pool.Count > 0)
         {
-
-            Debug.Log("적 생성! 현재 큐 카운트: " + pool.Count);
             enemy = pool.Dequeue();
             // enemy.gameObject.SetActive(true);
         }
@@ -121,6 +119,8 @@ public partial class WaveManager
         // 자리를 변경한 후에 액티브 활성화 => 기존 자리에 있는 레이캐스트가 바로 발동되는 것을 방지
         enemy.transform.position = newPos;
         enemy.gameObject.SetActive(true);
+
+        Debug.Log("적 생성! 현재 맵에 존재하는 적 = " + activeEnemies.Count);
     }
 
 
