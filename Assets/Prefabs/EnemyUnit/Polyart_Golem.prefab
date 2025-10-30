@@ -217,6 +217,8 @@ GameObject:
   - component: {fileID: 5095463706186711734}
   - component: {fileID: -3383102609831949232}
   - component: {fileID: 910095619342594962}
+
+
   m_Layer: 9
   m_Name: Polyart_Golem
   m_TagString: Enemy

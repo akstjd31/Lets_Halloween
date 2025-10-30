@@ -6,12 +6,11 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     [SerializeField] private GameObject playerPrefab;
     private Player player;
 
-
     // 초기화 부분
     public virtual void Initialize()
     {
         // 선택한 진영과 일치한다면
-        if (GameManager.Instance.selectedFactionType.Equals(FactionType))
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
             GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
             Debug.Log("플레이어 생성됨!");
@@ -53,11 +52,11 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     public virtual void BattlePhase()
     {
         // 웨이브 시작
-        if (!WaveManager.Instance.isWaveRunning)
+        if (!WaveManager.Instance.IsWaveRunning())
             WaveManager.Instance.StartWave();
 
 
-        if (WaveManager.Instance.isWaveRunning)
+        if (WaveManager.Instance.IsWaveRunning())
             WaveManager.Instance.RunWave();
     }
 
@@ -66,4 +65,6 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     {
 
     }
+
+    public virtual Unit GetUnit() => player;
 }
