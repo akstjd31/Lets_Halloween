@@ -11,21 +11,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waveText, difficultyText;
     [SerializeField] private Transform life;
     [SerializeField] private Image heart, darkHeart;    // 하트 / 빈하트
-    [SerializeField] private List<Image> lifes;
+    [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject preparingTimer;
+    private List<Image> lifes;
     private Timer timer;
 
     private void Awake()
     {
-        preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
-        timer = preparingTimer.transform.GetChild(0).GetComponent<Timer>();
+        preparingButton?.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
+        timer = preparingTimer?.transform.GetChild(0).GetComponent<Timer>();
     }
 
     private void Start()
     {
+        lifes = new List<Image>();
+        
         if (GameManager.Instance != null)
         {
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
+
+            Unit unit = GameManager.Instance.gameOptionData.unit;
+            moneyText.text = (unit as Player)?.Money.ToString();
+            
             SetPreparingTimer();
         }
             
