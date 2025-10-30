@@ -49,7 +49,7 @@ public partial class WaveManager
 
             Debug.Log("적 생성! 현재 큐 카운트: " + pool.Count);
             enemy = pool.Dequeue();
-            enemy.gameObject.SetActive(true);
+            // enemy.gameObject.SetActive(true);
         }
         else
         {
@@ -118,7 +118,9 @@ public partial class WaveManager
             spawnPoint.position.z + Random.Range(minZPos, maxZPos)
         );
 
+        // 자리를 변경한 후에 액티브 활성화 => 기존 자리에 있는 레이캐스트가 바로 발동되는 것을 방지
         enemy.transform.position = newPos;
+        enemy.gameObject.SetActive(true);
     }
 
 

@@ -7,7 +7,7 @@ public class Player : Unit, IFaction
 {
     // 상수
     // 변수
-    public int maxLife = 3;
+    public int maxLife = 100;
     private int currentLife;
 
     // 프로퍼티
@@ -33,5 +33,6 @@ public class Player : Unit, IFaction
     public override void OnDead()
     {
         Debug.Log("게임 오버!");
+        Application.Quit(1);
     }
 }
