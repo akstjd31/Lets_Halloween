@@ -5,16 +5,7 @@ using UnityEngine;
 public class JackOLentern : SkillBase
 {
     [SerializeField] private float enemySpeed;
-    
-    void Awake()
-    {
-        _name = "¿Ëø¿∑£≈œ";
-        _cooldown = 10f;
-        IsReady = true;
-        range = 5;
-        _duration = 3;
-        endSkill = false;
-    }
+    [SerializeField] private float power;
 
     override public void OnTriggerEnter(Collider other)
     {
