@@ -555,8 +555,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
-  power: 0
+  power: 5
   attackDelay: 2
+  statusEffects: 2
+  statusEffectPercent: 30
 --- !u!82 &78462319838903302
 AudioSource:
   m_ObjectHideFlags: 0

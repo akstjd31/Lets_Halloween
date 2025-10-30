@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour 
 {
     //투사체 속도
     [SerializeField] private float projectilemoveSpeed = 10;
@@ -11,14 +11,14 @@ public class Projectile : MonoBehaviour
 
     private int power;
 
-    public int Power => power;
-
-    WaitForSeconds activeStatus;
-
-
     void Update()
     {
         ActivateAction();
+
+        if (!targetTransform.gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     //투사체는 타겟에게 날아감
@@ -30,6 +30,7 @@ public class Projectile : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position,
             targetTransform.position,
             projectilemoveSpeed * Time.deltaTime);
+
     }
 
     public void SetTarget(Transform target)
@@ -56,6 +57,12 @@ public class Projectile : MonoBehaviour
             Debug.Log("투사체 앤드포인트 도달 , 사라짐");
             gameObject.SetActive(false);
         }
+
+        if (!other.gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
+
     }
 
     //투사체 공격력지정

@@ -7,6 +7,9 @@ public class MyEnemyUnit : MonoBehaviour
 {
     //«¡∑Œ≈‰≈∏¿‘
     [SerializeField] private float moveSpeed;
+
+    public float MoveSpeed => moveSpeed;
+
     [SerializeField] private float rotateSpeed;
     private int currentWayPointIndex = 0;
 
@@ -24,6 +27,7 @@ public class MyEnemyUnit : MonoBehaviour
     //∏˜ Ω∫∆˘ µÙ∑π¿Ã
     [SerializeField] private float spawnDelay;
     private float spawnTime = 0;
+
 
     private void Start()
     {
@@ -104,6 +108,7 @@ public class MyEnemyUnit : MonoBehaviour
 
             case "T":
                 SpawnUnit(4, currentWayPointIndex);
+                spawnTime -= 1; //∞Ò∑Ω¿∫ º“»Ø»ƒ 1√  µÙ∑π¿Ã ¥ı¡‹
                 break;
         }
     }

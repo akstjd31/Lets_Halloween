@@ -45,7 +45,9 @@ public class EnemyUnit : MonoBehaviour
             Debug.Log($"{gameObject.name} 끝지점 도달");
             gameObject.SetActive(false);
         }
+
     }
+
     private void Update()
     {
         MoveObj();

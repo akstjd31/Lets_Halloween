@@ -1,11 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 
-public class PlayerUnit : MonoBehaviour
+public class PlayerUnit : MonoBehaviour , IStatusEffectUnitUnit
 {
     [SerializeField] private AudioClip attackAudio;
     private Animator animator;
@@ -29,6 +31,11 @@ public class PlayerUnit : MonoBehaviour
     Weapon weapon;  //원거리타입 무기 가져옴
 
     EnemyUnit enemy;    //데미지를 줄 적유닛.
+
+    //상태이상
+    [SerializeField] PassiveStatusEffect statusEffects; 
+    [SerializeField] float statusEffectPercent;
+
 
     //시작시 애니메이터 , 오디오 소스 가져옴
     private void Start()
@@ -68,8 +75,7 @@ public class PlayerUnit : MonoBehaviour
         if (other.tag.Contains("Enemy"))
         {
             isAttack = false;
-        }
-        
+        }    
     }
 
     void Attack()
@@ -105,13 +111,39 @@ public class PlayerUnit : MonoBehaviour
                     animator.SetTrigger($"Attack{randomActionIndex}");
 
                 }
-                attackTime = 0;
 
+                attackTime = 0;
             }
         }
     }
 
-  
+    public void ApplyStatusEffect(PassiveStatusEffect type, float effectTime)
+    {
+        //상태이상별 기능 
+        switch (type)
+        {
+
+        }
+    }
+
+
+
+    #region 플레이어가 가하는 상태이상 정의
+
+    private void Blood(EnemyUnit target)
+    {
+
+    }
+    private void Stun(EnemyUnit target) 
+    {
+        
+    }
+    private void Slow(EnemyUnit target)
+    {
+
+    }
+
+    #endregion
 
     #region 유니티 애니메이션 함수
 
@@ -135,6 +167,7 @@ public class PlayerUnit : MonoBehaviour
         audioSource.Play();
     }
 
+  
     #endregion
 
 }
