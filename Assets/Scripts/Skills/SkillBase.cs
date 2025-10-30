@@ -10,7 +10,6 @@ public class SkillBase : MonoBehaviour, ISkil
     [SerializeField] public float skillCooldown;
     [SerializeField] private float skillDuration;
     [SerializeField] private float skillRange;
-    [SerializeField] private float skillPrice;
 
     public string _name { get; set; }              // 이름
     public float _cooldown { get; set; }           // 쿨타임
@@ -19,7 +18,6 @@ public class SkillBase : MonoBehaviour, ISkil
     public float _currentDuration { get; set; }    // 남은 지속시간
     public float _range { get; set; }              // 범위
     public bool IsReady { get; set; }              // 준비상태
-
 
     protected bool endSkill = false;
 
