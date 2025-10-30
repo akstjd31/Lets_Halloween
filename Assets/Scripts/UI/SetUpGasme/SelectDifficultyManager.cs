@@ -9,7 +9,7 @@ public class SelectDifficultyManager : MonoBehaviour
     [SerializeField] private GameObject normalButton;
     [SerializeField] private GameObject hardButton;
     [SerializeField] private GameObject ChooseButton;
-
+    //
     // 버튼이 처음 클릭되었는지 판단할 변수
     private bool isFirstClicked = false;
 
