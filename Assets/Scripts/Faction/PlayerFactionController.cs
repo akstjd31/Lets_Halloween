@@ -10,7 +10,7 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     public virtual void Initialize()
     {
         // 선택한 진영과 일치한다면
-        if (GameManager.Instance.selectedFactionType.Equals(FactionType))
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
             GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
             Debug.Log("플레이어 생성됨!");

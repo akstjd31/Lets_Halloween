@@ -10,7 +10,7 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     public virtual void Initialize()
     {
         // 선택한 진영과 일치한다면
-        if (GameManager.Instance.selectedFactionType.Equals(FactionType))
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
             GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
             Debug.Log("적 생성됨!");
