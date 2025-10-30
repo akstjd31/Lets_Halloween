@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MyEnemyUnit : MonoBehaviour
 {
-    //프로토타입
+    //?????????
     [SerializeField] private float moveSpeed;
 
     public float MoveSpeed => moveSpeed;
@@ -17,14 +17,14 @@ public class MyEnemyUnit : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private string EnemyName;
 
-    //적군진영 플레이어만 이용가능함
+    //???????? ?÷???? ??밡????
     [SerializeField] private GameObject[] myEnemyUnitArray;
 
     private Vector3 startPosition;
 
-    [SerializeField] GameObject roundClearText; //임시
+    [SerializeField] GameObject roundClearText; //???
 
-    //몹 스폰 딜레이
+    //?? ???? ??????
     [SerializeField] private float spawnDelay;
     private float spawnTime = 0;
 
@@ -33,7 +33,7 @@ public class MyEnemyUnit : MonoBehaviour
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
-        roundClearText.SetActive(false);
+        //roundClearText.SetActive(false);
     }
 
     private void OnEnable()
@@ -41,7 +41,7 @@ public class MyEnemyUnit : MonoBehaviour
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
     }
 
-    //웨이포인트 충돌처리
+    //????????? ?浹???
     private void OnTriggerEnter(Collider other)
     {
         if (other.name.Contains("WayPoint"))
@@ -55,7 +55,7 @@ public class MyEnemyUnit : MonoBehaviour
 
         if(other.tag=="EndPoint")
         {
-            Debug.Log($"{gameObject.name} 끝지점 도달");
+            Debug.Log($"{gameObject.name} ?????? ????");
             ClearRound();
             gameObject.SetActive(false);
             
@@ -69,10 +69,10 @@ public class MyEnemyUnit : MonoBehaviour
         CreateEnemyUnit();
     }
 
-    //오브젝트 이동
+    //??????? ???
     private void MoveObj()
     {
-        if (wayPointBox == null) { return; }
+        if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount) { return; }
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
@@ -85,7 +85,7 @@ public class MyEnemyUnit : MonoBehaviour
             currentWayPointIndex++;
         }
     }
-    //몹소환
+    //?????
     private void CreateEnemyUnit()
     {
         switch (Input.inputString.ToUpper())
@@ -108,11 +108,11 @@ public class MyEnemyUnit : MonoBehaviour
 
             case "T":
                 SpawnUnit(4, currentWayPointIndex);
-                spawnTime -= 1; //골렘은 소환후 1초 딜레이 더줌
+                spawnTime -= 1; //???? ????? 1?? ?????? ????
                 break;
         }
     }
-    //키입력에 따른 몬스터 소환
+    //???¿? ???? ???? ???
     private void SpawnUnit(int mobIndex, int WayPointIndex)
     {
         if (spawnTime >= spawnDelay)
@@ -123,9 +123,9 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //엔드포인트 도달시 라운드가 마지막이 아니라면 다음라운드 , 마지막이면 승리
+    //????????? ????? ???? ???????? ????? ???????? , ????????? ?¸?
     void ClearRound()
     {
-        roundClearText.SetActive(true);
+        //roundClearText.SetActive(true);
     }
 }

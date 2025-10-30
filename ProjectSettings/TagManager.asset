@@ -12,7 +12,6 @@ TagManager:
   - StartPoint
   - Projectile
   - Skill
-
   layers:
   - Default
   - TransparentFX
@@ -20,12 +19,12 @@ TagManager:
   - 
   - Water
   - UI
-  - FLOOR
-  - PlayerUnit
-  - PlayerUnit_Projectile
-  - Enemy
   - PlayerEnemyUnit
-  - Projectile
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
