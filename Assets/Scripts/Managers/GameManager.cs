@@ -134,12 +134,12 @@ public class GameManager : Singleton<GameManager>
     public void SelectFaction(int buttonIdx)
     {
         gameOptionData.factionType = (FactionType)buttonIdx;
-        StartGame();
     }
 
     // 난이도 선택
     public void SelectDifficulty(int buttonIdx)
     {
-
+        gameOptionData.difficulty = (Difficulty)buttonIdx;
+        StartGame();
     }
 }

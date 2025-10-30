@@ -5,13 +5,15 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private Button preparingButton;
-    [SerializeField] private TextMeshProUGUI waveText;
-    [SerializeField] private TextMeshProUGUI lifeText;
+    [SerializeField] private TextMeshProUGUI waveText, lifeText, difficultyText;
 
     private void Start()
     {
         preparingButton.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
 
+        if (GameManager.Instance != null)
+            difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
+            
         WaveManager.Instance.onWaveStarted += OnWaveStarted;
         WaveManager.Instance.onWaveEnded += OnWaveEnded;
     }
