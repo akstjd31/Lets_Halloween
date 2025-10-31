@@ -16,7 +16,7 @@ public class SelectDifficultyManager : MonoBehaviour
     [Header("캐릭터")]
     [SerializeField] private GameObject easyCharacter;
     [SerializeField] private GameObject normalCharacter;
-    [SerializeField] private GameObject HardCharacter;
+    [SerializeField] private GameObject hardCharacter;
     [Header("설명문")] 
     [SerializeField] private GameObject easyText;
     [SerializeField] private GameObject normalText;
@@ -41,7 +41,7 @@ public class SelectDifficultyManager : MonoBehaviour
         // 캐릭터 비활성화
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(false);
-        hardButtonImage.SetActive(false);
+        hardCharacter.SetActive(false);
         // 텍스트 비활성화 
         easyText.SetActive(false);
         normalText.SetActive(false);
@@ -66,7 +66,7 @@ public class SelectDifficultyManager : MonoBehaviour
         // 캐릭터 비활성화
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(false);
-        hardButtonImage.SetActive(false);
+        hardCharacter.SetActive(false);
     }
 
     public void OnEasyButtonClick()
@@ -84,7 +84,7 @@ public class SelectDifficultyManager : MonoBehaviour
         // 해당 캐릭터만 활성화
         easyCharacter.SetActive(true);
         normalCharacter.SetActive(false);
-        hardButtonImage.SetActive(false);
+        hardCharacter.SetActive(false);
         // 해당 텍스트만 활성화
         easyText.SetActive(true);
         normalText.SetActive(false);
@@ -103,7 +103,7 @@ public class SelectDifficultyManager : MonoBehaviour
 
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(true);
-        hardButtonImage.SetActive(false);
+        hardCharacter.SetActive(false);
 
         easyText.SetActive(false);
         normalText.SetActive(true);
@@ -122,7 +122,7 @@ public class SelectDifficultyManager : MonoBehaviour
 
         easyCharacter.SetActive(false);
         normalCharacter.SetActive(false);
-        hardButtonImage.SetActive(true);
+        hardCharacter.SetActive(true);
 
         easyText.SetActive(false);
         normalText.SetActive(false);

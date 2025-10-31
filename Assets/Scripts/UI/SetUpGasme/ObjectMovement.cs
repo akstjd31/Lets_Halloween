@@ -36,7 +36,7 @@ public class ObjectMovement : MonoBehaviour
         //Spin();
         delayTimerForUpdate += Time.deltaTime;
         // 애니메이션 상태 갱신
-        //if (delayTimerForUpdate > animationDelay) { UpdateAnimation();}
+        if (delayTimerForUpdate > animationDelay) { UpdateAnimation(); }
         
 
         // 매서드를 사용했다면 타이머 갱신
@@ -47,7 +47,7 @@ public class ObjectMovement : MonoBehaviour
             isUsed = false;
             delayTiemr = 0;
             inputEnemyAnimator.SetBool("isClicked", false);
-            inputPlayerAnimator.SetBool("isClicked", true);
+            inputPlayerAnimator.SetBool("isClicked", false);
             inputGameSceneManager.ChangeCamera();
         }
     }
@@ -64,13 +64,14 @@ public class ObjectMovement : MonoBehaviour
     {
         // 캐릭터가 카메라를 바라보도록 설정
         //inputEnemy.transform.LookAt(inputCamera.transform);
-        //inputEnemyAnimator.SetBool("Loop", false);
+        inputEnemyAnimator.SetBool("loop", false);
         inputEnemyAnimator.SetBool("isClicked", true);
         isUsed = true;
     }
 
     public void PlayerAttack()
     {
+        inputPlayerAnimator.SetBool("loop", false);
         inputPlayerAnimator.SetBool("isClicked", true);
         isUsed = true;
     }
@@ -79,6 +80,7 @@ public class ObjectMovement : MonoBehaviour
     {
         // 셋 업 게임 씬 매니저 참조
         tempManager = GetComponent<SetUpGameSceneManager>();
+        isUsed = false;
     }
 
     private void UpdateAnimation()
@@ -87,21 +89,21 @@ public class ObjectMovement : MonoBehaviour
         switch (progressNumber)
         {
             case 0:
-                inputEnemyAnimator.SetFloat("progressNumber", 1.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 1f);
+                inputPlayerAnimator.SetFloat("progressNumber", 1f);
                 progressNumber++;
                 break;
             case 1:
-                inputEnemyAnimator.SetFloat("progressNumber", 2.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 2f);
+                inputPlayerAnimator.SetFloat("progressNumber", 2f);
                 progressNumber++;
                 break;
             case 2:
-                inputEnemyAnimator.SetFloat("progressNumber", 3.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 3f);
+                inputPlayerAnimator.SetFloat("progressNumber", 3f);
                 progressNumber++;
                 break;
-            case 3:
-                inputEnemyAnimator.SetFloat("progressNumber", 3.1f);
-                progressNumber--;
-                break;
+            
 
         }
     }
