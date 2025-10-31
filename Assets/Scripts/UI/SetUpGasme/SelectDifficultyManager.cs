@@ -21,6 +21,9 @@ public class SelectDifficultyManager : MonoBehaviour
     [SerializeField] private GameObject easyText;
     [SerializeField] private GameObject normalText;
     [SerializeField] private GameObject hardText;
+    [Header("빛")]
+    [SerializeField] private GameObject LightForAfternoon;
+    [SerializeField] private GameObject LightForMidnight;
 
 
     // 버튼이 처음 클릭되었는지 판단할 변수
@@ -46,6 +49,9 @@ public class SelectDifficultyManager : MonoBehaviour
         easyText.SetActive(false);
         normalText.SetActive(false);
         hardText.SetActive(false);
+        // 초기 빛 설정
+        LightForAfternoon.SetActive(true);
+        LightForMidnight.SetActive(false);
     }
     private void Awake()
     {
@@ -89,6 +95,9 @@ public class SelectDifficultyManager : MonoBehaviour
         easyText.SetActive(true);
         normalText.SetActive(false);
         hardText.SetActive(false);
+        // 해당 빛만 활성화
+        LightForAfternoon.SetActive(true);
+        LightForMidnight.SetActive(false);
     }
     public void OnNormalClick()
     {
@@ -108,6 +117,9 @@ public class SelectDifficultyManager : MonoBehaviour
         easyText.SetActive(false);
         normalText.SetActive(true);
         hardText.SetActive(false);
+
+        LightForAfternoon.SetActive(false);
+        LightForMidnight.SetActive(true);
     }
     public void OnHardButtonClick()
     {
@@ -127,5 +139,8 @@ public class SelectDifficultyManager : MonoBehaviour
         easyText.SetActive(false);
         normalText.SetActive(false);
         hardText.SetActive(true);
+
+        LightForAfternoon.SetActive(false);
+        LightForMidnight.SetActive(false);
     }
 }
