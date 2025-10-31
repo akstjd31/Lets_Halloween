@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SetUpGameSceneManager : MonoBehaviour
 {
-    [Header("Ä«¸Þ¶ó")]
+    [Header("Ä«ï¿½Þ¶ï¿½")]
     [SerializeField] private GameObject inputSelectFactionCamera;
     [SerializeField] private GameObject inputSelectDifficultyCamera;
-    [Header("Äµ¹ö½º")]
+    [Header("Äµï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private GameObject inputSelectFactionCanvas;
     [SerializeField] private GameObject inputSelectDifficultyCanvas;
 
@@ -23,17 +23,14 @@ public class SetUpGameSceneManager : MonoBehaviour
     
     private void Init()
     {
-        // Ä«¸Þ¶ó Äµ¹ö½º ÃÊ±â ¼³Á¤
+        // Ä«ï¿½Þ¶ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
         inputSelectFactionCamera.SetActive(true);
         inputSelectDifficultyCamera.SetActive(false);
         inputSelectFactionCanvas.SetActive(true);
         inputSelectDifficultyCanvas.SetActive(false);
-
-        
-        
     }
 
-    // Áø¿µ ¼±ÅÃ¿¡¼­ ³­ÀÌµµ ¼±ÅÃÀ¸·Î ³Ñ¾î°£´Ù.
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¾î°£ï¿½ï¿½.
     public void ChangeCamera()
     {
         inputSelectFactionCamera.SetActive(false);

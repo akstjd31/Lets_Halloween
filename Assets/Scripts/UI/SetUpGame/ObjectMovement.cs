@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
 {
-    [Header("Ä«ï¿½Þ¶ï¿½")]
+    [Header("Ä«¸Þ¶ó")]
     [SerializeField] private GameObject inputCamera;
-    [Header("Ä³ï¿½ï¿½ï¿½ï¿½")]
+    [Header("Ä³¸¯ÅÍ")]
     [SerializeField] private GameObject inputPlayer;
     [SerializeField] private GameObject inputEnemy;
-    [Header("È¸ï¿½ï¿½ ï¿½Óµï¿½")]
+    [Header("È¸Àü ¼Óµµ")]
     [SerializeField] private float spinSpeed;
-    [Header("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½")]
+    [Header("¾Ö´Ï¸ÞÀÌ¼Ç ÄÁÆ®·Ñ")]
     [SerializeField] private Animator inputPlayerAnimator;
     [SerializeField] private Animator inputEnemyAnimator;
-    [Header("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    [Header("¾Ö´Ï¸ÅÀÌ¼Ç µô·¹ÀÌ")]
     [SerializeField] private float animationDelay;
-    [Header("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½")]
+    [Header("¼Â ¾÷ °ÔÀÓ ¾À ¸Å´ÏÀú")]
     [SerializeField] private SetUpGameSceneManager inputGameSceneManager;
     private float delayTiemr;
     private float delayTimerForUpdate;
@@ -35,29 +35,26 @@ public class ObjectMovement : MonoBehaviour
     {
         //Spin();
         delayTimerForUpdate += Time.deltaTime;
-        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-        if (delayTimerForUpdate > animationDelay)
-        {
-            //UpdateAnimation();
-        }
+        // ¾Ö´Ï¸ÞÀÌ¼Ç »óÅÂ °»½Å
+        if (delayTimerForUpdate > animationDelay) { UpdateAnimation(); }
         
 
-        // ï¿½Å¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ¸Å¼­µå¸¦ »ç¿ëÇß´Ù¸é Å¸ÀÌ¸Ó °»½Å
         if (isUsed) {  delayTiemr += Time.deltaTime; }
-        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¾ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È¯ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
+        // µô·¹ÀÌ°¡ ³¡³ª¸é Å¸¹Ì¾î¿Í ¾Ö´Ï¸ÅÀÌÅÍ º¯¼ö ÃÊ±âÈ­ ¹× Ä«¸Þ¶ó ÀüÈ¯ ÇÔ¼ö È£Ãâ
         if (delayTiemr > animationDelay) 
         { 
             isUsed = false;
             delayTiemr = 0;
             inputEnemyAnimator.SetBool("isClicked", false);
-            inputPlayerAnimator.SetBool("isClicked", true);
+            inputPlayerAnimator.SetBool("isClicked", false);
             inputGameSceneManager.ChangeCamera();
         }
     }
 
     private void Spin()
     {
-        //Debug.Log("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
+        //Debug.Log("È¸Àü ½ÇÇà Áß");
         inputPlayer.transform.Rotate(Vector3.up, spinSpeed *  Time.deltaTime);
         inputEnemy.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
         
@@ -65,46 +62,48 @@ public class ObjectMovement : MonoBehaviour
 
     public void EnemyAttack()
     {
-        // Ä³ï¿½ï¿½ï¿½Í°ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½Ù¶óº¸µï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // Ä³¸¯ÅÍ°¡ Ä«¸Þ¶ó¸¦ ¹Ù¶óº¸µµ·Ï ¼³Á¤
         //inputEnemy.transform.LookAt(inputCamera.transform);
-        inputEnemyAnimator.SetBool("Loop", false);
+        inputEnemyAnimator.SetBool("loop", false);
         inputEnemyAnimator.SetBool("isClicked", true);
         isUsed = true;
     }
 
     public void PlayerAttack()
     {
+        inputPlayerAnimator.SetBool("loop", false);
         inputPlayerAnimator.SetBool("isClicked", true);
         isUsed = true;
     }
 
     private void Init()
     {
-        // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ¼Â ¾÷ °ÔÀÓ ¾À ¸Å´ÏÀú ÂüÁ¶
         tempManager = GetComponent<SetUpGameSceneManager>();
+        isUsed = false;
     }
 
     private void UpdateAnimation()
     {
-        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È²ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ÁøÇàµÈ ¾÷µ¥ÀÌÆ® »óÈ²¿¡ ¸Â´Â ¿¡´Ï¸ÞÀÌÅÍ º¯¼ö ¼³Á¤
         switch (progressNumber)
         {
             case 0:
-                inputEnemyAnimator.SetFloat("progressNumber", 1.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 1f);
+                inputPlayerAnimator.SetFloat("progressNumber", 1f);
                 progressNumber++;
                 break;
             case 1:
-                inputEnemyAnimator.SetFloat("progressNumber", 2.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 2f);
+                inputPlayerAnimator.SetFloat("progressNumber", 2f);
                 progressNumber++;
                 break;
             case 2:
-                inputEnemyAnimator.SetFloat("progressNumber", 3.1f);
+                inputEnemyAnimator.SetFloat("progressNumber", 3f);
+                inputPlayerAnimator.SetFloat("progressNumber", 3f);
                 progressNumber++;
                 break;
-            case 3:
-                inputEnemyAnimator.SetFloat("progressNumber", 3.1f);
-                progressNumber--;
-                break;
+            
 
         }
     }

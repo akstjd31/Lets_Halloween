@@ -144,17 +144,21 @@ public class GameManager : Singleton<GameManager>
             FindFirstObjectByType<EnemyDeathEventHandler>().SetUnit(gameOptionData.unit);
     }
 
-    // 선택한 진영 (버튼 선택) - 임시
-    public void SelectFaction(int buttonIdx)
+    // 선택한 진영 (버튼 선택)
+    public void OnSelectFactionButtonClicked(int buttonIdx)
     {
         gameOptionData.factionType = (FactionType)buttonIdx;
-        StartGame();    // 임시 (테스트)
     }
 
     // 난이도 선택
-    public void SelectDifficulty(int buttonIdx)
+    public void OnSelectDifficultyButtonClicked(int buttonIdx)
     {
         gameOptionData.difficulty = (Difficulty)buttonIdx;
-        //StartGame();
+    }
+
+    // 결정 버튼 누름
+    public void OnConfirmButtonClicked()
+    {
+        StartGame();
     }
 }
