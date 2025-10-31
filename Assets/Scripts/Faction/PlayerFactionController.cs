@@ -14,11 +14,13 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
         if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
             GameObject newPlayerPrefab = Instantiate(playerPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
+            
             Debug.Log("플레이어 생성됨!");
 
             Debug.Log("초기 세팅 중...");
             player = newPlayerPrefab.GetComponent<Player>();
             player.Initialize(newPlayerPrefab.name, 0);
+            player.gameObject.SetActive(false);
         }
 
         // 선택한 진영이 아닌 경우

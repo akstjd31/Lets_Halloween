@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
             SetPreparingTimer();
         }
 
-        //UpdatePlayerLifeUI(3, 3);
+        UpdatePlayerLifeUI(3, 3);
         
         if (WaveManager.Instance != null)
         {

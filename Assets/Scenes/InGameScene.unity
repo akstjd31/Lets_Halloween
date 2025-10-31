@@ -348,20 +348,8 @@ MonoBehaviour:
     spawnInfos:
     - enemyPrefab: {fileID: 4358321896860784887, guid: 25bb83b547262774c855ddf062a7290e, type: 3}
       spawnCount: 5
-      spawnInterval: 2
-    - enemyPrefab: {fileID: 5549758582338204486, guid: 6140b39ff7a66264b93cf8bc2090aa96, type: 3}
-      spawnCount: 3
-      spawnInterval: 4
+      spawnInterval: 10
     reward: 200
-  - waveNum: 2
-    spawnInfos:
-    - enemyPrefab: {fileID: -1347824211893643454, guid: 9eaeaa67cea368f4abf41e8e10531b06, type: 3}
-      spawnCount: 2
-      spawnInterval: 1
-    - enemyPrefab: {fileID: 5506904853683547026, guid: a5ad52b625ec2064490244b3d0ece8b2, type: 3}
-      spawnCount: 3
-      spawnInterval: 3
-    reward: 500
   spawnPoint: {fileID: 1538994164}
   waypoint: {fileID: 99597134}
   endPoint: {fileID: 1322711260}
@@ -472,13 +460,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850951217}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 45.55, z: -12.22}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -10, y: 50, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &1850951221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,7 +474,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850951217}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51557495ecd539b4e95af5074dc9a9fc, type: 3}
   m_Name: 
