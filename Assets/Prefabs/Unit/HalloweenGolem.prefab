@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  maxHp: 50
+  moveSpeed: 5
+  maxHp: 5000
   EnemyName: Golem
 --- !u!1 &3196770521590773508
 GameObject:

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/MouseTracKingManager.prefab.meta
 guid: b0530f47d85c2f64bbc54df3b1e7236f
+========
+guid: 8e1ba862ec80c2c47a5cecdc601ae41d
+>>>>>>>> Offense:Assets/Prefabs/Enemy.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

@@ -614,7 +614,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
   shootDelay: 0.4
-  power: 1
+  power: 4
+  passiveSkill: 0
+  passiveSkillPercent: 0
+  passiveSkillTime: 0
+  passiveSkillEffect: {fileID: 0}
 --- !u!1 &9220015156029845108
 GameObject:
   m_ObjectHideFlags: 0

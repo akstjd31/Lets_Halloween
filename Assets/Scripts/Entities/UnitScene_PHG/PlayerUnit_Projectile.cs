@@ -25,16 +25,31 @@ public class PlayerUnit_Projectile : MonoBehaviour
 
     Weapon[] weapons; //소환체의 무기들 가져옴
 
+
+
+    //유닛패시브스킬
+    [Header("PassiveSkill")]
+    [SerializeField] PassiveSkill passiveSkill;
+    [SerializeField] float passiveSkillPercent;
+    private WaitForSeconds passiveSkillDuration;
+    [SerializeField] private float passiveSkillTime;
+    [SerializeField] private GameObject passiveSkillEffect;
+    Queue<GameObject> passiveSkillEffectPool = new Queue<GameObject>();
+
+    public PassiveSkill PassiveSkill => passiveSkill;
+    public float PassiveSkillPercent => passiveSkillPercent;
+
     //시작시 애니메이터 , 오디오 소스 가져옴
     private void Start()
     {
         weapons = GetComponentsInChildren<Weapon>();         
     }
 
+
     //충돌 발생
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Contains ("Enemy"))
+        if (other.tag == ("Enemy"))
         {
             Debug.Log("적군 진입");
             shootTime = shootDelay;   //적군 바로공격할수있게 쿨타임 
@@ -43,7 +58,7 @@ public class PlayerUnit_Projectile : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.activeSelf && other.tag.Contains("Enemy"))
+        if (other.gameObject.activeSelf && other.tag ==("Enemy"))
         {
             transform.LookAt(other.transform);
             target = other.gameObject;

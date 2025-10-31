@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
 {
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
-    [SerializeField] private float moveSpeed;   //È¸ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ÇÁ·ÎÅäÅ¸ÀÔ
+    [SerializeField] private float moveSpeed;   //È¸Àü¼Óµµ´Â ÀÌµ¿¼Óµµ¿Í °°°Ô ¸ÂÃâ°Í
+
+    public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
+
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
@@ -17,21 +20,31 @@ public class EnemyUnit : MonoBehaviour
 
     Animator animator;
 
-    bool isDie = false;     //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç¿©ï¿½ï¿½È®ï¿½ï¿½
+    bool isDie = false;     //À¯´Ö »ý»ç¿©ºÎÈ®ÀÎ
+
+    List<Renderer> renderers = new List<Renderer>();    //·»´õ·¯ ÀúÀå (ÇÇ°ÝÆÇÁ¤Ãß°¡¸¦À§ÇÑ)
+    List<Color> originalRenderColor = new List<Color>();
 
 
+    
     private void Start()
     {
-        wayPointBox = GameObject.Find("Waypoints").transform;
+        wayPointBox = GameObject.Find("WayPoint").transform;
         animator = GetComponent<Animator>();
         currentHp = maxHp;
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        foreach(var render in renderers)
+        {
+            originalRenderColor.Add(render.material.color); //¿ø·¡»ö»ó Ãß°¡
+        }
     }
 
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½æµ¹Ã³ï¿½ï¿½
+    //¿þÀÌÆ÷ÀÎÆ® Ãæµ¹Ã³¸®
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("Waypoints"))
+        if (other.name.Contains("WayPoint"))
         {
             if (wayPointBox == null) { return; }
 
@@ -40,9 +53,9 @@ public class EnemyUnit : MonoBehaviour
             if (currentWayPointIndex >= wayPointBox.childCount) { currentWayPointIndex = 0; }
         }
 
-        if (other.tag == "Endpoint")
+        if (other.tag == "EndPoint")
         {
-            Debug.Log($"{gameObject.name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            Debug.Log($"{gameObject.name} ³¡ÁöÁ¡ µµ´Þ");
             gameObject.SetActive(false);
         }
 
@@ -53,7 +66,7 @@ public class EnemyUnit : MonoBehaviour
         MoveObj();
     }
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìµï¿½
+    //¿ÀºêÁ§Æ® ÀÌµ¿
     private void MoveObj()
     {
         if (wayPointBox == null) { return; }
@@ -61,7 +74,7 @@ public class EnemyUnit : MonoBehaviour
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
-        transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position,moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeed * Time.deltaTime);
 
         if (direction == Vector3.zero)
@@ -72,29 +85,60 @@ public class EnemyUnit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {damage}ï¿½ï¿½ï¿½ï¿½");
+        //Debug.Log($"µ¥¹ÌÁö {damage}ÀÔÀ½");
         currentHp = currentHp - damage;
 
-        if (currentHp <= 0 && isDie == false)
+        if (currentHp <= 0 && isDie==false)
         {
             moveSpeed = 0;
             isDie = true;
             animator.SetTrigger("Die");
         }
     }
+ 
+    //À¯´Ö»ö»ó ÁöÁ¤
+    public void StatusEffectColor(PassiveSkill playerPassive)
+    {
+        switch(playerPassive)
+        {
+            case PassiveSkill.Slow:
+                foreach(var renderer in renderers)
+                {
+                    renderer.material.color = Color.blue;
+                }
+                break;
 
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            case PassiveSkill.Stun:
+                foreach (var renderer in renderers)
+                {
+                    renderer.material.color = Color.yellow;
+                }
+                break;
+        }
+    }
+
+    //»ö»ó ¿ø»óº¹±Í
+    public void ReturnStatusEffectColor()
+    {
+        for(int i=0; i< renderers.Count; i++)
+        {
+            renderers[i].material.color = originalRenderColor[i];
+        }
+    }
+
+    //»ý¼º½Ã ÇÃ·¹ÀÌ¾î°¡ °¡´ÂÀ§Ä¡ ´øÁ®ÁÜ
     public void SetWayPoint(int wayPointIndex)
     {
         currentWayPointIndex = wayPointIndex;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½Ìºï¿½Æ® ï¿½Ô¼ï¿½
+    //À¯´ÏÆ¼ ÀÌº¥Æ® ÇÔ¼ö
     void Die()
     {
-        gameObject.SetActive(false);
+        //Destroy(gameObject);
+       gameObject.SetActive(false);   
     }
 
-
+  
 
 }

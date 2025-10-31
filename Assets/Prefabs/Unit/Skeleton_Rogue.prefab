@@ -592,7 +592,6 @@ GameObject:
   - component: {fileID: 187165621656645509}
   - component: {fileID: 4779122624585258270}
   - component: {fileID: 982655416949747603}
-  - component: {fileID: 5549758582338204486}
   m_Layer: 9
   m_Name: Skeleton_Rogue
   m_TagString: Enemy
@@ -705,21 +704,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  maxHp: 10
+  moveSpeed: 15
+  maxHp: 40
   EnemyName: Enemy_Rogue
---- !u!114 &5549758582338204486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2358928595502070071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07328dd543aa0ca4a9ab6cd6e977b8a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2623842468762520641
 GameObject:
   m_ObjectHideFlags: 0

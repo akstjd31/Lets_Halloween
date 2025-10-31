@@ -1270,7 +1270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8874453894957549141, guid: 1d6740ef1bf208e4ca478406b062b042, type: 3}
-  projectilePoolSize: 10
+  projectilePoolSize: 5
 --- !u!1 &3984799062821544003
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,10 +1524,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
-  power: 7
-  attackDelay: 0.6
-  statusEffects: 0
-  statusEffectPercent: 0
+  power: 13
+  attackDelay: 0.8
+  passiveSkill: 1
+  passiveSkillPercent: 0.2
+  passiveSkillTime: 2
+  passiveSkillEffect: {fileID: 3376179573202586532, guid: 5c3045b8b30e7fd40b6eda8b96722184, type: 3}
 --- !u!82 &2529119431219710756
 AudioSource:
   m_ObjectHideFlags: 0

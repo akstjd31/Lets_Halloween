@@ -635,10 +635,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
-  power: 5
-  attackDelay: 2
-  statusEffects: 2
-  statusEffectPercent: 30
+  power: 10
+  attackDelay: 0.8
+  passiveSkill: 3
+  passiveSkillPercent: 0.15
+  passiveSkillTime: 2
+  passiveSkillEffect: {fileID: 6854085636707958258, guid: 18b3734fe8fb94646a07629353735dcf, type: 3}
 --- !u!82 &7167810967443111355
 AudioSource:
   m_ObjectHideFlags: 0
