@@ -12,9 +12,9 @@ enum PlayStyle
 
 public class ShopManager : MonoBehaviour
 {
-    [Header("À¯´Ö ¸ñ·Ï")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½")]
     public PlayerUnit[] units;
-    [Header("½ºÅ³ ¸ñ·Ï")]
+    [Header("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½")]
     public SkillBase[] skills;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI[] infoText;
@@ -23,12 +23,14 @@ public class ShopManager : MonoBehaviour
 
     private int itemIndex;
 
-    public int[] itemPrice;
-
     public int gold = 1000;
 
     [SerializeField] Transform list;
     [SerializeField] GameObject itemPrefab;
+
+    private bool checktype;
+
+    private SkillButton _setButton;
 
     PlayStyle style;
 
@@ -39,38 +41,69 @@ public class ShopManager : MonoBehaviour
 
     public void UnitInfo()
     {
-        infoText[0].text = units[itemIndex].name; // ÀÌ¸§
-        infoText[1].text = units[itemIndex].name; // °ø°Ý·Â
-        infoText[2].text = units[itemIndex].name; // °ø°Ý¼Óµµ
-        infoText[3].text = units[itemIndex].name; // °ø°ÝÅ¸ÀÔ
-        infoText[4].text = units[itemIndex].name; // ÀÌ¸§
-        infoText[5].text = units[itemIndex].name; // ÀÌ¸§
-
+        infoText[0].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
+        infoText[1].text = units[itemIndex].name; // ï¿½ï¿½ï¿½Ý·ï¿½
+        infoText[2].text = units[itemIndex].name; // ï¿½ï¿½ï¿½Ý¼Óµï¿½
+        infoText[3].text = units[itemIndex].name; // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+        infoText[4].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
+        infoText[5].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
     }
     public void SkillInfo()
     {
-        infoText[0].text = skills[itemIndex].name; // ÀÌ¸§
-        infoText[1].text = skills[itemIndex].name; // È¿°ú
-        infoText[2].text = skills[itemIndex].name; // ½ºÅ³
-        infoText[3].text = skills[itemIndex].name; // ÄðÅ¸ÀÓ
-        infoText[4].text = skills[itemIndex].name; // Áö¼Ó½Ã°£
-        infoText[5].text = skills[itemIndex].name; // °¡°Ý
+        Debug.Log("Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[0].text = skills[itemIndex].skillName; // ï¿½Ì¸ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½Ì¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[1].text = skills[itemIndex].name; // È¿ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ È¿ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[2].text = skills[itemIndex].name; // ï¿½ï¿½Å³
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½Å³ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[3].text = skills[itemIndex].skillCooldown.ToString(); // ï¿½ï¿½Å¸ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[4].text = skills[itemIndex].skillDuration.ToString(); // ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[5].text = skills[itemIndex].skillprice.ToString(); // ï¿½ï¿½ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
 
     public void Buy()
     {
-        int price = itemPrice[itemIndex];
+       
+        int price = checktype? skills[itemIndex].skillprice : 500;
 
-        buttonText.text = "±¸ÀÔ °¡´É";
+        //buttonText.text = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
      
-        if(price > gold)
-        {
-            buttonText.text = "±Ý¾× ºÎÁ·";
-            return;
-        }
+        // if(price > gold)
+        // {
+        //     buttonText.text = "ï¿½Ý¾ï¿½ ï¿½ï¿½ï¿½ï¿½";
+        //     return;
+        // }
         
         gold -= price;
 
+        if (checktype == true)
+        {
+            _setButton.AddCount();
+        }
 
+        else if (checktype == false)        
+        {
+            MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
+        }
+
+    }
+
+    public void SkillCheck()
+    {
+        checktype = true;
+    }
+
+    public void UnitCheck()
+    {
+        checktype = false;
+    }
+
+    public void SetSkillButton(SkillButton setButton)
+    {
+        _setButton = setButton;
     }
 }

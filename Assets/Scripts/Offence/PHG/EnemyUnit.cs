@@ -61,7 +61,7 @@ public class EnemyUnit : MonoBehaviour
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
-        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position,moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeed * Time.deltaTime);
 
         if (direction == Vector3.zero)
@@ -75,14 +75,14 @@ public class EnemyUnit : MonoBehaviour
         Debug.Log($"������ {damage}����");
         currentHp = currentHp - damage;
 
-        if (currentHp <= 0 && isDie==false)
+        if (currentHp <= 0 && isDie == false)
         {
             moveSpeed = 0;
             isDie = true;
             animator.SetTrigger("Die");
         }
     }
- 
+
     //������ �÷��̾ ������ġ ������
     public void SetWayPoint(int wayPointIndex)
     {
@@ -92,9 +92,9 @@ public class EnemyUnit : MonoBehaviour
     //����Ƽ �̺�Ʈ �Լ�
     void Die()
     {
-       gameObject.SetActive(false);   
+        gameObject.SetActive(false);
     }
 
-  
+
 
 }

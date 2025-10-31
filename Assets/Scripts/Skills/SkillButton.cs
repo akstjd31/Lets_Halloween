@@ -23,12 +23,15 @@ public class SkillButton : ParentButton
             countText.text = skillCount.ToString();
 
         button.interactable = skillCount > 0;
+        Debug.Log(skillCount);
     }
 
     public override void OnClickButton()
     {
         if (skillCount <= 0)
+        {
             return;
+        }
 
         base.OnClickButton(); // 부모에서 호출
         var skillCoolDownAnim = transform.GetComponentInChildren<SkillCoolDown>();
@@ -37,9 +40,9 @@ public class SkillButton : ParentButton
         MouseTrackingManager.Instance.SetAnim(skillCoolDownAnim);
     }
 
-    public void AddCount(int amount)
+    public void AddCount()
     {
-        skillCount += amount;
+        skillCount++;
         UpdateCountUI();
     }
 

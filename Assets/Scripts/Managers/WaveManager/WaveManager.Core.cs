@@ -17,7 +17,7 @@ public partial class WaveManager
     private int currentWaveIndex;
     private bool isWaveRunning;
     private WaveRuntimeData runtimeData;
-
+    
     private void Start()
     {
         // 웨이포인트 세팅
@@ -30,9 +30,6 @@ public partial class WaveManager
 
         currentWaveIndex = 0;
         runtimeData = new WaveRuntimeData();
-
-        onWaveStarted += HandleWaveStarted;
-        onWaveEnded += HandleWaveEnded;
     }
 
     // 웨이브 시작
@@ -64,9 +61,9 @@ public partial class WaveManager
     private void EndWave()
     {
         isWaveRunning = false;
-        onWaveEnded?.Invoke();
-
         GameManager.Instance.InitPreparingTime();
+
+        onWaveEnded?.Invoke();
     }
 
     private void OnEnemyDeactivated(Enemy enemy)
@@ -74,10 +71,7 @@ public partial class WaveManager
         if (enemy == null)
             return;
 
-        EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();    
-
         // 적 비활성화 및 초기화
-        enemyMover.Initialize();
         enemy.gameObject.SetActive(false);
 
         ReturnToPool(enemy);
@@ -118,7 +112,13 @@ public partial class WaveManager
 
         // 보상 지급
         Unit unit = GameManager.Instance.gameOptionData.unit;
-        (unit as Player)?.ReceiveReward(waves[currentWaveIndex].reward);
+
+        if (unit is Player player)
+        {
+            Debug.Log(waves[currentWaveIndex].reward + " 받음!");
+            player?.ReceiveReward(waves[currentWaveIndex].reward);
+        }
+            
 
         // 세팅
         currentWaveIndex++;

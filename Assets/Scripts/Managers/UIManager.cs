@@ -37,11 +37,14 @@ public class UIManager : MonoBehaviour
             
             SetPreparingTimer();
         }
-            
+
         UpdatePlayerLifeUI(3, 3);
         
-        WaveManager.Instance.onWaveStarted += OnWaveStarted;
-        WaveManager.Instance.onWaveEnded += OnWaveEnded;
+        if (WaveManager.Instance != null)
+        {
+            WaveManager.Instance.onWaveStarted += OnWaveStarted;
+            WaveManager.Instance.onWaveEnded += OnWaveEnded;
+        }
     }
 
     // 구독 해제
@@ -103,11 +106,15 @@ public class UIManager : MonoBehaviour
         // 텍스트 업데이트
         Unit unit = GameManager.Instance.gameOptionData.unit;
         coinAttractionParticle.Play();
-        moneyText.text = (unit as Player)?.Money.ToString("N0");
             
         SetPreparingTimer();
         preparingButton.gameObject.SetActive(true);
         preparingTimer.SetActive(true);
         waveText.text = $"Wave {WaveManager.Instance.GetWaveNumber()}";
+
+        if (unit is Player player)
+        {
+            moneyText.text = player?.Money.ToString("N0");
+        }
     }
 }

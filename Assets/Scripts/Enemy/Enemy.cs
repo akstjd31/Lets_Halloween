@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMover))]
+[RequireComponent(typeof(EnemyUnit))]
 public class Enemy : Unit, IFaction
 {
     // 상수

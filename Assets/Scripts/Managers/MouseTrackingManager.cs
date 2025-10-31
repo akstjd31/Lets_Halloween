@@ -13,7 +13,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     GameObject target;
     Renderer targetColor;
 
-    private GameObject ActivateUnitObject;
+    private PlayerUnit ActivateUnitObject;
     private SkillBase ActivateSkillObject;
     
     private SkillCoolDown skillCool;
@@ -49,9 +49,6 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
             // UI 위하고 클릭이 활성화 되었을시
             if (clickEnable == true && !EventSystem.current.IsPointerOverGameObject()) 
             {
-
-                
-
                 isClick = true;
 
                 if (ActivateSkillObject != null)
@@ -75,7 +72,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         StartCoroutine(CospawnTarget());
     }
 
-    public void SpawnTargetUnit(GameObject obj)
+    public void SpawnTargetUnit(PlayerUnit obj)
     {
         ActivateUnitObject = obj;
         StartCoroutine(CospawnTarget());
@@ -186,21 +183,22 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         }
     }
 
-    private void SpawnActivateObj(SkillBase skill, GameObject unit)
+    private void SpawnActivateObj(SkillBase skill, PlayerUnit unit)
     {
         StartCoroutine(coSpawnActivateObj(skill,unit));
     }
 
-    IEnumerator coSpawnActivateObj(SkillBase skill, GameObject unit)
+    IEnumerator coSpawnActivateObj(SkillBase skill, PlayerUnit unit)
     {
 
 
         if (isClick)
         {
-            skillCool.UseSkill();
+            
 
             if (skill != null)
             {
+                skillCool.UseSkill();
                 var obj = Instantiate(skill, target.transform.position, skill.transform.rotation);
                 SkillBase skillObj = obj.GetComponent<SkillBase>();
                 skillObj.UseSkill();

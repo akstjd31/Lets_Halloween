@@ -15,6 +15,10 @@ public partial class WaveManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        // 가장 중요한 웨이브 이벤트를 먼저 구독
+        onWaveStarted += HandleWaveStarted;
+        onWaveEnded += HandleWaveEnded;
     }
 
     private void OnDestroy()
