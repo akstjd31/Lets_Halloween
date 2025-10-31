@@ -8,20 +8,52 @@ using AssetKits.ParticleImage;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Button preparingButton;
-    [SerializeField] private TextMeshProUGUI waveText, difficultyText;
-    [SerializeField] private Transform life;
-    [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
-    [SerializeField] private Text moneyText;
-    [SerializeField] private GameObject preparingTimer;
-    [SerializeField] private ParticleImage coinAttractionParticle;
-    private List<Image> lifes;
-    private Timer timer;
+    [Header("TopBarUI")]
+    [SerializeField] private GameObject topBarUI;
+    private TextMeshProUGUI waveText, difficultyText;
 
+    [Header("MiddleBarUI")]
+    [SerializeField] private GameObject MiddleBarUI;
+    private Text moneyText;
+    private Transform life;
+    private ParticleImage coinAttractionParticle;
+    private Timer preparingTimer;
+    private List<Image> lifes;
+
+    [Header("BottomBarUI")]
+    [SerializeField] private GameObject BottomBarUI;
+    private Button preparingButton;
+
+    [Header("ShopUI")]
+    [SerializeField] private GameObject shopUI;
+    [SerializeField] private Button shopButton;
+    
+    
+    [Header("Prefab")]
+    [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
+    
     private void Awake()
     {
+        // TopBar UI
+        TextMeshProUGUI[] texts = topBarUI?.GetComponentsInChildren<TextMeshProUGUI>();
+        if (texts != null)
+        {
+            waveText = texts[0];
+            difficultyText = texts[1];
+        }
+
+        // MiddleBar UI
+        moneyText = MiddleBarUI?.GetComponentInChildren<Text>();
+        life = MiddleBarUI?.GetComponentInChildren<GridLayoutGroup>().transform;
+        coinAttractionParticle = FindFirstObjectByType<ParticleImage>();
+
+        // BottomBar UI
+        preparingButton = BottomBarUI?.GetComponentInChildren<Button>();
         preparingButton?.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
-        timer = preparingTimer?.transform.GetChild(0).GetComponent<Timer>();
+        preparingTimer = FindFirstObjectByType<Timer>();
+
+        // Shop UI
+        shopButton = shopUI?.GetComponentInChildren<Button>();
     }
 
     private void Start()
@@ -38,7 +70,7 @@ public class UIManager : MonoBehaviour
             SetPreparingTimer();
         }
 
-        UpdatePlayerLifeUI(3, 3);
+        //UpdatePlayerLifeUI(3, 3);
         
         if (WaveManager.Instance != null)
         {
@@ -59,9 +91,13 @@ public class UIManager : MonoBehaviour
 
     private void SetPreparingTimer()
     {
-        timer.timeRemaining = GameManager.Instance.elapsedTime;
-        timer.minutes = (int)(timer.timeRemaining / 60);
-        timer.seconds = (int)(timer.timeRemaining % 60);
+        if (preparingTimer != null)
+        {
+            preparingTimer.timeRemaining = GameManager.Instance.elapsedTime;
+            preparingTimer.minutes = (int)(preparingTimer.timeRemaining / 60);
+            preparingTimer.seconds = (int)(preparingTimer.timeRemaining % 60);
+            preparingTimer.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     // 라이프에 따른 하트 활성화/비활성화
@@ -92,10 +128,7 @@ public class UIManager : MonoBehaviour
     private void OnWaveStarted()
     {
         Debug.Log("웨이브 시작");
-
-        // 상점, 준비버튼 등 비활성화 작업
-        preparingButton.gameObject.SetActive(false);
-        preparingTimer.SetActive(false);
+        UIActiveSetting(false);
     }
 
     private void OnWaveEnded()
@@ -106,15 +139,22 @@ public class UIManager : MonoBehaviour
         // 텍스트 업데이트
         Unit unit = GameManager.Instance.gameOptionData.unit;
         coinAttractionParticle.Play();
-            
+
         SetPreparingTimer();
-        preparingButton.gameObject.SetActive(true);
-        preparingTimer.SetActive(true);
+        UIActiveSetting(true);
         waveText.text = $"Wave {WaveManager.Instance.GetWaveNumber()}";
 
         if (unit is Player player)
         {
             moneyText.text = player?.Money.ToString("N0");
         }
+    }
+    
+    // 준비, 전투 단계에 따른 UI 액티브 작업
+    private void UIActiveSetting(bool active)
+    {
+        preparingButton.gameObject.SetActive(active);
+        preparingTimer.transform.parent.gameObject.SetActive(active);
+        shopButton.transform.parent.gameObject.SetActive(active);
     }
 }

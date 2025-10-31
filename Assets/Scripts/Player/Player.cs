@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(PlayerMove))]
 public class Player : Unit, IFaction
@@ -9,12 +8,13 @@ public class Player : Unit, IFaction
     public int maxLife = 100;
     private int currentLife;
     private int money;
-
+    private bool isDead;
 
     // 프로퍼티
     public FactionType Faction => FactionType.Player;
     public int CurrentLife => currentLife;
     public int Money => money;
+    public bool IsDead => isDead;
     // 생성자
 
     // 메소드
@@ -23,6 +23,7 @@ public class Player : Unit, IFaction
         base.Initialize(name, id);
         currentLife = maxLife;
         money = 1000;
+        isDead = false;
     }
 
     public override void TakeDamage(int damage)
@@ -39,6 +40,7 @@ public class Player : Unit, IFaction
     public override void OnDead()
     {
         //Debug.Log("게임 오버!");
-        //SceneManager.LoadScene("Defeat");
+        isDead = true;
+        GameManager.Instance.UpdateState(GameState.Result);
     }
 }

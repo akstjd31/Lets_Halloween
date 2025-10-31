@@ -30,13 +30,18 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float preparingTime;   // 임시로 설정
     
     public GameOptionData gameOptionData;
-    private bool isFirstWave;                             // 첫 번째 웨이브인가?
+    private bool isFirstWave;                       // 첫 번째 웨이브인가?
+    public bool isGameOver;
+    public bool isGameClear;
+    private bool hasProcessed = false;
 
     // 준비 단계에서 남은 시간
     public float elapsedTime;
 
     private void Start()
     {
+        isGameOver = false;
+        isGameClear = false;
         isFirstWave = true;
         elapsedTime = preparingTime;
 
@@ -45,7 +50,18 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        //activeFaction?.Update();
+        // 게임 오버 상태
+        if (isGameOver && !hasProcessed)
+        {
+            hasProcessed = true;
+            SceneManager.LoadScene("Defeat");
+        }
+
+        if (isGameClear && !hasProcessed)
+        {
+            hasProcessed = true;
+            SceneManager.LoadScene("Victory");
+        }
 
         // 각 상태에 따른 수행 부분
         switch (currentState)

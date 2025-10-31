@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerFactionController : MonoBehaviour, IFactionController
 {
@@ -63,7 +64,14 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
     // 결과 페이즈
     public virtual void ResultPhase()
     {
-
+        // 플레이어가 죽었는가?
+        if (player.IsDead)
+        {
+            GameManager.Instance.isGameOver = true;
+        }
+        else
+        {
+        }
     }
 
     public virtual Unit GetUnit() => player;

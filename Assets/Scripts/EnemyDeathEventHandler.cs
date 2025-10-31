@@ -11,9 +11,14 @@ public class EnemyDeathEventHandler : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     
     // 이전에 구독 해제를 안전하게 하는 방법으로 onEnemyDeactivated 이벤트를 사용
-    public event Action<Enemy> onEnemyDeactivated; 
-    
+    public event Action<Enemy> onEnemyDeactivated;
+
     private Unit unit;
+    
+    private void Awake()
+    {
+        uiManager = GameManager.FindFirstObjectByType<UIManager>();
+    }
 
     public void SetUnit(Unit unit)
     {
@@ -42,28 +47,25 @@ public class EnemyDeathEventHandler : MonoBehaviour
     private void HandleEnemyCollision(Collider enemyCollider)
     {
         Enemy enemy = enemyCollider.GetComponent<Enemy>();
-        
+
         if (enemy == null)
         {
             return;
         }
-        
+
         onEnemyDeactivated?.Invoke(enemy);
 
-        // 2. 플레이어 데미지 로직
         if (unit is Player player)
         {
             player.TakeDamage(1);
-            
-            // uiManager가 할당되어 있는지 확인
+
             if (uiManager != null)
             {
-                uiManager.UpdatePlayerLifeUI(player.maxLife, player.CurrentLife);
+                //uiManager.UpdatePlayerLifeUI(player.maxLife, player.CurrentLife);
             }
         }
     }
-
-    // 💡 디버깅을 위해 에디터에서 레이캐스트를 시각화합니다.
+    
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

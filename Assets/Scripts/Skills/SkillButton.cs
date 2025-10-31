@@ -23,7 +23,6 @@ public class SkillButton : ParentButton
             countText.text = skillCount.ToString();
 
         button.interactable = skillCount > 0;
-        Debug.Log(skillCount);
     }
 
     public override void OnClickButton()
@@ -33,7 +32,7 @@ public class SkillButton : ParentButton
             return;
         }
 
-        base.OnClickButton(); // ºÎ¸ð¿¡¼­ È£Ãâ
+        base.OnClickButton(); // ï¿½Î¸ð¿¡¼ï¿½ È£ï¿½ï¿½
         var skillCoolDownAnim = transform.GetComponentInChildren<SkillCoolDown>();
         
         MouseTrackingManager.Instance.SpawnTargetSkill(skillPrefab);
