@@ -123,7 +123,7 @@ MonoBehaviour:
   skillCooldown: 10
   skillDuration: 10
   skillRange: 5
-  skillprice: 100
+  skillPrice: 0
   enemySpeed: 1
   power: 0
 --- !u!136 &5748570943250290601

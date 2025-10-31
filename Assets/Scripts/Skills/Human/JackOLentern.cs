@@ -24,7 +24,7 @@ public class JackOLentern : SkillBase
     {
         while (true)
         {
-            obj.gameObject.transform.position = Vector3.MoveTowards(obj.gameObject.transform.position, target.position, enemySpeed * Time.deltaTime);
+            obj.gameObject.transform.position = Vector3.MoveTowards(obj.gameObject.transform.position, target.position, enemySpeed * Time.deltaTime * power);
 
             yield return null;
         }

@@ -9,6 +9,7 @@ public class SkillButton : ParentButton
     [SerializeField] private int skillCount;
     [SerializeField] public SkillBase skillPrefab;
     private TextMeshProUGUI countText;
+    [SerializeField] public GameObject PreviewObj;
 
     private void Start()
     {
@@ -35,7 +36,7 @@ public class SkillButton : ParentButton
 
         base.OnClickButton(); // 부모에서 호출
         var skillCoolDownAnim = transform.GetComponentInChildren<SkillCoolDown>();
-        
+        MouseTrackingManager.Instance.targetObject = PreviewObj;
         MouseTrackingManager.Instance.SpawnTargetSkill(skillPrefab);
         MouseTrackingManager.Instance.SetAnim(skillCoolDownAnim);
     }

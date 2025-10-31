@@ -61,14 +61,14 @@ public class ShopManager : MonoBehaviour
         Debug.Log("스킬 쿨타임 불러와짐");
         infoText[4].text = skills[itemIndex].skillDuration.ToString(); // 지속시간
         Debug.Log("스킬 지속시간 불러와짐");
-        infoText[5].text = skills[itemIndex].skillprice.ToString(); // 가격
+        infoText[5].text = skills[itemIndex].skillPrice.ToString(); // 가격
         Debug.Log("스킬 가격 불러와짐");
     }
 
     public void Buy()
     {
        
-        int price = checktype? skills[itemIndex].skillprice : 500;
+        int price = checktype? skills[itemIndex].skillPrice : 500;
 
         buttonText.text = "구입 가능";
      

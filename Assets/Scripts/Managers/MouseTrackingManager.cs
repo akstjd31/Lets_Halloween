@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class MouseTrackingManager : Singleton<MouseTrackingManager>
 {
-    [SerializeField] private GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
+    [SerializeField] public GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
     GameObject target;
     Renderer targetColor;
 
@@ -105,6 +105,13 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         {
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
 
+            var targetRange = target.transform.Find("Range").gameObject;
+
+            Transform rangeScale = targetRange.GetComponent<Transform>();
+
+            rangeScale.localScale = new Vector3(ActivateSkillObject.skillRange*2,1, ActivateSkillObject.skillRange*2);
+
+
             targetColor = target.GetComponent<Renderer>();
 
             while (!isClick)
@@ -138,7 +145,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                         //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
                         if (overActivate)
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target ,new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("유닛 겹침");
                             clickEnable = false;
                             yield return null;
@@ -150,7 +157,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     {
                         if (target.tag == "PlayerUnit")
                         {
-                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // 초록색
                             clickEnable = true;
                             Debug.Log("타워 설치 지역 현재 플레이어 초록색");
 
@@ -158,7 +165,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                         else if (target.tag == "Skill")
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("타워 설치 지역 현재 스킬 빨간색");
                             clickEnable = false;
                         }
@@ -170,14 +177,14 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     {
                         if (target.tag == "PlayerUnit")
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("길 지역 현재 플레이어 빨간색");
                             clickEnable = false;
                         }
 
                         else if (target.tag == "Skill")
                         {
-                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // 초록색
                             Debug.Log("길 지역 현재 스킬 초록색");
                             clickEnable = true;
                         }
@@ -186,7 +193,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     else
                     {
-                        targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                        SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                         Debug.Log("그외 지역 빨간색");
                         clickEnable = false;
                     }
@@ -195,6 +202,26 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                 }
             }
             
+        }
+    }
+
+    void SetColorRecursive(GameObject obj, Color color)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+        {
+            Material[] materials = r.materials;
+
+            foreach (Material m in materials)
+            {
+                m.SetColor("_Color", color);
+            }
+
+            //if (r != null && r.material != null)
+            //{
+            //    r.material.color = color;
+            //}
         }
     }
 
