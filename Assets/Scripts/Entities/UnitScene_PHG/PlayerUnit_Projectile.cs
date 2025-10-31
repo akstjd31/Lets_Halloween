@@ -58,7 +58,7 @@ public class PlayerUnit_Projectile : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.activeSelf && other.tag.Contains("Enemy"))
+        if (other.gameObject.activeSelf && other.tag ==("Enemy"))
         {
             transform.LookAt(other.transform);
             target = other.gameObject;
