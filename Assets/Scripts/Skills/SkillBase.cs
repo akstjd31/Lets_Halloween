@@ -8,8 +8,9 @@ public class SkillBase : MonoBehaviour, ISkil
 {
     [SerializeField] public string skillName;
     [SerializeField] public float skillCooldown;
-    [SerializeField] private float skillDuration;
-    [SerializeField] private float skillRange;
+    [SerializeField] public float skillDuration;
+    [SerializeField] public float skillRange;
+    [SerializeField] public int skillprice;
 
     public string _name { get; set; }              // 이름
     public float _cooldown { get; set; }           // 쿨타임

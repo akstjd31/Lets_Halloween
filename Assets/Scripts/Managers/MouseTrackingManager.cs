@@ -1,6 +1,7 @@
 using Palmmedia.ReportGenerator.Core.Reporting.Builders.Rendering;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     GameObject target;
     Renderer targetColor;
 
-    private GameObject ActivateUnitObject;
+    private PlayerUnit ActivateUnitObject;
     private SkillBase ActivateSkillObject;
     
     private SkillCoolDown skillCool;
@@ -49,9 +50,6 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
             // UI 위하고 클릭이 활성화 되었을시
             if (clickEnable == true && !EventSystem.current.IsPointerOverGameObject()) 
             {
-
-                
-
                 isClick = true;
 
                 if (ActivateSkillObject != null)
@@ -75,7 +73,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         StartCoroutine(CospawnTarget());
     }
 
-    public void SpawnTargetUnit(GameObject obj)
+    public void SpawnTargetUnit(PlayerUnit obj)
     {
         ActivateUnitObject = obj;
         StartCoroutine(CospawnTarget());
@@ -96,18 +94,31 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
+
+        if (!Physics.Raycast(ray, out hit, Mathf.Infinity, layermask, QueryTriggerInteraction.Ignore))
+        {
+            yield break;
+        }
+
         // 지정된 레이어에 적중시
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
         {
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
 
             targetColor = target.GetComponent<Renderer>();
-            
+
             while (!isClick)
             {
                 Ray rayTarget = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitTarget;
-                if (Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity,layermask))
+
+                if (!Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask, QueryTriggerInteraction.Ignore))
+                {
+                    yield return null;
+                    continue;
+                }
+
+                if (Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask))
                 {
                     // 마우스 위치로 계속 좌표 위치를 변환
                     target.transform.position = hitTarget.point;
@@ -123,7 +134,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     {
                         Vector3 halfExtents = targetColor.bounds.extents;
 
-                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents , Vector3.down, target.transform.rotation, 10f, activateMask,QueryTriggerInteraction.Ignore);
+                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents, Vector3.down, target.transform.rotation, 10f, activateMask, QueryTriggerInteraction.Ignore);
                         //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
                         if (overActivate)
                         {
@@ -135,7 +146,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                         }
                     }
 
-                    if (onMouseMap ==true && onBuild == true)
+                    if (onMouseMap == true && onBuild == true)
                     {
                         if (target.tag == "PlayerUnit")
                         {
@@ -183,24 +194,26 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     yield return null;
                 }
             }
+            
         }
     }
 
-    private void SpawnActivateObj(SkillBase skill, GameObject unit)
+    private void SpawnActivateObj(SkillBase skill, PlayerUnit unit)
     {
         StartCoroutine(coSpawnActivateObj(skill,unit));
     }
 
-    IEnumerator coSpawnActivateObj(SkillBase skill, GameObject unit)
+    IEnumerator coSpawnActivateObj(SkillBase skill, PlayerUnit unit)
     {
 
 
         if (isClick)
         {
-            skillCool.UseSkill();
+            
 
             if (skill != null)
             {
+                skillCool.UseSkill();
                 var obj = Instantiate(skill, target.transform.position, skill.transform.rotation);
                 SkillBase skillObj = obj.GetComponent<SkillBase>();
                 skillObj.UseSkill();

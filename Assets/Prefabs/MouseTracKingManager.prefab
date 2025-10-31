@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9151866593611563858}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.3676147, y: 1.4765625, z: 1.1248769}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -47,4 +47,13 @@ MonoBehaviour:
   targetObject: {fileID: 6308443616818937802, guid: 5ca237ebbe35d3b4a853ced9c2af2dc3, type: 3}
   layermask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
+  layermask2:
+    serializedVersion: 2
+    m_Bits: 0
+  layermask3:
+    serializedVersion: 2
+    m_Bits: 0
+  activateMask:
+    serializedVersion: 2
+    m_Bits: 0

@@ -23,12 +23,14 @@ public class ShopManager : MonoBehaviour
 
     private int itemIndex;
 
-    public int[] itemPrice;
-
     public int gold = 1000;
 
     [SerializeField] Transform list;
     [SerializeField] GameObject itemPrefab;
+
+    private bool checktype;
+
+    private SkillButton _setButton;
 
     PlayStyle style;
 
@@ -45,21 +47,28 @@ public class ShopManager : MonoBehaviour
         infoText[3].text = units[itemIndex].name; // 공격타입
         infoText[4].text = units[itemIndex].name; // 이름
         infoText[5].text = units[itemIndex].name; // 이름
-
     }
     public void SkillInfo()
     {
-        infoText[0].text = skills[itemIndex].name; // 이름
+        Debug.Log("처음 잘 불러와짐");
+        infoText[0].text = skills[itemIndex].skillName; // 이름
+        Debug.Log("스킬 이름 불러와짐");
         infoText[1].text = skills[itemIndex].name; // 효과
+        Debug.Log("스킬 효과 불러와짐");
         infoText[2].text = skills[itemIndex].name; // 스킬
-        infoText[3].text = skills[itemIndex].name; // 쿨타임
-        infoText[4].text = skills[itemIndex].name; // 지속시간
-        infoText[5].text = skills[itemIndex].name; // 가격
+        Debug.Log("스킬 스킬 불러와짐");
+        infoText[3].text = skills[itemIndex].skillCooldown.ToString(); // 쿨타임
+        Debug.Log("스킬 쿨타임 불러와짐");
+        infoText[4].text = skills[itemIndex].skillDuration.ToString(); // 지속시간
+        Debug.Log("스킬 지속시간 불러와짐");
+        infoText[5].text = skills[itemIndex].skillprice.ToString(); // 가격
+        Debug.Log("스킬 가격 불러와짐");
     }
 
     public void Buy()
     {
-        int price = itemPrice[itemIndex];
+       
+        int price = checktype? skills[itemIndex].skillprice : 500;
 
         buttonText.text = "구입 가능";
      
@@ -71,6 +80,30 @@ public class ShopManager : MonoBehaviour
         
         gold -= price;
 
+        if (checktype == true)
+        {
+            _setButton.AddCount();
+        }
 
+        else if (checktype == false)        
+        {
+            MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
+        }
+
+    }
+
+    public void SkillCheck()
+    {
+        checktype = true;
+    }
+
+    public void UnitCheck()
+    {
+        checktype = false;
+    }
+
+    public void SetSkillButton(SkillButton setButton)
+    {
+        _setButton = setButton;
     }
 }

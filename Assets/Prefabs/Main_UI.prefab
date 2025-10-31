@@ -389,7 +389,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -401,7 +401,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: UnitCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: UnitInfo
         m_Mode: 1
@@ -1746,7 +1758,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -1758,13 +1770,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SkillCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetSkillButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4709342907771186032}
+          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1997,7 +2033,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -2009,13 +2045,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SkillCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetSkillButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4174967326923987628}
+          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2142,7 +2202,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -2154,9 +2214,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: UnitInfo
+        m_MethodName: UnitCheck
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2555,7 +2615,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -2567,13 +2627,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SkillCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetSkillButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7950557211293258632}
+          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2805,7 +2889,7 @@ GameObject:
   - component: {fileID: 7138321505582983324}
   - component: {fileID: 1332141480073807857}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ShopManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2885,8 +2969,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c332cd94b89295d449fa6f4a1fd94c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  units: []
-  skills: []
+  units:
+  - {fileID: 3708949113785520921, guid: 8194b6b863bf4044aa20b2cdcfb5e77c, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  skills:
+  - {fileID: 6466672792464262591, guid: a634eddee52f1434baef4e3fb6c087a7, type: 3}
+  - {fileID: 6466672792464262591, guid: a634eddee52f1434baef4e3fb6c087a7, type: 3}
+  - {fileID: 6466672792464262591, guid: a634eddee52f1434baef4e3fb6c087a7, type: 3}
+  - {fileID: 6466672792464262591, guid: a634eddee52f1434baef4e3fb6c087a7, type: 3}
   buttonText: {fileID: 4606386369437434409}
   infoText:
   - {fileID: 745798858598492303}
@@ -2894,8 +2986,8 @@ MonoBehaviour:
   - {fileID: 5402044684049943004}
   - {fileID: 3388900468964054589}
   - {fileID: 8185655925808760600}
+  - {fileID: 5573720139479768687}
   textData: []
-  itemPrice: 
   gold: 1000
   list: {fileID: 0}
   itemPrefab: {fileID: 0}
@@ -3392,7 +3484,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -3404,7 +3496,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: UnitCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: UnitInfo
         m_Mode: 1
@@ -3537,7 +3641,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -3549,7 +3653,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: UnitCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: UnitInfo
         m_Mode: 1
@@ -4051,9 +4167,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1402451609693020294}
         m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: 
+        m_MethodName: SetTrigger
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4290,7 +4406,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5802283389254741566}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: Buy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7541952316379692090
 GameObject:
   m_ObjectHideFlags: 0
@@ -5251,7 +5379,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SetupIndex
         m_Mode: 3
@@ -5263,13 +5391,37 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SkillCheck
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: SkillInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1332141480073807857}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
+        m_MethodName: SetSkillButton
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1801917538188653118}
+          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5640,6 +5792,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
+--- !u!114 &1801917538188653118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8292047514969075326, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
+  m_PrefabInstance: {fileID: 7643443355277564992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bad8544426a8ca4db023caf9d1f0c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4174967326923987628 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6044536130358544108, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
+  m_PrefabInstance: {fileID: 7643443355277564992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bad8544426a8ca4db023caf9d1f0c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4709342907771186032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3118748584235202352, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
+  m_PrefabInstance: {fileID: 7643443355277564992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bad8544426a8ca4db023caf9d1f0c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7950557211293258632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 307646191580843976, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
+  m_PrefabInstance: {fileID: 7643443355277564992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bad8544426a8ca4db023caf9d1f0c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8591381507216597709 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2101000462892465805, guid: 5af81e021e6de884b80560db0e402cff, type: 3}
