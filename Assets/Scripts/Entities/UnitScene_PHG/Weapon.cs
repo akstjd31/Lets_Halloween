@@ -42,6 +42,7 @@ public class Weapon : MonoBehaviour
             isProjectile = true;
         }
 
+        //생성되는 투사체에 데미지와 주체(플레이어유닛) 세팅
         for (int i=0; i<projectilePrefabs.Length; i++)
         {
             projectilePrefabs[i]=Instantiate(projectilePrefab,transform.position , Quaternion.identity);
@@ -55,6 +56,7 @@ public class Weapon : MonoBehaviour
             else 
             {
                 projectile.SetPower(playerUnit.Power);
+                projectile.SetPlayerUnit(playerUnit);
             }
         }
     }

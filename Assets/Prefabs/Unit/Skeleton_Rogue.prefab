@@ -704,8 +704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 12
-  maxHp: 10
+  moveSpeed: 15
+  maxHp: 40
   EnemyName: Enemy_Rogue
 --- !u!1 &2623842468762520641
 GameObject:

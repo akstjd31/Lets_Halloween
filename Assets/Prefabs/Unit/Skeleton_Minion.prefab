@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  maxHp: 12
+  maxHp: 60
   EnemyName: Enemy_Minion
 --- !u!1 &8496750027832224372
 GameObject:

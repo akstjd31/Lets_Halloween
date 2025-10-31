@@ -7,14 +7,13 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 
-public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
+public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 {
     [SerializeField] private AudioClip attackAudio;
     private Animator animator;
     private AudioSource audioSource;
 
     [SerializeField] private int power;
-
     public int Power => power;
 
     [SerializeField] private float attackDelay;
@@ -31,11 +30,22 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
     Weapon weapon;  //원거리타입 무기 가져옴
 
     EnemyUnit enemy;    //데미지를 줄 적유닛.
+    MyEnemyUnit myEnemy; //상태이상을 걸 플레이어 유닛
 
-    //상태이상
-    [SerializeField] PassiveStatusEffect statusEffects; 
-    [SerializeField] float statusEffectPercent;
+    Renderer render;
 
+    //유닛패시브스킬
+    [Header("PassiveSkill")]
+    [SerializeField] PassiveSkill passiveSkill; 
+    [SerializeField] float passiveSkillPercent;
+    private WaitForSeconds passiveSkillDuration;
+    [SerializeField] private float passiveSkillTime;
+    [SerializeField] private GameObject passiveSkillEffect;
+    private static bool isStatus;
+    private float statusEffectDelay = 0;    //상태이상 다시 걸기전까지의 딜레이
+
+    public PassiveSkill PassiveSkill => passiveSkill;
+    public float PassiveSkillPercent => passiveSkillPercent;
 
     //시작시 애니메이터 , 오디오 소스 가져옴
     private void Start()
@@ -43,12 +53,14 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         weapon = GetComponentInChildren<Weapon>();
+        passiveSkillDuration = new WaitForSeconds(passiveSkillTime);
     }
 
     //충돌 발생
+    //구분 이유 -> 타겟우선 -> Enemy
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Contains("Enemy"))
+        if (other.tag ==("Enemy"))
         {
             Debug.Log("적군 진입");
             isAttack = true;
@@ -56,8 +68,17 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
             attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
             target = other.gameObject;
             enemy = other.GetComponent<EnemyUnit>();
+            
         }
-
+        else if(other.tag== ("EnemyUnit"))
+        {
+            Debug.Log("적플레이어 진입");
+            isAttack = true;
+            transform.LookAt(other.transform);  //타겟을 바라봄
+            attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
+            target = other.gameObject;
+            myEnemy = other.GetComponent<MyEnemyUnit>();
+        }
     }
 
     private void Update()
@@ -111,36 +132,169 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
                     animator.SetTrigger($"Attack{randomActionIndex}");
 
                 }
-
                 attackTime = 0;
             }
         }
     }
 
-    public void ApplyStatusEffect(PassiveStatusEffect type, float effectTime)
+    public void ApplyStatusEffect(PassiveSkill type)
     {
-        //상태이상별 기능 
-        switch (type)
+        //적군유닛
+        if (enemy != null)
         {
+            //상태이상별 기능 
+            switch (type)
+            {
+                case PassiveSkill.Slow:  //아처에 추가할것
+                    StartCoroutine(Slow(enemy));
+                    break;
 
+                case PassiveSkill.Stun:  //마법사에 추가
+                    StartCoroutine(Stun(enemy));
+                    break;
+
+                case PassiveSkill.DoubleAttack:  //바바리안에 추가할것임
+                    StartCoroutine(DoubleAttack(enemy, power));
+                    break;
+            }
         }
+
+        //플레이어 적유닛
+        if (myEnemy != null)
+        {
+            //상태이상별 기능 
+            switch (type)
+            {
+                case PassiveSkill.Slow:  //아처에 추가할것
+                    StartCoroutine(Slow(myEnemy));
+                    break;
+
+                case PassiveSkill.Stun:  //마법사에 추가
+                    StartCoroutine(Stun(myEnemy));
+                    break;
+            }
+        }
+
     }
 
+ 
+    #region 플레이어 패시브 스킬
 
-
-    #region 플레이어가 가하는 상태이상 정의
-
-    private void Blood(EnemyUnit target)
+    //더블어택. 두번공격함
+    private IEnumerator DoubleAttack(EnemyUnit target , int Damage)
     {
+        if (target == null || !target.gameObject.activeSelf) yield break;
+
+        Debug.Log("더블어택 발동");
+        target.TakeDamage(Damage);
+
+        GameObject obj = Instantiate(passiveSkillEffect,target.transform.position,target.transform.rotation);
+
+        yield return passiveSkillDuration;
+
+        Destroy(obj);
 
     }
-    private void Stun(EnemyUnit target) 
-    {
-        
-    }
-    private void Slow(EnemyUnit target)
-    {
 
+    private IEnumerator Stun(EnemyUnit target) 
+    {
+        if (target == null || isStatus || !target.gameObject.activeSelf || target.MoveSpeed==0) yield break;
+
+        GameObject obj;
+        float originMoveSpeed = target.MoveSpeed;
+      
+        Debug.Log("스턴 발동");
+        isStatus = true;
+        obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
+        obj.transform.SetParent(target.transform);
+        target.StatusEffectColor(PassiveSkill); //유닛 마태리얼 색상변경
+
+        target.MoveSpeed = 0;
+
+        yield return passiveSkillDuration;
+
+        target.MoveSpeed = originMoveSpeed;
+        Destroy(obj);
+        Debug.Log("스턴 풀림");
+        target.ReturnStatusEffectColor();
+        isStatus = false;
+    }
+
+    //스턴오버로딩
+    private IEnumerator Stun(MyEnemyUnit target)
+    {
+        if (target == null || isStatus || !target.gameObject.activeSelf || target.MoveSpeed == 0) yield break;
+
+        GameObject obj;
+        float originMoveSpeed = target.MoveSpeed;
+
+        Debug.Log("스턴 발동");
+        isStatus = true;
+        obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
+        obj.transform.SetParent(target.transform);
+        target.StatusEffectColor(PassiveSkill); //유닛 마태리얼 색상변경
+
+        target.MoveSpeed = 0;
+
+        yield return passiveSkillDuration;
+
+        target.MoveSpeed = originMoveSpeed;
+        Destroy(obj);
+        Debug.Log("스턴 풀림");
+        target.ReturnStatusEffectColor();
+        isStatus = false;
+    }
+
+    private IEnumerator Slow(EnemyUnit target)
+    {
+        if (target == null || isStatus || !target.gameObject.activeSelf ) yield break;
+
+        float originMoveSpeed = target.MoveSpeed;
+        GameObject obj;
+
+        if (originMoveSpeed < target.MoveSpeed) yield break;
+
+        Debug.Log("슬로우 발동");
+        isStatus = true;
+        obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
+        target.MoveSpeed = target.MoveSpeed / 2;
+
+        target.StatusEffectColor(PassiveSkill); //유닛 마태리얼 색상변경
+
+
+        yield return passiveSkillDuration;
+
+        target.MoveSpeed = originMoveSpeed;
+        Destroy(obj);
+        Debug.Log("슬로우 풀림");
+        target.ReturnStatusEffectColor();
+        isStatus = false;
+    }
+
+    //오버로딩
+    private IEnumerator Slow(MyEnemyUnit target)
+    {
+        if (target == null || isStatus || !target.gameObject.activeSelf) yield break;
+
+        float originMoveSpeed = target.MoveSpeed;
+        GameObject obj;
+
+        if (originMoveSpeed < target.MoveSpeed) yield break;
+
+        Debug.Log("슬로우 발동");
+        isStatus = true;
+        obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
+        target.MoveSpeed = target.MoveSpeed / 2;
+
+        target.StatusEffectColor(PassiveSkill); //유닛 마태리얼 색상변경
+
+        yield return passiveSkillDuration;
+
+        target.MoveSpeed = originMoveSpeed;
+        Destroy(obj);
+        Debug.Log("슬로우 풀림");
+        target.ReturnStatusEffectColor();
+        isStatus = false;
     }
 
     #endregion
@@ -157,7 +311,27 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
     {
         if (enemy != null)
         {
+            float randomPercent = Random.Range(0f, 1f);
+
             enemy.TakeDamage(power);
+
+            //유닛 패시브 발동
+            if(randomPercent<=passiveSkillPercent)
+            {
+                ApplyStatusEffect(passiveSkill);
+            }
+        }
+
+        if(myEnemy != null)
+        {
+            float randomPercent = Random.Range(0f, 1f);
+
+            //유닛 패시브 발동
+            if (randomPercent <= passiveSkillPercent)
+            {
+                ApplyStatusEffect(passiveSkill);
+            }
+
         }
     }
 
@@ -166,8 +340,6 @@ public class PlayerUnit : MonoBehaviour , IStatusEffectUnitPassive
     {
         audioSource.Play();
     }
-
-  
     #endregion
 
 }

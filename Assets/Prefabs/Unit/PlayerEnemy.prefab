@@ -113,7 +113,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1188948869858280359}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 35, y: 0, z: -15}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
@@ -237,15 +237,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  rotateSpeed: 5
+  rotateSpeed: 1
   hp: 1
   EnemyName: MyEnemy
   myEnemyUnitArray:
-  - {fileID: 292420488402854220, guid: 7264f1a2844e97946903f1b8b27ac508, type: 3}
-  - {fileID: 8599573947495450858, guid: 578f3b6be84c21a42a3d29a1458cbf62, type: 3}
-  - {fileID: 816919481145115317, guid: d51128c48f37ce649aed2566c191100e, type: 3}
-  - {fileID: 991086113545292893, guid: 77d197b4ca1450847a6fcfd0f00567f6, type: 3}
-  - {fileID: 1113319050825641960, guid: 9bdb75fc3b0f0cd4798fc10053ce9464, type: 3}
+  - {fileID: 8268360959433101590, guid: 25bb83b547262774c855ddf062a7290e, type: 3}
+  - {fileID: 2358928595502070071, guid: 6140b39ff7a66264b93cf8bc2090aa96, type: 3}
+  - {fileID: 3384582700352060456, guid: a5ad52b625ec2064490244b3d0ece8b2, type: 3}
+  - {fileID: 8466669505737022287, guid: 9eaeaa67cea368f4abf41e8e10531b06, type: 3}
+  - {fileID: 2701038139692703968, guid: 7eac2bd3b5450904cbc18551a323b9c3, type: 3}
   roundClearText: {fileID: 0}
   spawnDelay: 1
   maxUnitCount: 20

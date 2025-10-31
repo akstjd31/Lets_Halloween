@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class MyEnemyUnit : MonoBehaviour
 {
-    //프로토타입
+    //moveSpeed rotateSpeed 동일
     [SerializeField] private float moveSpeed;
-    public float MoveSpeed => moveSpeed;
+    public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
-    [SerializeField] private float rotateSpeed;
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
@@ -27,15 +26,26 @@ public class MyEnemyUnit : MonoBehaviour
 
     //유닛 소환객체수 제한
     [SerializeField] private int maxUnitCount = 20;
-    private int currentUnitCount;   
-    //private Dictionary<EnemyUnit, Queue<EnemyUnit>> enemyPools; //적군 유닛 담아둘 Dic
-    
+    private int currentUnitCount;
+
+
+    List<Renderer> renderers = new List<Renderer>();    //렌더러 저장 (피격판정추가를위한)
+    List<Color> originalRenderColor = new List<Color>();
+
+
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
         roundClearText.SetActive(false);
         currentUnitCount = 0;
+
+        renderers.AddRange(GetComponentsInChildren<Renderer>());
+
+        foreach (var render in renderers)
+        {
+            originalRenderColor.Add(render.material.color); //원래색상 추가
+        }
     }
 
     private void OnEnable()
@@ -60,7 +70,36 @@ public class MyEnemyUnit : MonoBehaviour
             Debug.Log($"{gameObject.name} 끝지점 도달");
             ClearRound();
             gameObject.SetActive(false);
-            
+        }
+    }
+
+    //상태이상에 따른 유닛색상 지정
+    public void StatusEffectColor(PassiveSkill playerPassive)
+    {
+        switch (playerPassive)
+        {
+            case PassiveSkill.Slow:
+                foreach (var renderer in renderers)
+                {
+                    renderer.material.color = Color.blue;
+                }
+                break;
+
+            case PassiveSkill.Stun:
+                foreach (var renderer in renderers)
+                {
+                    renderer.material.color = Color.yellow;
+                }
+                break;
+        }
+    }
+
+    //색상 원상복귀
+    public void ReturnStatusEffectColor()
+    {
+        for (int i = 0; i < renderers.Count; i++)
+        {
+            renderers[i].material.color = originalRenderColor[i];
         }
     }
 
@@ -84,7 +123,7 @@ public class MyEnemyUnit : MonoBehaviour
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
         transform.position = Vector3.MoveTowards(transform.position,targetTransform.position,moveSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotateSpeed *Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeed * Time.deltaTime);
 
         if (direction == Vector3.zero)
         {
