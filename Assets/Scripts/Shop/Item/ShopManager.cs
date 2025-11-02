@@ -12,9 +12,9 @@ enum PlayStyle
 
 public class ShopManager : MonoBehaviour
 {
-    [Header("À¯´Ö ¸ñ·Ï")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½")]
     public PlayerUnit[] units;
-    [Header("½ºÅ³ ¸ñ·Ï")]
+    [Header("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½")]
     public SkillBase[] skills;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI[] infoText;
@@ -67,16 +67,15 @@ public class ShopManager : MonoBehaviour
 
     public void Buy()
     {
-       
         int price = checktype? skills[itemIndex].skillPrice : 500;
 
-        buttonText.text = "±¸ÀÔ °¡´É";
+        //buttonText.text = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
      
-        if(price > gold)
-        {
-            buttonText.text = "±Ý¾× ºÎÁ·";
-            return;
-        }
+        // if(price > gold)
+        // {
+        //     buttonText.text = "ï¿½Ý¾ï¿½ ï¿½ï¿½ï¿½ï¿½";
+        //     return;
+        // }
         
         gold -= price;
 

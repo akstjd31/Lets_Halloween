@@ -1,36 +1,68 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// 게임 흐름 FSM
 public enum GameState
 {
     Main, Prepare, Battle, Result
 }
 
+// 난이도
+public enum Difficulty
+{
+    Afternoon, Midnight, Hell
+}
+
+// 사용자가 선택한 데이터 정보가 담길 구조체
+public struct GameOptionData
+{
+    public Unit unit;
+    public FactionType factionType;
+    public Difficulty difficulty;
+}
+
 public class GameManager : Singleton<GameManager>
 {
+    public IFactionController selectedFactionController;
     [SerializeField] private PlayerFactionController playerFactionController;
     [SerializeField] private EnemyFactionController enemyFactionController;
     [SerializeField] private GameState currentState;
-    public FactionType selectedFactionType;    // 선택한 진영 타입 (플레이어의 주체가 누군지?)
-    [SerializeField] private float preparingTime = 10f;   // 임시로 설정
-    private IFactionController activeFaction;
-    private bool isFirstWave;                             // 첫 번째 웨이브인가?
+    [SerializeField] private float preparingTime;   // 임시로 설정
+
+    public GameOptionData gameOptionData;
+    private bool isFirstWave;                       // 첫 번째 웨이브인가?
+    public bool isGameOver;
+    public bool isGameClear;
+    private bool hasProcessed = false;
+
 
     // 준비 단계에서 남은 시간
-    [SerializeField] private float elapsedTime;
+    public float elapsedTime;
 
     private void Start()
     {
-        activeFaction = null;
+        isGameOver = false;
+        isGameClear = false;
         isFirstWave = true;
         elapsedTime = preparingTime;
-        
+
         UpdateState(GameState.Main);
     }
 
     private void Update()
     {
-        //activeFaction?.Update();
+        // 게임 오버 상태
+        if (isGameOver && !hasProcessed)
+        {
+            hasProcessed = true;
+            SceneManager.LoadScene("Defeat");
+        }
+
+        if (isGameClear && !hasProcessed)
+        {
+            hasProcessed = true;
+            SceneManager.LoadScene("Victory");
+        }
 
         // 각 상태에 따른 수행 부분
         switch (currentState)
@@ -38,14 +70,14 @@ public class GameManager : Singleton<GameManager>
             case GameState.Main:
                 break;
             case GameState.Prepare:
-                activeFaction?.PreparationPhase();
-                StartPreparing();
+                selectedFactionController?.PreparationPhase();
+                CalPreparingTime();
                 break;
             case GameState.Battle:
-                activeFaction?.BattlePhase();
+                selectedFactionController?.BattlePhase();
                 break;
             case GameState.Result:
-                activeFaction?.ResultPhase();
+                selectedFactionController?.ResultPhase();
                 break;
         }
     }
@@ -66,13 +98,10 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void InitPreparingTime()
-    {
-        elapsedTime = preparingTime;
-    }
-    
+    public void InitPreparingTime() => elapsedTime = preparingTime;
+
     // 준비시간 게산
-    private void StartPreparing()
+    private void CalPreparingTime()
     {
         if (!isFirstWave)
         {
@@ -90,30 +119,46 @@ public class GameManager : Singleton<GameManager>
     private void StartGame()
     {
         // 선택한 진영에 따른 컨트롤러 부여
-        activeFaction = selectedFactionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
+        selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
 
         // 씬 넘어가기
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("InGameScene");
     }
 
     // 다음 씬에서 초기화하기 위함
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "InGame")
+        if (scene.name != "InGameScene")
             return;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
 
-        // 해당 진영 선택 후 초기화, 준비 단계로 변경
-        activeFaction?.Initialize();
+        // 해당 진영 선택 후 초기화, 유닛 설정, 준비 단계로 변경
+        selectedFactionController?.Initialize();
+        gameOptionData.unit = selectedFactionController?.GetUnit();
         UpdateState(GameState.Prepare);
+
+        // endpoint 유닛 세팅
+        if (gameOptionData.unit != null)
+            FindFirstObjectByType<EnemyDeathEventHandler>().SetUnit(gameOptionData.unit);
     }
 
-    // 선택한 진영 (버튼 선택) - 임시
-    public void SelectFaction(int buttonIdx)
+    // 선택한 진영 (버튼 선택)
+    public void OnSelectFactionButtonClicked(int buttonIdx)
     {
-        selectedFactionType = (FactionType)buttonIdx;
+        gameOptionData.factionType = (FactionType)buttonIdx;
+    }
+
+    // 난이도 선택
+    public void OnSelectDifficultyButtonClicked(int buttonIdx)
+    {
+        gameOptionData.difficulty = (Difficulty)buttonIdx;
+    }
+
+    // 결정 버튼 누름
+    public void OnConfirmButtonClicked()
+    {
         StartGame();
     }
 }
