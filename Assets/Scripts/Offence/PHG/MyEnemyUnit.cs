@@ -1,6 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MyEnemyUnit : Unit
 {
@@ -11,11 +12,10 @@ public class MyEnemyUnit : Unit
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
-    [SerializeField] private int maxHp;
-    [SerializeField] private int currentHp;
+    [SerializeField] private int hp;
     [SerializeField] private string EnemyName;
 
-    //???????? ?��???? ??�N????
+    //???????? ?占쏙옙???? ??占폧????
     [SerializeField] private GameObject[] myEnemyUnitArray;
 
     //?? ???? ??????
@@ -30,19 +30,12 @@ public class MyEnemyUnit : Unit
     List<Renderer> renderers = new List<Renderer>();    //?????? ???? (????????????????)
     List<Color> originalRenderColor = new List<Color>();
 
-    private UIManager uiManager;
-
-    private void Awake()
-    {
-        uiManager = GameManager.FindFirstObjectByType<UIManager>();
-    }
 
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
         currentUnitCount = 0;
-        currentHp = maxHp;
 
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
@@ -57,16 +50,14 @@ public class MyEnemyUnit : Unit
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
     }
 
-    //????????? ?��???
+    //????????? ?占쏙옙???
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("Waypoints"))
+        if (other.name.Contains("WayPoint"))
         {
             if (wayPointBox == null) { return; }
 
             currentWayPointIndex++;
-
-            if (currentWayPointIndex >= wayPointBox.childCount) { currentWayPointIndex = 0; }
         }
 
         if(other.tag=="EndPoint")
@@ -117,17 +108,10 @@ public class MyEnemyUnit : Unit
         }
     }
 
-    public override void TakeDamage(int amount)
-    {
-        currentHp -= amount;
-        if (currentHp <= 0)
-            GameManager.Instance.isGameOver = true;
-    }
-
     //??????? ???
     private void MoveObj()
     {
-        if (wayPointBox == null) { return; }
+        if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount) { return; }
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
@@ -167,7 +151,7 @@ public class MyEnemyUnit : Unit
         }
     }
 
-    //???��? ???? ???? ???
+    //???占쏙옙? ???? ???? ???
     private void SpawnUnit(int mobIndex, int WayPointIndex)
     {
         if (spawnTime >= spawnDelay)

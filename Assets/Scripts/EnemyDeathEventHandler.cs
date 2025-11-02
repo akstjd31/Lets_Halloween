@@ -47,10 +47,8 @@ public class EnemyDeathEventHandler : MonoBehaviour
             {
                 if (hit.collider.CompareTag("EnemyUnit"))
                 {
-                    HandleEnemyCollision(hit.collider);
                     GameManager.Instance.UpdateState(GameState.Result);
                     GameManager.Instance.isGameClear = true;
-                    Destroy(this.gameObject);
                 }
             }
             else
@@ -60,9 +58,10 @@ public class EnemyDeathEventHandler : MonoBehaviour
                     HandleEnemyCollision(hit.collider);
                 }
                 // 보스일 떄
-                else
+                else if (hit.collider.CompareTag("EnemyUnit"))
                 {
-                    
+                    GameManager.Instance.UpdateState(GameState.Result);
+                    GameManager.Instance.isGameOver = true;
                 }
             }
         }
