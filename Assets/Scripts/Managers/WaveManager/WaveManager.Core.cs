@@ -73,7 +73,7 @@ public partial class WaveManager
         onWaveEnded?.Invoke();
     }
 
-    private void OnEnemyDeactivated(Enemy enemy)
+    public void OnEnemyDeactivated(Enemy enemy)
     {
         if (enemy == null)
             return;

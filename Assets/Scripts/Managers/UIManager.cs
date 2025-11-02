@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
 
     [Header("ShopUI")]
     [SerializeField] private GameObject shopUI;
-    [SerializeField] private Button shopButton;
+    private Button shopButton;
 
 
     [Header("Prefab")]

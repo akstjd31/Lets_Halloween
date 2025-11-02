@@ -2308,7 +2308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeedOrigin: 10
   maxHp: 50
   EnemyName: Enemy_Mage
 --- !u!114 &1329288794771631697

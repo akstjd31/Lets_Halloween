@@ -6,10 +6,10 @@ using UnityEngine;
 public class EnemyUnit : MonoBehaviour
 {
     //프로토타입
-    [SerializeField] private float moveSpeed;   //회전속도는 이동속도와 같게 맞출것
+    public float moveSpeedOrigin;   //회전속도는 이동속도와 같게 맞출것
 
-    public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
-
+    public float MoveSpeed { get; set; }
+    
 
     private int currentWayPointIndex = 0;
 
@@ -32,7 +32,8 @@ public class EnemyUnit : MonoBehaviour
     
     private void Start()
     {
-        wayPointBox = GameObject.Find("Waypoints").transform;
+        MoveSpeed = moveSpeedOrigin;
+        wayPointBox = GameObject.Find("WayPoint").transform;
         animator = GetComponent<Animator>();
         currentHp = maxHp;
         renderers.AddRange(GetComponentsInChildren<Renderer>());
@@ -44,15 +45,10 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        
-    }
-
     //웨이포인트 충돌처리
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("Waypoints"))
+        if (other.name.Contains("WayPoint"))
         {
             if (wayPointBox == null) { return; }
 
@@ -69,9 +65,16 @@ public class EnemyUnit : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+        isDie = false;
+        MoveSpeed = moveSpeedOrigin;
+    }
+
     private void Update()
     {
-        MoveObj();
+        if (!isDie)
+            MoveObj();
     }
 
     //오브젝트 이동
@@ -82,8 +85,8 @@ public class EnemyUnit : MonoBehaviour
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
-        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position,moveSpeed * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position, moveSpeedOrigin * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeedOrigin * Time.deltaTime);
 
         if (direction == Vector3.zero)
         {
@@ -98,7 +101,7 @@ public class EnemyUnit : MonoBehaviour
 
         if (currentHp <= 0 && isDie==false)
         {
-            moveSpeed = 0;
+            MoveSpeed = 0;
             isDie = true;
             animator.SetTrigger("Die");
         }
@@ -144,7 +147,7 @@ public class EnemyUnit : MonoBehaviour
     void Die()
     {
         //Destroy(gameObject);
-       gameObject.SetActive(false);   
+        WaveManager.Instance.OnEnemyDeactivated(this.GetComponent<Enemy>()); 
     }
 
     public void Teleport()
