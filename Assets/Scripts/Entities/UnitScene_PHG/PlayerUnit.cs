@@ -19,22 +19,22 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     [SerializeField] private float attackDelay;
     private float attackTime;
 
-    private bool isPlayerUnit; // ì§„ì˜ì—ë”°ë¥¸ í”Œë ˆì´ì–´ìœ ë‹› / ì êµ°ìœ ë‹› êµ¬ë¶„
+    private bool isPlayerUnit; // Áø¿µ¿¡µû¸¥ ÇÃ·¹ÀÌ¾îÀ¯´Ö / Àû±ºÀ¯´Ö ±¸ºĞ
 
     private bool isAttack;
 
-    private int lastAttackIndex;    //ë§ˆì§€ë§‰ìœ¼ë¡œ ê³µê²©í•œ ëª¨ì…˜ ì¸ë±ìŠ¤
+    private int lastAttackIndex;    //¸¶Áö¸·À¸·Î °ø°İÇÑ ¸ğ¼Ç ÀÎµ¦½º
 
     private GameObject target;
 
-    Weapon weapon;  //ì›ê±°ë¦¬íƒ€ì… ë¬´ê¸° ê°€ì ¸ì˜´
+    Weapon weapon;  //¿ø°Å¸®Å¸ÀÔ ¹«±â °¡Á®¿È
 
-    EnemyUnit enemy;    //ë°ë¯¸ì§€ë¥¼ ì¤„ ì ìœ ë‹›.
-    MyEnemyUnit myEnemy; //ìƒíƒœì´ìƒì„ ê±¸ í”Œë ˆì´ì–´ ìœ ë‹›
+    EnemyUnit enemy;    //µ¥¹ÌÁö¸¦ ÁÙ ÀûÀ¯´Ö.
+    MyEnemyUnit myEnemy; //»óÅÂÀÌ»óÀ» °É ÇÃ·¹ÀÌ¾î À¯´Ö
 
     Renderer render;
 
-    //ìœ ë‹›íŒ¨ì‹œë¸ŒìŠ¤í‚¬
+    //À¯´ÖÆĞ½Ãºê½ºÅ³
     [Header("PassiveSkill")]
     [SerializeField] PassiveSkill passiveSkill; 
     [SerializeField] float passiveSkillPercent;
@@ -42,12 +42,12 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     [SerializeField] private float passiveSkillTime;
     [SerializeField] private GameObject passiveSkillEffect;
     private static bool isStatus;
-    private float statusEffectDelay = 0;    //ìƒíƒœì´ìƒ ë‹¤ì‹œ ê±¸ê¸°ì „ê¹Œì§€ì˜ ë”œë ˆì´
+    private float statusEffectDelay = 0;    //»óÅÂÀÌ»ó ´Ù½Ã °É±âÀü±îÁöÀÇ µô·¹ÀÌ
 
     public PassiveSkill PassiveSkill => passiveSkill;
     public float PassiveSkillPercent => passiveSkillPercent;
 
-    //ì‹œì‘ì‹œ ì• ë‹ˆë©”ì´í„° , ì˜¤ë””ì˜¤ ì†ŒìŠ¤ ê°€ì ¸ì˜´
+    //½ÃÀÛ½Ã ¾Ö´Ï¸ŞÀÌÅÍ , ¿Àµğ¿À ¼Ò½º °¡Á®¿È
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -56,26 +56,26 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         passiveSkillDuration = new WaitForSeconds(passiveSkillTime);
     }
 
-    //ì¶©ëŒ ë°œìƒ
-    //êµ¬ë¶„ ì´ìœ  -> íƒ€ê²Ÿìš°ì„  -> Enemy
+    //Ãæµ¹ ¹ß»ı
+    //±¸ºĞ ÀÌÀ¯ -> Å¸°Ù¿ì¼± -> Enemy
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag ==("Enemy"))
         {
-            Debug.Log("ì êµ° ì§„ì…");
+            Debug.Log("Àû±º ÁøÀÔ");
             isAttack = true;
-            transform.LookAt(other.transform);  //íƒ€ê²Ÿì„ ë°”ë¼ë´„
-            attackTime = attackDelay;   //ì êµ° ë°”ë¡œê³µê²©í• ìˆ˜ìˆê²Œ ì¿¨íƒ€ì„ ì¶©ì „
+            transform.LookAt(other.transform);  //Å¸°ÙÀ» ¹Ù¶óº½
+            attackTime = attackDelay;   //Àû±º ¹Ù·Î°ø°İÇÒ¼öÀÖ°Ô ÄğÅ¸ÀÓ ÃæÀü
             target = other.gameObject;
             enemy = other.GetComponent<EnemyUnit>();
             
         }
         else if(other.tag== ("EnemyUnit"))
         {
-            Debug.Log("ì í”Œë ˆì´ì–´ ì§„ì…");
+            Debug.Log("ÀûÇÃ·¹ÀÌ¾î ÁøÀÔ");
             isAttack = true;
-            transform.LookAt(other.transform);  //íƒ€ê²Ÿì„ ë°”ë¼ë´„
-            attackTime = attackDelay;   //ì êµ° ë°”ë¡œê³µê²©í• ìˆ˜ìˆê²Œ ì¿¨íƒ€ì„ ì¶©ì „
+            transform.LookAt(other.transform);  //Å¸°ÙÀ» ¹Ù¶óº½
+            attackTime = attackDelay;   //Àû±º ¹Ù·Î°ø°İÇÒ¼öÀÖ°Ô ÄğÅ¸ÀÓ ÃæÀü
             target = other.gameObject;
             myEnemy = other.GetComponent<MyEnemyUnit>();
         }
@@ -83,14 +83,14 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
     private void Update()
     {
-        if (isAttack && target.activeSelf)  // í˜„ì¬ ê³µê²© ëŒ€ìƒì´ ì¡´ì¬í•  ë•Œë§Œ íšŒì „
+        if (isAttack && target.activeSelf)  // ÇöÀç °ø°İ ´ë»óÀÌ Á¸ÀçÇÒ ¶§¸¸ È¸Àü
         {
             transform.LookAt(target.transform);
             Attack();   
         }
     }
 
-    // ì ì´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ë©´ ì •ì§€ìƒíƒœë¡œ ëŒì…
+    // ÀûÀÌ ¹üÀ§¸¦ ¹ş¾î³ª¸é Á¤Áö»óÅÂ·Î µ¹ÀÔ
     private void OnTriggerExit(Collider other)
     {
         if (other.tag.Contains("Enemy"))
@@ -101,22 +101,22 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
     void Attack()
     {
-        if (isAttack == true && target != null)   //ì ì´ ë²”ìœ„ì•ˆì—ìˆìŒ
+        if (isAttack == true && target != null)   //ÀûÀÌ ¹üÀ§¾È¿¡ÀÖÀ½
         {
             attackTime += Time.deltaTime;
 
             if (attackTime >= attackDelay)
             {
               
-                //í˜„ì¬ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœ ê°€ì ¸ì˜´
+                //ÇöÀç ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ °¡Á®¿È
                 AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
                 if (!state.IsTag("Attack"))
                 {
-                    int randomActionIndex;    //í–‰ë™í•  ëœë¤ì¸ë±ìŠ¤ 
+                    int randomActionIndex;    //Çàµ¿ÇÒ ·£´ıÀÎµ¦½º 
                     do
                     {
-                        if (weapon != null)    //ë¬´ê¸° ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìœ¼ë©´ ê·¼ê±°ë¦¬ ìœ ë‹› . ëª¨ì…˜ 0~3
+                        if (weapon != null)    //¹«±â ÄÄÆ÷³ÍÆ®°¡ ¾øÀ¸¸é ±Ù°Å¸® À¯´Ö . ¸ğ¼Ç 0~3
                         {
                             randomActionIndex = Random.Range(0, 2);
                         }
@@ -139,37 +139,37 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
     public void ApplyStatusEffect(PassiveSkill type)
     {
-        //ì êµ°ìœ ë‹›
+        //Àû±ºÀ¯´Ö
         if (enemy != null)
         {
-            //ìƒíƒœì´ìƒë³„ ê¸°ëŠ¥ 
+            //»óÅÂÀÌ»óº° ±â´É 
             switch (type)
             {
-                case PassiveSkill.Slow:  //ì•„ì²˜ì— ì¶”ê°€í• ê²ƒ
+                case PassiveSkill.Slow:  //¾ÆÃ³¿¡ Ãß°¡ÇÒ°Í
                     StartCoroutine(Slow(enemy));
                     break;
 
-                case PassiveSkill.Stun:  //ë§ˆë²•ì‚¬ì— ì¶”ê°€
+                case PassiveSkill.Stun:  //¸¶¹ı»ç¿¡ Ãß°¡
                     StartCoroutine(Stun(enemy));
                     break;
 
-                case PassiveSkill.DoubleAttack:  //ë°”ë°”ë¦¬ì•ˆì— ì¶”ê°€í• ê²ƒì„
+                case PassiveSkill.DoubleAttack:  //¹Ù¹Ù¸®¾È¿¡ Ãß°¡ÇÒ°ÍÀÓ
                     StartCoroutine(DoubleAttack(enemy, power));
                     break;
             }
         }
 
-        //í”Œë ˆì´ì–´ ì ìœ ë‹›
+        //ÇÃ·¹ÀÌ¾î ÀûÀ¯´Ö
         if (myEnemy != null)
         {
-            //ìƒíƒœì´ìƒë³„ ê¸°ëŠ¥ 
+            //»óÅÂÀÌ»óº° ±â´É 
             switch (type)
             {
-                case PassiveSkill.Slow:  //ì•„ì²˜ì— ì¶”ê°€í• ê²ƒ
+                case PassiveSkill.Slow:  //¾ÆÃ³¿¡ Ãß°¡ÇÒ°Í
                     StartCoroutine(Slow(myEnemy));
                     break;
 
-                case PassiveSkill.Stun:  //ë§ˆë²•ì‚¬ì— ì¶”ê°€
+                case PassiveSkill.Stun:  //¸¶¹ı»ç¿¡ Ãß°¡
                     StartCoroutine(Stun(myEnemy));
                     break;
             }
@@ -178,14 +178,14 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     }
 
  
-    #region í”Œë ˆì´ì–´ íŒ¨ì‹œë¸Œ ìŠ¤í‚¬
+    #region ÇÃ·¹ÀÌ¾î ÆĞ½Ãºê ½ºÅ³
 
-    //ë”ë¸”ì–´íƒ. ë‘ë²ˆê³µê²©í•¨
+    //´õºí¾îÅÃ. µÎ¹ø°ø°İÇÔ
     private IEnumerator DoubleAttack(EnemyUnit target , int Damage)
     {
         if (target == null || !target.gameObject.activeSelf) yield break;
 
-        Debug.Log("ë”ë¸”ì–´íƒ ë°œë™");
+        Debug.Log("´õºí¾îÅÃ ¹ßµ¿");
         target.TakeDamage(Damage);
 
         GameObject obj = Instantiate(passiveSkillEffect,target.transform.position,target.transform.rotation);
@@ -203,11 +203,11 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         GameObject obj;
         float originMoveSpeed = target.MoveSpeed;
       
-        Debug.Log("ìŠ¤í„´ ë°œë™");
+        Debug.Log("½ºÅÏ ¹ßµ¿");
         isStatus = true;
         obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
         obj.transform.SetParent(target.transform);
-        target.StatusEffectColor(PassiveSkill); //ìœ ë‹› ë§ˆíƒœë¦¬ì–¼ ìƒ‰ìƒë³€ê²½
+        target.StatusEffectColor(PassiveSkill); //À¯´Ö ¸¶ÅÂ¸®¾ó »ö»óº¯°æ
 
         target.MoveSpeed = 0;
 
@@ -215,12 +215,12 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
         target.MoveSpeed = originMoveSpeed;
         Destroy(obj);
-        Debug.Log("ìŠ¤í„´ í’€ë¦¼");
+        Debug.Log("½ºÅÏ Ç®¸²");
         target.ReturnStatusEffectColor();
         isStatus = false;
     }
 
-    //ìŠ¤í„´ì˜¤ë²„ë¡œë”©
+    //½ºÅÏ¿À¹ö·Îµù
     private IEnumerator Stun(MyEnemyUnit target)
     {
         if (target == null || isStatus || !target.gameObject.activeSelf || target.MoveSpeed == 0) yield break;
@@ -228,11 +228,11 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         GameObject obj;
         float originMoveSpeed = target.MoveSpeed;
 
-        Debug.Log("ìŠ¤í„´ ë°œë™");
+        Debug.Log("½ºÅÏ ¹ßµ¿");
         isStatus = true;
         obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
         obj.transform.SetParent(target.transform);
-        target.StatusEffectColor(PassiveSkill); //ìœ ë‹› ë§ˆíƒœë¦¬ì–¼ ìƒ‰ìƒë³€ê²½
+        target.StatusEffectColor(PassiveSkill); //À¯´Ö ¸¶ÅÂ¸®¾ó »ö»óº¯°æ
 
         target.MoveSpeed = 0;
 
@@ -240,7 +240,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
         target.MoveSpeed = originMoveSpeed;
         Destroy(obj);
-        Debug.Log("ìŠ¤í„´ í’€ë¦¼");
+        Debug.Log("½ºÅÏ Ç®¸²");
         target.ReturnStatusEffectColor();
         isStatus = false;
     }
@@ -254,24 +254,24 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
         if (originMoveSpeed < target.MoveSpeed) yield break;
 
-        Debug.Log("ìŠ¬ë¡œìš° ë°œë™");
+        Debug.Log("½½·Î¿ì ¹ßµ¿");
         isStatus = true;
         obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
         target.MoveSpeed = target.MoveSpeed / 2;
 
-        target.StatusEffectColor(PassiveSkill); //ìœ ë‹› ë§ˆíƒœë¦¬ì–¼ ìƒ‰ìƒë³€ê²½
+        target.StatusEffectColor(PassiveSkill); //À¯´Ö ¸¶ÅÂ¸®¾ó »ö»óº¯°æ
 
 
         yield return passiveSkillDuration;
 
         target.MoveSpeed = originMoveSpeed;
         Destroy(obj);
-        Debug.Log("ìŠ¬ë¡œìš° í’€ë¦¼");
+        Debug.Log("½½·Î¿ì Ç®¸²");
         target.ReturnStatusEffectColor();
         isStatus = false;
     }
 
-    //ì˜¤ë²„ë¡œë”©
+    //¿À¹ö·Îµù
     private IEnumerator Slow(MyEnemyUnit target)
     {
         if (target == null || isStatus || !target.gameObject.activeSelf) yield break;
@@ -281,27 +281,27 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
         if (originMoveSpeed < target.MoveSpeed) yield break;
 
-        Debug.Log("ìŠ¬ë¡œìš° ë°œë™");
+        Debug.Log("½½·Î¿ì ¹ßµ¿");
         isStatus = true;
         obj = Instantiate(passiveSkillEffect, target.transform.position, target.transform.rotation);
         target.MoveSpeed = target.MoveSpeed / 2;
 
-        target.StatusEffectColor(PassiveSkill); //ìœ ë‹› ë§ˆíƒœë¦¬ì–¼ ìƒ‰ìƒë³€ê²½
+        target.StatusEffectColor(PassiveSkill); //À¯´Ö ¸¶ÅÂ¸®¾ó »ö»óº¯°æ
 
         yield return passiveSkillDuration;
 
         target.MoveSpeed = originMoveSpeed;
         Destroy(obj);
-        Debug.Log("ìŠ¬ë¡œìš° í’€ë¦¼");
+        Debug.Log("½½·Î¿ì Ç®¸²");
         target.ReturnStatusEffectColor();
         isStatus = false;
     }
 
     #endregion
 
-    #region ìœ ë‹ˆí‹° ì• ë‹ˆë©”ì´ì…˜ í•¨ìˆ˜
+    #region À¯´ÏÆ¼ ¾Ö´Ï¸ŞÀÌ¼Ç ÇÔ¼ö
 
-    //ìœ ë‹ˆí‹° ì• ë‹ˆë©”ì´ì…˜ í•¨ìˆ˜
+    //À¯´ÏÆ¼ ¾Ö´Ï¸ŞÀÌ¼Ç ÇÔ¼ö
     void Shoot()
     {
         weapon.Shoot(target.transform);
@@ -315,7 +315,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
             enemy.TakeDamage(power);
 
-            //ìœ ë‹› íŒ¨ì‹œë¸Œ ë°œë™
+            //À¯´Ö ÆĞ½Ãºê ¹ßµ¿
             if(randomPercent<=passiveSkillPercent)
             {
                 ApplyStatusEffect(passiveSkill);
@@ -326,7 +326,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         {
             float randomPercent = Random.Range(0f, 1f);
 
-            //ìœ ë‹› íŒ¨ì‹œë¸Œ ë°œë™
+            //À¯´Ö ÆĞ½Ãºê ¹ßµ¿
             if (randomPercent <= passiveSkillPercent)
             {
                 ApplyStatusEffect(passiveSkill);
@@ -335,7 +335,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         }
     }
 
-    //íš¨ê³¼ìŒ ì¬ìƒ
+    //È¿°úÀ½ Àç»ı
     void AttackSound()
     {
         audioSource.Play();

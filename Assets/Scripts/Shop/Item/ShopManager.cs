@@ -12,9 +12,9 @@ enum PlayStyle
 
 public class ShopManager : MonoBehaviour
 {
-    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½")]
+    // [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½")]
     public PlayerUnit[] units;
-    [Header("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½")]
+    // [Header("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½")]
     public SkillBase[] skills;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI[] infoText;
@@ -41,28 +41,28 @@ public class ShopManager : MonoBehaviour
 
     public void UnitInfo()
     {
-        infoText[0].text = units[itemIndex].name; // ÀÌ¸§
-        infoText[1].text = units[itemIndex].name; // °ø°Ý·Â
-        infoText[2].text = units[itemIndex].name; // °ø°Ý¼Óµµ
-        infoText[3].text = units[itemIndex].name; // °ø°ÝÅ¸ÀÔ
-        infoText[4].text = units[itemIndex].name; // ÀÌ¸§
-        infoText[5].text = units[itemIndex].name; // ÀÌ¸§
+        infoText[0].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
+        infoText[1].text = units[itemIndex].name; // ï¿½ï¿½ï¿½Ý·ï¿½
+        infoText[2].text = units[itemIndex].name; // ï¿½ï¿½ï¿½Ý¼Óµï¿½
+        infoText[3].text = units[itemIndex].name; // ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+        infoText[4].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
+        infoText[5].text = units[itemIndex].name; // ï¿½Ì¸ï¿½
     }
     public void SkillInfo()
     {
-        Debug.Log("Ã³À½ Àß ºÒ·¯¿ÍÁü");
-        infoText[0].text = skills[itemIndex].skillName; // ÀÌ¸§
-        Debug.Log("½ºÅ³ ÀÌ¸§ ºÒ·¯¿ÍÁü");
-        infoText[1].text = skills[itemIndex].name; // È¿°ú
-        Debug.Log("½ºÅ³ È¿°ú ºÒ·¯¿ÍÁü");
-        infoText[2].text = skills[itemIndex].name; // ½ºÅ³
-        Debug.Log("½ºÅ³ ½ºÅ³ ºÒ·¯¿ÍÁü");
-        infoText[3].text = skills[itemIndex].skillCooldown.ToString(); // ÄðÅ¸ÀÓ
-        Debug.Log("½ºÅ³ ÄðÅ¸ÀÓ ºÒ·¯¿ÍÁü");
-        infoText[4].text = skills[itemIndex].skillDuration.ToString(); // Áö¼Ó½Ã°£
-        Debug.Log("½ºÅ³ Áö¼Ó½Ã°£ ºÒ·¯¿ÍÁü");
-        infoText[5].text = skills[itemIndex].skillPrice.ToString(); // °¡°Ý
-        Debug.Log("½ºÅ³ °¡°Ý ºÒ·¯¿ÍÁü");
+        Debug.Log("Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[0].text = skills[itemIndex].skillName; // ï¿½Ì¸ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½Ì¸ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[1].text = skills[itemIndex].name; // È¿ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ È¿ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[2].text = skills[itemIndex].name; // ï¿½ï¿½Å³
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½Å³ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[3].text = skills[itemIndex].skillCooldown.ToString(); // ï¿½ï¿½Å¸ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[4].text = skills[itemIndex].skillDuration.ToString(); // ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½Ó½Ã°ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
+        infoText[5].text = skills[itemIndex].skillPrice.ToString(); // ï¿½ï¿½ï¿½ï¿½
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
 
     public void Buy()
