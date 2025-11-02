@@ -33,9 +33,8 @@ public class SkillCoolDown : MonoBehaviour
     {
         if (isActivate == true)
         {
-            _animator.SetFloat("Cooldown", skillObj.skillCooldown / 100f);
-            Debug.Log(_animator.GetFloat("Cooldown"));
-            _animator.SetTrigger("UseSkill");
+            _animator.speed = 1f / skillObj.skillCooldown;
+            _animator.Play("CoolTimeAnim", -1, 0f);
         }
     }
 

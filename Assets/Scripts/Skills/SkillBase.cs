@@ -10,7 +10,7 @@ public class SkillBase : MonoBehaviour, ISkil
     [SerializeField] public float skillCooldown;
     [SerializeField] public float skillDuration;
     [SerializeField] public float skillRange;
-    [SerializeField] public int skillprice;
+    [SerializeField] public int skillPrice;
 
     public string _name { get; set; }              // 이름
     public float _cooldown { get; set; }           // 쿨타임
@@ -22,11 +22,11 @@ public class SkillBase : MonoBehaviour, ISkil
 
     protected bool endSkill = false;
 
-    private new SphereCollider collider;
+    public SphereCollider collider;
 
     private float _durationTime = 0;
 
-    void Start()
+    virtual public void Start()
     {
         IsReady = true;
 
@@ -56,8 +56,8 @@ public class SkillBase : MonoBehaviour, ISkil
         {
             endSkill = true;
         }
-        Debug.Log($"지속시간{_duration}");
-        Debug.Log($"지속{_currentDuration}");
+        //Debug.Log($"지속시간{_duration}");
+        //Debug.Log($"지속{_currentDuration}");
     }
     public void StartTime()
     {

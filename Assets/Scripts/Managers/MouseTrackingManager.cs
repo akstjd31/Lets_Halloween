@@ -1,6 +1,7 @@
 using Palmmedia.ReportGenerator.Core.Reporting.Builders.Rendering;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -9,7 +10,7 @@ using UnityEngine.UIElements;
 
 public class MouseTrackingManager : Singleton<MouseTrackingManager>
 {
-    [SerializeField] private GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
+    [SerializeField] public GameObject targetObject; // 설치될 위치를 보여줄 프리뷰 오브젝트
     GameObject target;
     Renderer targetColor;
 
@@ -93,18 +94,38 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
+
+        if (!Physics.Raycast(ray, out hit, Mathf.Infinity, layermask, QueryTriggerInteraction.Ignore))
+        {
+            yield break;
+        }
+
         // 지정된 레이어에 적중시
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
         {
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
 
+            var targetRange = target.transform.Find("Range").gameObject;
+
+            Transform rangeScale = targetRange.GetComponent<Transform>();
+
+            rangeScale.localScale = new Vector3(ActivateSkillObject.skillRange*2,1, ActivateSkillObject.skillRange*2);
+
+
             targetColor = target.GetComponent<Renderer>();
-            
+
             while (!isClick)
             {
                 Ray rayTarget = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitTarget;
-                if (Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity,layermask))
+
+                if (!Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask, QueryTriggerInteraction.Ignore))
+                {
+                    yield return null;
+                    continue;
+                }
+
+                if (Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask))
                 {
                     // 마우스 위치로 계속 좌표 위치를 변환
                     target.transform.position = hitTarget.point;
@@ -120,11 +141,11 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     {
                         Vector3 halfExtents = targetColor.bounds.extents;
 
-                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents , Vector3.down, target.transform.rotation, 10f, activateMask,QueryTriggerInteraction.Ignore);
+                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents, Vector3.down, target.transform.rotation, 10f, activateMask, QueryTriggerInteraction.Ignore);
                         //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
                         if (overActivate)
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target ,new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("유닛 겹침");
                             clickEnable = false;
                             yield return null;
@@ -132,11 +153,11 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                         }
                     }
 
-                    if (onMouseMap ==true && onBuild == true)
+                    if (onMouseMap == true && onBuild == true)
                     {
                         if (target.tag == "PlayerUnit")
                         {
-                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // 초록색
                             clickEnable = true;
                             Debug.Log("타워 설치 지역 현재 플레이어 초록색");
 
@@ -144,7 +165,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                         else if (target.tag == "Skill")
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("타워 설치 지역 현재 스킬 빨간색");
                             clickEnable = false;
                         }
@@ -156,14 +177,14 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     {
                         if (target.tag == "PlayerUnit")
                         {
-                            targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                             Debug.Log("길 지역 현재 플레이어 빨간색");
                             clickEnable = false;
                         }
 
                         else if (target.tag == "Skill")
                         {
-                            targetColor.material.color = new Color(0, 1, 0, 0.5f); // 초록색
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // 초록색
                             Debug.Log("길 지역 현재 스킬 초록색");
                             clickEnable = true;
                         }
@@ -172,7 +193,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     else
                     {
-                        targetColor.material.color = new Color(1, 0, 0, 0.5f); // 빨간색
+                        SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
                         Debug.Log("그외 지역 빨간색");
                         clickEnable = false;
                     }
@@ -180,6 +201,27 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     yield return null;
                 }
             }
+            
+        }
+    }
+
+    void SetColorRecursive(GameObject obj, Color color)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer r in renderers)
+        {
+            Material[] materials = r.materials;
+
+            foreach (Material m in materials)
+            {
+                m.SetColor("_Color", color);
+            }
+
+            //if (r != null && r.material != null)
+            //{
+            //    r.material.color = color;
+            //}
         }
     }
 

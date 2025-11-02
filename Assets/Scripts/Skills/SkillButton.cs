@@ -9,6 +9,7 @@ public class SkillButton : ParentButton
     [SerializeField] private int skillCount;
     [SerializeField] public SkillBase skillPrefab;
     private TextMeshProUGUI countText;
+    [SerializeField] public GameObject PreviewObj;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class SkillButton : ParentButton
             countText.text = skillCount.ToString();
 
         button.interactable = skillCount > 0;
+        Debug.Log(skillCount);
     }
 
     public override void OnClickButton()
@@ -34,7 +36,7 @@ public class SkillButton : ParentButton
 
         base.OnClickButton(); // �θ𿡼� ȣ��
         var skillCoolDownAnim = transform.GetComponentInChildren<SkillCoolDown>();
-        
+        MouseTrackingManager.Instance.targetObject = PreviewObj;
         MouseTrackingManager.Instance.SpawnTargetSkill(skillPrefab);
         MouseTrackingManager.Instance.SetAnim(skillCoolDownAnim);
     }
