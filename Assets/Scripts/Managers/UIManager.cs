@@ -66,11 +66,12 @@ public class UIManager : MonoBehaviour
 
             Unit unit = GameManager.Instance.gameOptionData.unit;
             moneyText.text = (unit as Player)?.Money.ToString("N0");
-            
+
             SetPreparingTimer();
         }
 
-        UpdatePlayerLifeUI(3, 3);
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Player))
+            UpdatePlayerLifeUI(3, 3);
         
         if (WaveManager.Instance != null)
         {
@@ -154,7 +155,7 @@ public class UIManager : MonoBehaviour
     private void UIActiveSetting(bool active)
     {
         preparingButton.gameObject.SetActive(active);
-        preparingTimer.transform.parent.gameObject.SetActive(active);
+        //preparingTimer.transform.parent.gameObject.SetActive(active);
         shopButton.transform.parent.gameObject.SetActive(active);
     }
 }

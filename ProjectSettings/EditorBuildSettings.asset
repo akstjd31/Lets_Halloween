@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Offence_Easy.unity
     guid: 8b7397f1b1c5daa45a88310aa9233529
   - enabled: 1
-    path: Assets/Scenes/Deffence.unity
+    path: Assets/Scenes/Deffence/Deffence_Easy.unity
     guid: c6b7c37328e1b434eb05677f349612a3
   - enabled: 1
     path: Assets/Scenes/Victory.unity
