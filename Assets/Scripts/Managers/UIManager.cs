@@ -154,7 +154,7 @@ public class UIManager : MonoBehaviour
     private void UIActiveSetting(bool active)
     {
         preparingButton.gameObject.SetActive(active);
-        preparingTimer.transform.parent.gameObject.SetActive(active);
+        //preparingTimer.transform.parent.gameObject.SetActive(active);
         shopButton.transform.parent.gameObject.SetActive(active);
     }
 }

@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 8952803754916210227}
   - component: {fileID: 3609033240770444996}
   - component: {fileID: 7167810967443111355}
+  - component: {fileID: 818486161105369889}
   m_Layer: 7
   m_Name: Barbarian
   m_TagString: PlayerUnit
@@ -540,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 2654088077937783398}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 35.193924, y: 0.0000019073486, z: -19.91022}
+  m_LocalPosition: {x: 35.193924, y: 0, z: -19.91022}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -576,7 +577,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
@@ -737,6 +738,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!136 &818486161105369889
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2654088077937783398}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 3
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2813717103602141244
 GameObject:
   m_ObjectHideFlags: 0

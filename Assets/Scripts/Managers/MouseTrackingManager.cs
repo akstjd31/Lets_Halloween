@@ -10,11 +10,12 @@ using UnityEngine.UIElements;
 
 public class MouseTrackingManager : Singleton<MouseTrackingManager>
 {
-    [SerializeField] public GameObject targetObject; // ¼³Ä¡µÉ À§Ä¡¸¦ º¸¿©ÁÙ ÇÁ¸®ºä ¿ÀºêÁ§Æ®
+    [SerializeField] public GameObject targetObject; // ì„¤ì¹˜ë  ìœ„ì¹˜ë¥¼ ë³´ì—¬ì¤„ í”„ë¦¬ë·° ì˜¤ë¸Œì íŠ¸
     GameObject target;
     Renderer targetColor;
 
     private PlayerUnit ActivateUnitObject;
+    private PlayerUnit_Projectile ActivateUnitPObject;
     private SkillBase ActivateSkillObject;
     
     private SkillCoolDown skillCool;
@@ -23,63 +24,87 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     [SerializeField] LayerMask layermask2;
     [SerializeField] LayerMask layermask3;
     [SerializeField] LayerMask activateMask;
+    [SerializeField] LayerMask activatePMask;
+
+    
     private static bool isClick = false;
 
     private ParentButton activeButton;
 
     bool clickEnable;
-
+    bool checkUnit;
     bool onBuild;
     bool onMouseMap;
     bool overActivate;
 
     private void Start()
     {
-        // ·¹ÀÌ¾î¸¦ ÅëÇØ ·¹ÀÌ¸¦ °¨ÁöÇÏ±â À§ÇØ ¹Ù´Ú ·¹ÀÌ¾î ¼³Á¤
+        // ë ˆì´ì–´ë¥¼ í†µí•´ ë ˆì´ë¥¼ ê°ì§€í•˜ê¸° ìœ„í•´ ë°”ë‹¥ ë ˆì´ì–´ ì„¤ì •
         layermask = 1 << LayerMask.NameToLayer("FLOOR");
-        layermask2 = 1 << LayerMask.NameToLayer("PlayerUnit_Projectile");
+        layermask2 = 1 << LayerMask.NameToLayer("PlayGround");
         layermask3 = 1 << LayerMask.NameToLayer("EnableFLOOR");
         activateMask = 1 << LayerMask.NameToLayer("PlayerUnit");
-
+        activatePMask = 1 << LayerMask.NameToLayer("PlayerUnit_Projectile");
     }
 
     private void Update()
     {
         if (target != null && isClick == false && Input.GetMouseButtonDown(0))
         {
-            // UI À§ÇÏ°í Å¬¸¯ÀÌ È°¼ºÈ­ µÇ¾úÀ»½Ã
+            // UI ìœ„í•˜ê³  í´ë¦­ì´ í™œì„±í™” ë˜ì—ˆì„ì‹œ
             if (clickEnable == true && !EventSystem.current.IsPointerOverGameObject()) 
             {
                 isClick = true;
 
                 if (ActivateSkillObject != null)
                 {
-                    SpawnActivateObj(ActivateSkillObject,null);
+                    SpawnActivateObj(ActivateSkillObject,null, null);
                 }
 
                 else if (ActivateUnitObject != null)
                 {
-                    SpawnActivateObj(null,ActivateUnitObject);
+                    SpawnActivateObj(null,ActivateUnitObject, null);
                 }
 
-                Destroy(target);
+                else if (ActivateUnitPObject != null)
+                {
+                    SpawnActivateObj(null, null, ActivateUnitPObject);
+                }
+                    Destroy(target);
             }
         }
     }
 
+    public void targetDestory()
+    {
+        Destroy(target);
+    }
     public void SpawnTargetSkill(SkillBase obj)
     {
+        checkUnit = false;
         ActivateSkillObject = obj;
+        ActivateUnitObject = null;
+        ActivateUnitPObject = null;
         StartCoroutine(CospawnTarget());
     }
 
     public void SpawnTargetUnit(PlayerUnit obj)
     {
+        checkUnit = true;
         ActivateUnitObject = obj;
+        ActivateSkillObject = null;
+        ActivateUnitPObject = null;
+        checkUnit = true;
         StartCoroutine(CospawnTarget());
     }
-
-
+    public void SpawnTargetUnitP(PlayerUnit_Projectile obj)
+    {
+        checkUnit = true;
+        ActivateUnitPObject = obj;
+        ActivateSkillObject = null;
+        ActivateUnitObject = null;
+        StartCoroutine(CospawnTarget());
+    }
     public void SetAnim(SkillCoolDown skillCoolDown)
     {
         skillCool = skillCoolDown;
@@ -90,7 +115,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         Destroy(target);
 
         isClick = false;
-        // Ä«¸Ş¶ó¿¡¼­ ¸¶¿ì½º À§Ä¡·Î ·¹ÀÌ¸¦ ½õ´Ï´Ù
+        // ì¹´ë©”ë¼ì—ì„œ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¡œ ë ˆì´ë¥¼ ì©ë‹ˆë‹¤
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         RaycastHit hit;
@@ -100,19 +125,21 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
             yield break;
         }
 
-        // ÁöÁ¤µÈ ·¹ÀÌ¾î¿¡ ÀûÁß½Ã
+        // ì§€ì •ëœ ë ˆì´ì–´ì— ì ì¤‘ì‹œ
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
         {
             target = Instantiate(targetObject, hit.point, targetObject.transform.rotation);
 
-            var targetRange = target.transform.Find("Range").gameObject;
+            if (checkUnit == false)
+            {
+                var targetRange = target.transform.Find("Range").gameObject;
 
-            Transform rangeScale = targetRange.GetComponent<Transform>();
+                Transform rangeScale = targetRange.GetComponent<Transform>();
 
-            rangeScale.localScale = new Vector3(ActivateSkillObject.skillRange*2,1, ActivateSkillObject.skillRange*2);
-
-
-            targetColor = target.GetComponent<Renderer>();
+                rangeScale.localScale = new Vector3(ActivateSkillObject.skillRange * 2, 1, ActivateSkillObject.skillRange * 2);
+            }
+            
+            targetColor = target.GetComponentInChildren<Renderer>();
 
             while (!isClick)
             {
@@ -127,26 +154,30 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                 if (Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask))
                 {
-                    // ¸¶¿ì½º À§Ä¡·Î °è¼Ó ÁÂÇ¥ À§Ä¡¸¦ º¯È¯
+                    // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¡œ ê³„ì† ì¢Œí‘œ ìœ„ì¹˜ë¥¼ ë³€í™˜
                     target.transform.position = hitTarget.point;
 
-                    target.transform.position += Vector3.up;
+                    //target.transform.position += Vector3.up;
 
-                    // ºôµå°ø°£¿¡ ÀÖÀ»½Ã true
+                    // ë¹Œë“œê³µê°„ì— ìˆì„ì‹œ true
                     onBuild = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask2);
 
                     onMouseMap = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask3);
 
-                    if (ActivateUnitObject != null || ActivateSkillObject != null)
+                    if (ActivateUnitObject != null || ActivateSkillObject != null || ActivateUnitPObject != null)
                     {
                         Vector3 halfExtents = targetColor.bounds.extents;
+                        Debug.Log("ìœ ë‹› ê²¹ì¹¨ ì‘ë™ì¤‘");
+                        Debug.Log("í˜„ì¬ activateMask" + activateMask.ToString());
 
-                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 5, halfExtents, Vector3.down, target.transform.rotation, 10f, activateMask, QueryTriggerInteraction.Ignore);
+                        int comMaks = activateMask | activatePMask;
+
+                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 10, halfExtents, Vector3.down, target.transform.rotation, 20, comMaks, QueryTriggerInteraction.Ignore);
                         //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
                         if (overActivate)
                         {
-                            SetColorRecursive(target ,new Color(1, 0, 0, 0.5f)); // »¡°£»ö
-                            Debug.Log("À¯´Ö °ãÄ§");
+                            SetColorRecursive(target ,new Color(1, 0, 0, 0.5f)); // ë¹¨ê°„ìƒ‰
+                            Debug.Log("ìœ ë‹› ê²¹ì¹¨");
                             clickEnable = false;
                             yield return null;
                             continue;
@@ -155,18 +186,18 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     if (onMouseMap == true && onBuild == true)
                     {
-                        if (target.tag == "PlayerUnit")
+                        if (target.tag == "PlayerUnit" || target.tag == "PlayerUnit_Projectile")
                         {
-                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // ÃÊ·Ï»ö
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // ì´ˆë¡ìƒ‰
                             clickEnable = true;
-                            Debug.Log("Å¸¿ö ¼³Ä¡ Áö¿ª ÇöÀç ÇÃ·¹ÀÌ¾î ÃÊ·Ï»ö");
+                            Debug.Log("íƒ€ì›Œ ì„¤ì¹˜ ì§€ì—­ í˜„ì¬ í”Œë ˆì´ì–´ ì´ˆë¡ìƒ‰");
 
                         }
 
                         else if (target.tag == "Skill")
                         {
-                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // »¡°£»ö
-                            Debug.Log("Å¸¿ö ¼³Ä¡ Áö¿ª ÇöÀç ½ºÅ³ »¡°£»ö");
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // ë¹¨ê°„ìƒ‰
+                            Debug.Log("íƒ€ì›Œ ì„¤ì¹˜ ì§€ì—­ í˜„ì¬ ìŠ¤í‚¬ ë¹¨ê°„ìƒ‰");
                             clickEnable = false;
                         }
 
@@ -175,17 +206,17 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     else if (onMouseMap == true && onBuild == false)
                     {
-                        if (target.tag == "PlayerUnit")
+                        if (target.tag == "PlayerUnit" || target.tag == "PlayerUnit_Projectile")
                         {
-                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // »¡°£»ö
-                            Debug.Log("±æ Áö¿ª ÇöÀç ÇÃ·¹ÀÌ¾î »¡°£»ö");
+                            SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // ë¹¨ê°„ìƒ‰
+                            Debug.Log("ê¸¸ ì§€ì—­ í˜„ì¬ í”Œë ˆì´ì–´ ë¹¨ê°„ìƒ‰");
                             clickEnable = false;
                         }
 
                         else if (target.tag == "Skill")
                         {
-                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // ÃÊ·Ï»ö
-                            Debug.Log("±æ Áö¿ª ÇöÀç ½ºÅ³ ÃÊ·Ï»ö");
+                            SetColorRecursive(target, new Color(0, 1, 0, 0.5f)); // ì´ˆë¡ìƒ‰
+                            Debug.Log("ê¸¸ ì§€ì—­ í˜„ì¬ ìŠ¤í‚¬ ì´ˆë¡ìƒ‰");
                             clickEnable = true;
                         }
                         yield return null;
@@ -193,8 +224,8 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     else
                     {
-                        SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // »¡°£»ö
-                        Debug.Log("±×¿Ü Áö¿ª »¡°£»ö");
+                        SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // ë¹¨ê°„ìƒ‰
+                        Debug.Log("ê·¸ì™¸ ì§€ì—­ ë¹¨ê°„ìƒ‰");
                         clickEnable = false;
                     }
 
@@ -225,12 +256,12 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         }
     }
 
-    private void SpawnActivateObj(SkillBase skill, PlayerUnit unit)
+    private void SpawnActivateObj(SkillBase skill, PlayerUnit unit ,PlayerUnit_Projectile unitP)
     {
-        StartCoroutine(coSpawnActivateObj(skill,unit));
+        StartCoroutine(coSpawnActivateObj(skill,unit,unitP));
     }
 
-    IEnumerator coSpawnActivateObj(SkillBase skill, PlayerUnit unit)
+    IEnumerator coSpawnActivateObj(SkillBase skill, PlayerUnit unit, PlayerUnit_Projectile unitP)
     {
 
 
@@ -255,6 +286,20 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
             else if (unit != null)
             {
                 var obj = Instantiate(unit, target.transform.position, unit.transform.rotation);
+            }
+
+            else if (unitP != null)
+            {
+                skillCool.UseSkill();
+                var obj = Instantiate(unitP, target.transform.position, unitP.transform.rotation);
+                SkillBase skillObj = obj.GetComponent<SkillBase>();
+                skillObj.UseSkill();
+
+                if (activeButton != null)
+                {
+                    SkillButton a = activeButton.GetComponent<SkillButton>();
+                    a.RemoveCount();
+                }
             }
         }
         yield return null;

@@ -21,10 +21,10 @@ public class SkillCoolDown : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        Debug.Log($"ÄðÅ¸ÀÓ : {skillbutton.skillPrefab}");
+        Debug.Log($"ì¿¨íƒ€ìž„ : {skillbutton.skillPrefab}");
         _animator = GetComponent<Animator>();
         skillObj = skillbutton.skillPrefab.GetComponent<SkillBase>();
-        Debug.Log($"ÄðÅ¸ÀÓ : {skillObj.skillCooldown}");
+        Debug.Log($"ì¿¨íƒ€ìž„ : {skillObj.skillCooldown}");
         button = transform.parent.gameObject;
         
     }
@@ -42,11 +42,23 @@ public class SkillCoolDown : MonoBehaviour
     {
         isActivate = false;
         button.GetComponent<Button>().interactable = false;
+        Color imageColor = button.GetComponentInChildren<Image>().color;
+        imageColor.a = 0.5f;
+        button.GetComponentInChildren<Image>().color = imageColor;
     }
 
     public void EndCoolDown()
     {
         isActivate = true;
         button.GetComponent<Button>().interactable = true;
+        Color imageColor = button.GetComponentInChildren<Image>().color;
+        imageColor.a = 1f;
+
+        button.GetComponentInChildren<Image>().color = imageColor;
+
+        if (button.GetComponent<SkillButton>().skillCount <= 0)
+        {
+            button.GetComponent<Button>().interactable = false;
+        }
     }
 }

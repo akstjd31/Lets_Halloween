@@ -8,6 +8,7 @@ public class Teleport : SkillBase
 
     override public void Start()
     {
+
         IsReady = true;
 
         rangeTransform = GetComponent<Transform>();
@@ -15,8 +16,18 @@ public class Teleport : SkillBase
         rangeTransform.localScale = new Vector3(_range, _range, _range);
     }
 
-    void Update()
+    override public void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.tag == "Enemy")
+        {
+            if (!endSkill)
+            {
+                
+                EnemyUnit _enemy = other.GetComponent<EnemyUnit>();
+                _enemy.SetWayPoint(0);
+                _enemy.Teleport();
+            }
+            Debug.Log("범위내에 적 들어옴");
+        }
     }
 }

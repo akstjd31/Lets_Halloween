@@ -12,13 +12,13 @@ public class SkillBase : MonoBehaviour, ISkil
     [SerializeField] public float skillRange;
     [SerializeField] public int skillPrice;
 
-    public string _name { get; set; }              // ÀÌ¸§
-    public float _cooldown { get; set; }           // ÄğÅ¸ÀÓ
-    public float _currentCooldown { get; set; }    // ÇöÀç ÄğÅ¸ÀÓ
-    public float _duration { get; set; }           // Áö¼Ó½Ã°£
-    public float _currentDuration { get; set; }    // ³²Àº Áö¼Ó½Ã°£
-    public float _range { get; set; }              // ¹üÀ§
-    public bool IsReady { get; set; }              // ÁØºñ»óÅÂ
+    public string _name { get; set; }              // ì´ë¦„
+    public float _cooldown { get; set; }           // ì¿¨íƒ€ì„
+    public float _currentCooldown { get; set; }    // í˜„ì¬ ì¿¨íƒ€ì„
+    public float _duration { get; set; }           // ì§€ì†ì‹œê°„
+    public float _currentDuration { get; set; }    // ë‚¨ì€ ì§€ì†ì‹œê°„
+    public float _range { get; set; }              // ë²”ìœ„
+    public bool IsReady { get; set; }              // ì¤€ë¹„ìƒíƒœ
 
     protected bool endSkill = false;
 
@@ -56,12 +56,12 @@ public class SkillBase : MonoBehaviour, ISkil
         {
             endSkill = true;
         }
-        //Debug.Log($"Áö¼Ó½Ã°£{_duration}");
-        //Debug.Log($"Áö¼Ó{_currentDuration}");
+        //Debug.Log($"ì§€ì†ì‹œê°„{_duration}");
+        //Debug.Log($"ì§€ì†{_currentDuration}");
     }
     public void StartTime()
     {
-        Debug.Log("ÄğÅ¸ÀÓ ÀÛµ¿Áß");
+        Debug.Log("ì¿¨íƒ€ì„ ì‘ë™ì¤‘");
         _durationTime += Time.deltaTime;
         
         UpdateTime(_durationTime);
@@ -77,7 +77,7 @@ public class SkillBase : MonoBehaviour, ISkil
     {
         _currentDuration = 0;
         IsReady = false;
-        Debug.Log("½ºÅ³ »ç¿ëÇÔ");
+        Debug.Log("ìŠ¤í‚¬ ì‚¬ìš©í•¨");
         
         StartCoroutine(Starte());
     }
@@ -98,9 +98,9 @@ public class SkillBase : MonoBehaviour, ISkil
         {
             if (!endSkill)
             {
-                // ÀÚ½Ä¿¡¼­ ¿À¹ö¶óÀÌµå
+                // ìì‹ì—ì„œ ì˜¤ë²„ë¼ì´ë“œ
             }
-            Debug.Log("¹üÀ§³»¿¡ Àû µé¾î¿È");
+            Debug.Log("ë²”ìœ„ë‚´ì— ì  ë“¤ì–´ì˜´");
         }
     }
 }
