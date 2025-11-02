@@ -26,14 +26,17 @@ public class EnemyUnit : MonoBehaviour
     List<Renderer> renderers = new List<Renderer>();    //렌더러 저장 (피격판정추가를위한)
     List<Color> originalRenderColor = new List<Color>();
 
+    Vector3 firstPoint;
+
 
     
     private void Start()
     {
-        wayPointBox = GameObject.Find("WayPoint").transform;
+        wayPointBox = GameObject.Find("Waypoints").transform;
         animator = GetComponent<Animator>();
         currentHp = maxHp;
         renderers.AddRange(GetComponentsInChildren<Renderer>());
+        firstPoint = transform.position;
 
         foreach(var render in renderers)
         {
@@ -41,11 +44,15 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        
+    }
 
     //웨이포인트 충돌처리
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("WayPoint"))
+        if (other.name.Contains("Waypoints"))
         {
             if (wayPointBox == null) { return; }
 
@@ -140,6 +147,13 @@ public class EnemyUnit : MonoBehaviour
        gameObject.SetActive(false);   
     }
 
-  
+    public void Teleport()
+    {
+        Debug.Log("텔레포트 작동함");
+        Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
+        transform.position = new Vector3(firstPoint.x, firstPoint.y, firstPoint.z);
 
+        //transform.position = targetTransform.position;
+    }
+  
 }

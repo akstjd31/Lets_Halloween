@@ -18,6 +18,7 @@ public class ShopManager : MonoBehaviour
     public SkillBase[] skills;
     public TextMeshProUGUI buttonText;
     public TextMeshProUGUI[] infoText;
+    public PlayerUnit playerUnit;
 
     public string[] textData;
 
@@ -25,14 +26,18 @@ public class ShopManager : MonoBehaviour
 
     public int gold = 1000;
 
-    [SerializeField] Transform list;
-    [SerializeField] GameObject itemPrefab;
-
     private bool checktype;
 
     private SkillButton _setButton;
 
     PlayStyle style;
+
+    private GameObject _preview;
+
+    private void Start()
+    {
+        //gold = (GameManager.Instance.gameOptionData.unit as Player).Money;
+    }
 
     public void SetupIndex(int index)
     {
@@ -86,8 +91,12 @@ public class ShopManager : MonoBehaviour
 
         else if (checktype == false)        
         {
+            MouseTrackingManager.Instance.targetObject = _preview;
             MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
+            Debug.Log("프리뷰" + _preview);
         }
+        Debug.Log("현재 체크" + checktype);
+        Debug.Log("현재" + units[itemIndex]);
 
     }
 
@@ -95,14 +104,21 @@ public class ShopManager : MonoBehaviour
     {
         checktype = true;
     }
-
     public void UnitCheck()
     {
         checktype = false;
     }
-
     public void SetSkillButton(SkillButton setButton)
     {
         _setButton = setButton;
+    }
+    public void TargetObjDestroy()
+    {
+        MouseTrackingManager.Instance.targetDestory();
+    }
+
+    public void SetPreview(GameObject preview)
+    {
+        _preview = preview;
     }
 }

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5680209452098034413}
   - component: {fileID: 5086121503565309412}
   - component: {fileID: 1082243340951080042}
-  - component: {fileID: 1939554760971440177}
   m_Layer: 0
   m_Name: Magic shield pink
   m_TagString: Untagged
@@ -4892,27 +4891,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!135 &1939554760971440177
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405930580587291139}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2461344848454082557
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,6 +4903,7 @@ GameObject:
   - component: {fileID: 1102294589962403125}
   - component: {fileID: 6936187912416563941}
   - component: {fileID: -7991418683936692099}
+  - component: {fileID: 8173123572759645829}
   m_Layer: 0
   m_Name: Magic circle
   m_TagString: Untagged
@@ -9821,11 +9800,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  skillCooldown: 10
-  skillDuration: 5
-  skillRange: 5
+  skillCooldown: 1
+  skillDuration: 10
+  skillRange: 4
   skillPrice: 100
   collider: {fileID: 0}
+--- !u!135 &8173123572759645829
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2461344848454082557}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3810803722431546329
 GameObject:
   m_ObjectHideFlags: 0
@@ -43922,7 +43922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6029820243802964794
 Transform:
   m_ObjectHideFlags: 0
@@ -48913,7 +48913,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 9.1837e-41, z: 1.02e-43, w: 3.479351e-37}
+  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 0, w: 2.2787315e+29}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

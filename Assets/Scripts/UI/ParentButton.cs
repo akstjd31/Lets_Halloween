@@ -10,9 +10,9 @@ public class ParentButton : MonoBehaviour
 
     public Button button;
 
-    private void Awake()
+    virtual public void Awake()
     {
-       button = GetComponent<Button>();
+        button = GetComponent<Button>();
 
         button.onClick.RemoveAllListeners();
 
@@ -26,7 +26,7 @@ public class ParentButton : MonoBehaviour
     virtual public void OnClickButton()
     {
         MouseTrackingManager.Instance.SetActiveButton(this);
-        //ÀÚ½Ä¿¡¼­ ¿À¹ö¶óÀÌµå
+        //ìì‹ì—ì„œ ì˜¤ë²„ë¼ì´ë“œ
     }
 }
 

@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class JackOLentern : SkillBase
 {
-    [SerializeField] private float enemySpeed;
     [SerializeField] private float power;
+    public override void Start()
+    {
+        base.Start();
+        
+        GameObject rangeChild = transform.Find("Circle").gameObject;
+
+        rangeChild.GetComponent<Transform>().localScale = new Vector3(0.25f * _range, 1f, 0.25f * _range);
+    }
 
     override public void OnTriggerEnter(Collider other)
     {
@@ -16,7 +23,7 @@ public class JackOLentern : SkillBase
                 StartCoroutine(MoveToTarget(transform, other));
             }
             
-            Debug.Log("π¸¿ß≥ªø° ¿˚ µÈæÓø»");
+            Debug.Log("Î≤îÏúÑÎÇ¥Ïóê Ï†Å Îì§Ïñ¥Ïò¥");
         }
     }
 
@@ -24,7 +31,7 @@ public class JackOLentern : SkillBase
     {
         while (true)
         {
-            obj.gameObject.transform.position = Vector3.MoveTowards(obj.gameObject.transform.position, target.position, enemySpeed * Time.deltaTime * power);
+            obj.gameObject.transform.position = Vector3.MoveTowards(obj.gameObject.transform.position, target.position, 1 * Time.deltaTime * power);
 
             yield return null;
         }
