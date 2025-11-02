@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SetUpGameScene.unity
     guid: 3813b4a23d57d4f45bbb26d3381c552a
   - enabled: 1
-    path: Assets/Scenes/Offence.unity
+    path: Assets/Scenes/Offence_Easy.unity
     guid: 8b7397f1b1c5daa45a88310aa9233529
   - enabled: 1
     path: Assets/Scenes/Deffence.unity
