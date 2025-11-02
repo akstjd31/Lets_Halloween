@@ -4,7 +4,7 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
 {
     public FactionType FactionType { get; } = FactionType.Enemy;
     [SerializeField] private GameObject enemyPrefab;
-    private Enemy enemy;
+    private MyEnemyUnit enemy;
 
     // 초기화 부분
     public virtual void Initialize()
@@ -16,8 +16,8 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
             Debug.Log("적 생성됨!");
 
             Debug.Log("초기 세팅 중...");
-            enemy = newEnemyPrefab.GetComponent<Enemy>();
-            enemy.Initialize(newEnemyPrefab.name, 0);
+            enemy = newEnemyPrefab.GetComponent<MyEnemyUnit>();
+            // enemy.Initialize(newEnemyPrefab.name, 0);
             SetUnitActive(false);
         }
 
@@ -48,9 +48,12 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     public virtual void BattlePhase()
     {
         // 웨이브 시작
-        // if (!WaveManager.Instance.IsWaveRunning())
-        //     WaveManager.Instance.StartWave();
+        if (!WaveManager.Instance.IsWaveRunning())
+            WaveManager.Instance.StartWave();
 
+
+        if (WaveManager.Instance.IsWaveRunning())
+            WaveManager.Instance.RunWave();
     }
 
     // 결과 페이즈

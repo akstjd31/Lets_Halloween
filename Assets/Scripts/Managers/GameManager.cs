@@ -30,6 +30,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private float preparingTime;   // 임시로 설정
 
     public GameOptionData gameOptionData;
+    private string diffName = "";
     private bool isFirstWave;                       // 첫 번째 웨이브인가?
     public bool isGameOver;
     public bool isGameClear;
@@ -122,7 +123,7 @@ public class GameManager : Singleton<GameManager>
     private void StartGame()
     {
         UpdateState(GameState.Prepare);
-        
+
         // 선택한 진영에 따른 컨트롤러 부여
         selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
 
@@ -131,11 +132,11 @@ public class GameManager : Singleton<GameManager>
 
         string loadSceneName = "";
         if (gameOptionData.factionType.Equals(FactionType.Player))
-            loadSceneName = "Deffence";
+            loadSceneName = "Deffence_";
         else
-            loadSceneName = "Offence";
+            loadSceneName = "Offence_";
 
-        SceneManager.LoadScene(loadSceneName);
+        SceneManager.LoadScene(loadSceneName + diffName);
     }
 
     // 다음 씬에서 초기화하기 위함
@@ -162,6 +163,8 @@ public class GameManager : Singleton<GameManager>
     public void OnSelectDifficultyButtonClicked(int buttonIdx)
     {
         gameOptionData.difficulty = (Difficulty)buttonIdx;
+
+        diffName = buttonIdx == 0 ? "Easy" : buttonIdx == 1 ? "Normal" : "Hard";
     }
 
     // 결정 버튼 누름

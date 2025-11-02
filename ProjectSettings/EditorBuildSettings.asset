@@ -12,11 +12,23 @@ EditorBuildSettings:
     path: Assets/Scenes/SetUpGameScene.unity
     guid: 3813b4a23d57d4f45bbb26d3381c552a
   - enabled: 1
-    path: Assets/Scenes/Offence.unity
+    path: Assets/Scenes/Offence/Offence_Easy.unity
     guid: 8b7397f1b1c5daa45a88310aa9233529
   - enabled: 1
-    path: Assets/Scenes/Deffence.unity
+    path: Assets/Scenes/Offence/Offence_Normal.unity
+    guid: 2450ed27a583f7544ac59333ac4ae303
+  - enabled: 1
+    path: Assets/Scenes/Offence/Offence_Hard.unity
+    guid: 3def4bc735f7dc64eab2c3f35deaca30
+  - enabled: 1
+    path: Assets/Scenes/Deffence/Deffence_Easy.unity
     guid: c6b7c37328e1b434eb05677f349612a3
+  - enabled: 1
+    path: Assets/Scenes/Deffence/Deffence_Normal.unity
+    guid: 263e0bee7a845bd44a846c1dddd07f49
+  - enabled: 1
+    path: Assets/Scenes/Deffence/Deffence_Hard.unity
+    guid: e4e6af67226ed1842bd1e721f2412831
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: bb247e8ff01f9124d9205f90fcc4552d

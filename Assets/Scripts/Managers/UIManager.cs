@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using System.Collections.Generic;
 using System.Linq;
 using AssetKits.ParticleImage;
+using System.Security.Permissions;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class UIManager : MonoBehaviour
     [Header("ShopUI")]
     [SerializeField] private GameObject shopUI;
     [SerializeField] private Button shopButton;
-    
-    
+
+
     [Header("Prefab")]
     [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
     
@@ -54,6 +55,8 @@ public class UIManager : MonoBehaviour
 
         // Shop UI
         shopButton = shopUI?.GetComponentInChildren<Button>();
+
+        // Prefab
     }
 
     private void Start()
@@ -66,11 +69,12 @@ public class UIManager : MonoBehaviour
 
             Unit unit = GameManager.Instance.gameOptionData.unit;
             moneyText.text = (unit as Player)?.Money.ToString("N0");
-            
+
             SetPreparingTimer();
         }
 
-        UpdatePlayerLifeUI(3, 3);
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Player))
+            UpdatePlayerLifeUI(3, 3);
         
         if (WaveManager.Instance != null)
         {

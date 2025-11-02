@@ -6,18 +6,25 @@ public class EnemyDeathEventHandler : MonoBehaviour
     [Header("Detection Settings")]
     [SerializeField] private float detectDistance; // 적을 감지할 거리
     [SerializeField] private LayerMask enemyLayer;      // 적 오브젝트가 속한 레이어
+    [SerializeField] private LayerMask playerEnemyUnitLayer;
+    int layerMask;
 
     [Header("References")]
     [SerializeField] private UIManager uiManager;
-    
+
     // 이전에 구독 해제를 안전하게 하는 방법으로 onEnemyDeactivated 이벤트를 사용
     public event Action<Enemy> onEnemyDeactivated;
 
     private Unit unit;
-    
+
     private void Awake()
     {
         uiManager = GameManager.FindFirstObjectByType<UIManager>();
+    }
+
+    private void Start()
+    {
+        layerMask = enemyLayer | playerEnemyUnitLayer;
     }
 
     public void SetUnit(Unit unit)
@@ -33,19 +40,36 @@ public class EnemyDeathEventHandler : MonoBehaviour
     private void Update()
     {
         RaycastHit hit;
-        
-        if (Physics.Raycast(transform.position, transform.forward, out hit, detectDistance, enemyLayer, QueryTriggerInteraction.Collide))
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, detectDistance, layerMask, QueryTriggerInteraction.Collide))
         {
-            // 2. 적 오브젝트 감지
-            if (hit.collider.CompareTag("Enemy"))
+            if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Enemy))
             {
-                HandleEnemyCollision(hit.collider);
+                if (hit.collider.CompareTag("EnemyUnit"))
+                {
+                    GameManager.Instance.UpdateState(GameState.Result);
+                    GameManager.Instance.isGameClear = true;
+                }
+            }
+            else
+            {
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    HandleEnemyCollision(hit.collider);
+                }
+                // 보스일 떄
+                else if (hit.collider.CompareTag("EnemyUnit"))
+                {
+                    GameManager.Instance.UpdateState(GameState.Result);
+                    GameManager.Instance.isGameOver = true;
+                }
             }
         }
     }
 
     private void HandleEnemyCollision(Collider enemyCollider)
     {
+        
         Enemy enemy = enemyCollider.GetComponent<Enemy>();
 
         if (enemy == null)
@@ -65,7 +89,7 @@ public class EnemyDeathEventHandler : MonoBehaviour
             }
         }
     }
-    
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

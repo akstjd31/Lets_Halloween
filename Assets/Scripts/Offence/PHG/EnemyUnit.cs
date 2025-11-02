@@ -10,6 +10,7 @@ public class EnemyUnit : MonoBehaviour
 
     public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
 
+
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;

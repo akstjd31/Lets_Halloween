@@ -4,7 +4,7 @@ public class Player : Unit, IFaction
 {
     // 상수
     // 변수
-    public int maxLife = 100;
+    public int maxLife = 10000;
     private int currentLife;
     private int money;
     private bool isDead;
@@ -21,7 +21,7 @@ public class Player : Unit, IFaction
     {
         base.Initialize(name, id);
         currentLife = maxLife;
-        money = 1000;
+        money = 200;
         isDead = false;
     }
 

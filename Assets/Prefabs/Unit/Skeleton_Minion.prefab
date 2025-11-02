@@ -2263,7 +2263,7 @@ GameObject:
   - component: {fileID: 2032384651119754317}
   - component: {fileID: 2572435811525733034}
   - component: {fileID: 9128573776686001776}
-  - component: {fileID: -4215748080300124182}
+  - component: {fileID: 5636130988160356696}
   m_Layer: 9
   m_Name: Skeleton_Minion
   m_TagString: Enemy
@@ -2380,7 +2380,7 @@ MonoBehaviour:
   moveSpeed: 8
   maxHp: 60
   EnemyName: Enemy_Minion
---- !u!114 &-4215748080300124182
+--- !u!114 &5636130988160356696
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

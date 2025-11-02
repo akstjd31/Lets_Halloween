@@ -592,7 +592,7 @@ GameObject:
   - component: {fileID: 187165621656645509}
   - component: {fileID: 4779122624585258270}
   - component: {fileID: 982655416949747603}
-  - component: {fileID: -6406153467270817080}
+  - component: {fileID: -1339414533699387859}
   m_Layer: 9
   m_Name: Skeleton_Rogue
   m_TagString: Enemy
@@ -708,7 +708,7 @@ MonoBehaviour:
   moveSpeed: 15
   maxHp: 40
   EnemyName: Enemy_Rogue
---- !u!114 &-6406153467270817080
+--- !u!114 &-1339414533699387859
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

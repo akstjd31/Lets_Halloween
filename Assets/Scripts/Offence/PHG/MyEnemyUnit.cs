@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MyEnemyUnit : MonoBehaviour
+public class MyEnemyUnit : Unit
 {
-    //moveSpeed rotateSpeed µ¿ÀÏ
+    //moveSpeed rotateSpeed ????
     [SerializeField] private float moveSpeed;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
@@ -15,21 +15,19 @@ public class MyEnemyUnit : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private string EnemyName;
 
-    //Àû±ºÁø¿µ ÇÃ·¹ÀÌ¾î¸¸ ÀÌ¿ë°¡´ÉÇÔ
+    //???????? ?å ì™ì˜™???? ??å í§????
     [SerializeField] private GameObject[] myEnemyUnitArray;
 
-    [SerializeField] GameObject roundClearText; //ÀÓ½Ã
-
-    //¸÷ ½ºÆù µô·¹ÀÌ
+    //?? ???? ??????
     [SerializeField] private float spawnDelay;
     private float spawnTime = 0;
 
-    //À¯´Ö ¼ÒÈ¯°´Ã¼¼ö Á¦ÇÑ
+    //???? ???????? ????
     [SerializeField] private int maxUnitCount = 20;
     private int currentUnitCount;
 
 
-    List<Renderer> renderers = new List<Renderer>();    //·»´õ·¯ ÀúÀå (ÇÇ°İÆÇÁ¤Ãß°¡¸¦À§ÇÑ)
+    List<Renderer> renderers = new List<Renderer>();    //?????? ???? (????????????????)
     List<Color> originalRenderColor = new List<Color>();
 
 
@@ -37,14 +35,13 @@ public class MyEnemyUnit : MonoBehaviour
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
-        roundClearText.SetActive(false);
         currentUnitCount = 0;
 
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
         foreach (var render in renderers)
         {
-            originalRenderColor.Add(render.material.color); //¿ø·¡»ö»ó Ãß°¡
+            originalRenderColor.Add(render.material.color); //???????? ???
         }
     }
 
@@ -53,7 +50,7 @@ public class MyEnemyUnit : MonoBehaviour
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
     }
 
-    //¿şÀÌÆ÷ÀÎÆ® Ãæµ¹Ã³¸®
+    //????????? ?å ì™ì˜™???
     private void OnTriggerEnter(Collider other)
     {
         if (other.name.Contains("WayPoint"))
@@ -61,19 +58,16 @@ public class MyEnemyUnit : MonoBehaviour
             if (wayPointBox == null) { return; }
 
             currentWayPointIndex++;
-
-            if (currentWayPointIndex >= wayPointBox.childCount) { currentWayPointIndex = 0; }
         }
 
         if(other.tag=="EndPoint")
         {
-            Debug.Log($"{gameObject.name} ³¡ÁöÁ¡ µµ´Ş");
-            ClearRound();
+            Debug.Log($"{gameObject.name} ?????? ????");
             gameObject.SetActive(false);
         }
     }
 
-    //»óÅÂÀÌ»ó¿¡ µû¸¥ À¯´Ö»ö»ó ÁöÁ¤
+    //??????? ???? ??????? ????
     public void StatusEffectColor(PassiveSkill playerPassive)
     {
         switch (playerPassive)
@@ -94,7 +88,7 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //»ö»ó ¿ø»óº¹±Í
+    //???? ?????
     public void ReturnStatusEffectColor()
     {
         for (int i = 0; i < renderers.Count; i++)
@@ -114,10 +108,10 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //¿ÀºêÁ§Æ® ÀÌµ¿
+    //??????? ???
     private void MoveObj()
     {
-        if (wayPointBox == null) { return; }
+        if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount) { return; }
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
@@ -130,7 +124,7 @@ public class MyEnemyUnit : MonoBehaviour
             currentWayPointIndex++;
         }
     }
-    //¸÷¼ÒÈ¯
+    //?????
     private void CreateEnemyUnit()
     {
         switch (Input.inputString.ToUpper())
@@ -157,7 +151,7 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //Å°ÀÔ·Â¿¡ µû¸¥ ¸ó½ºÅÍ ¼ÒÈ¯
+    //???å ì™ì˜™? ???? ???? ???
     private void SpawnUnit(int mobIndex, int WayPointIndex)
     {
         if (spawnTime >= spawnDelay)
@@ -167,11 +161,5 @@ public class MyEnemyUnit : MonoBehaviour
             spawnTime = 0;
             currentUnitCount++;
         }
-    }
-
-    //¿£µåÆ÷ÀÎÆ® µµ´Ş½Ã ¶ó¿îµå°¡ ¸¶Áö¸·ÀÌ ¾Æ´Ï¶ó¸é ´ÙÀ½¶ó¿îµå , ¸¶Áö¸·ÀÌ¸é ½Â¸®
-    void ClearRound()
-    {
-        roundClearText.SetActive(true);
     }
 }
