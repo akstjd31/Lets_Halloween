@@ -1,23 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectMovement : MonoBehaviour
 {
-    [Header("Ä«¸Þ¶ó")]
+    // [Header("Ä«ï¿½Þ¶ï¿½")]
     [SerializeField] private GameObject inputCamera;
-    [Header("Ä³¸¯ÅÍ")]
+    // [Header("Ä³ï¿½ï¿½ï¿½ï¿½")]/
     [SerializeField] private GameObject inputPlayer;
     [SerializeField] private GameObject inputEnemy;
-    [Header("È¸Àü ¼Óµµ")]
+    // [Header("È¸ï¿½ï¿½ ï¿½Óµï¿½")]
     [SerializeField] private float spinSpeed;
-    [Header("¾Ö´Ï¸ÞÀÌ¼Ç ÄÁÆ®·Ñ")]
+    // [Header("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½")]
     [SerializeField] private Animator inputPlayerAnimator;
     [SerializeField] private Animator inputEnemyAnimator;
-    [Header("¾Ö´Ï¸ÅÀÌ¼Ç µô·¹ÀÌ")]
+    // [Header("ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float animationDelay;
-    [Header("¼Â ¾÷ °ÔÀÓ ¾À ¸Å´ÏÀú")]
+    // [Header("ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½")]
     [SerializeField] private SetUpGameSceneManager inputGameSceneManager;
     private float delayTiemr;
     private float delayTimerForUpdate;
@@ -35,13 +32,13 @@ public class ObjectMovement : MonoBehaviour
     {
         //Spin();
         delayTimerForUpdate += Time.deltaTime;
-        // ¾Ö´Ï¸ÞÀÌ¼Ç »óÅÂ °»½Å
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (delayTimerForUpdate > animationDelay) { UpdateAnimation(); }
         
 
-        // ¸Å¼­µå¸¦ »ç¿ëÇß´Ù¸é Å¸ÀÌ¸Ó °»½Å
+        // ï¿½Å¼ï¿½ï¿½å¸¦ ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ Å¸ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (isUsed) {  delayTiemr += Time.deltaTime; }
-        // µô·¹ÀÌ°¡ ³¡³ª¸é Å¸¹Ì¾î¿Í ¾Ö´Ï¸ÅÀÌÅÍ º¯¼ö ÃÊ±âÈ­ ¹× Ä«¸Þ¶ó ÀüÈ¯ ÇÔ¼ö È£Ãâ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½Ì¾ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½È¯ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
         if (delayTiemr > animationDelay) 
         { 
             isUsed = false;
@@ -54,7 +51,7 @@ public class ObjectMovement : MonoBehaviour
 
     private void Spin()
     {
-        //Debug.Log("È¸Àü ½ÇÇà Áß");
+        //Debug.Log("È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½");
         inputPlayer.transform.Rotate(Vector3.up, spinSpeed *  Time.deltaTime);
         inputEnemy.transform.Rotate(Vector3.up, spinSpeed * Time.deltaTime);
         
@@ -62,7 +59,7 @@ public class ObjectMovement : MonoBehaviour
 
     public void EnemyAttack()
     {
-        // Ä³¸¯ÅÍ°¡ Ä«¸Þ¶ó¸¦ ¹Ù¶óº¸µµ·Ï ¼³Á¤
+        // Ä³ï¿½ï¿½ï¿½Í°ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½Ù¶óº¸µï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //inputEnemy.transform.LookAt(inputCamera.transform);
         inputEnemyAnimator.SetBool("loop", false);
         inputEnemyAnimator.SetBool("isClicked", true);
@@ -78,14 +75,14 @@ public class ObjectMovement : MonoBehaviour
 
     private void Init()
     {
-        // ¼Â ¾÷ °ÔÀÓ ¾À ¸Å´ÏÀú ÂüÁ¶
+        // ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         tempManager = GetComponent<SetUpGameSceneManager>();
         isUsed = false;
     }
 
     private void UpdateAnimation()
     {
-        // ÁøÇàµÈ ¾÷µ¥ÀÌÆ® »óÈ²¿¡ ¸Â´Â ¿¡´Ï¸ÞÀÌÅÍ º¯¼ö ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½È²ï¿½ï¿½ ï¿½Â´ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         switch (progressNumber)
         {
             case 0:

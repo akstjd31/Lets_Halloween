@@ -20,7 +20,6 @@ public class PlayerFactionController : MonoBehaviour, IFactionController
             Debug.Log("초기 세팅 중...");
             player = newPlayerPrefab.GetComponent<Player>();
             player.Initialize(newPlayerPrefab.name, 0);
-            player.gameObject.SetActive(false);
         }
 
         // 선택한 진영이 아닌 경우

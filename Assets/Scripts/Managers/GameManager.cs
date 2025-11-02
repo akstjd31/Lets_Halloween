@@ -95,6 +95,9 @@ public class GameManager : Singleton<GameManager>
         {
             isFirstWave = false;
             UpdateState(GameState.Battle);
+
+            if (gameOptionData.factionType.Equals(FactionType.Enemy))
+                (selectedFactionController as EnemyFactionController).SetUnitActive(true);
         }
     }
 
@@ -118,26 +121,31 @@ public class GameManager : Singleton<GameManager>
     // 게임 시작 시 진영 선택에 따른 컨트롤러 제어권 관리
     private void StartGame()
     {
+        UpdateState(GameState.Prepare);
+        
         // 선택한 진영에 따른 컨트롤러 부여
         selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
 
         // 씬 넘어가기
         SceneManager.sceneLoaded += OnSceneLoaded;
-        SceneManager.LoadScene("InGameScene");
+
+        string loadSceneName = "";
+        if (gameOptionData.factionType.Equals(FactionType.Player))
+            loadSceneName = "Deffence";
+        else
+            loadSceneName = "Offence";
+
+        SceneManager.LoadScene(loadSceneName);
     }
 
     // 다음 씬에서 초기화하기 위함
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name != "InGameScene")
-            return;
-
         SceneManager.sceneLoaded -= OnSceneLoaded;
 
         // 해당 진영 선택 후 초기화, 유닛 설정, 준비 단계로 변경
         selectedFactionController?.Initialize();
         gameOptionData.unit = selectedFactionController?.GetUnit();
-        UpdateState(GameState.Prepare);
 
         // endpoint 유닛 세팅
         if (gameOptionData.unit != null)

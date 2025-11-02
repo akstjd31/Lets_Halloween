@@ -12,12 +12,13 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
         // 선택한 진영과 일치한다면
         if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType))
         {
-            GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(0, 1.5f, 0), Quaternion.identity);
+            GameObject newEnemyPrefab = Instantiate(enemyPrefab, new Vector3(35f, 0f, -15f), Quaternion.identity);
             Debug.Log("적 생성됨!");
 
             Debug.Log("초기 세팅 중...");
             enemy = newEnemyPrefab.GetComponent<Enemy>();
             enemy.Initialize(newEnemyPrefab.name, 0);
+            SetUnitActive(false);
         }
 
         // 선택한 진영이 아닌 경우
@@ -57,6 +58,8 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
     {
 
     }
+
+    public void SetUnitActive(bool active) => enemy.gameObject.SetActive(active);
 
     public virtual Unit GetUnit() => enemy;
 }
