@@ -62,7 +62,7 @@ public class EnemyDeathEventHandler : MonoBehaviour
                 // 보스일 떄
                 else
                 {
-
+                    
                 }
             }
         }

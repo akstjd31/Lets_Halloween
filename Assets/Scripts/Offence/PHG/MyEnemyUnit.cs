@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MyEnemyUnit : Unit
 {
@@ -12,7 +11,8 @@ public class MyEnemyUnit : Unit
     private int currentWayPointIndex = 0;
 
     private Transform wayPointBox;
-    [SerializeField] private int hp;
+    [SerializeField] private int maxHp;
+    [SerializeField] private int currentHp;
     [SerializeField] private string EnemyName;
 
     //???????? ?��???? ??�N????
@@ -30,12 +30,19 @@ public class MyEnemyUnit : Unit
     List<Renderer> renderers = new List<Renderer>();    //?????? ???? (????????????????)
     List<Color> originalRenderColor = new List<Color>();
 
+    private UIManager uiManager;
+
+    private void Awake()
+    {
+        uiManager = GameManager.FindFirstObjectByType<UIManager>();
+    }
 
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
-        wayPointBox = GameObject.Find("Waypoints").transform;
+        wayPointBox = GameObject.Find("WayPoint").transform;
         currentUnitCount = 0;
+        currentHp = maxHp;
 
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
@@ -108,6 +115,13 @@ public class MyEnemyUnit : Unit
         {
             CreateEnemyUnit();
         }
+    }
+
+    public override void TakeDamage(int amount)
+    {
+        currentHp -= amount;
+        if (currentHp <= 0)
+            GameManager.Instance.isGameOver = true;
     }
 
     //??????? ???

@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyUnit))]
 public class Enemy : Unit, IFaction
 {
     // 상수

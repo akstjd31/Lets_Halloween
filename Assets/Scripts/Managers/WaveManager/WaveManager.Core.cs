@@ -79,7 +79,7 @@ public partial class WaveManager
             return;
 
         // 적 비활성화 및 초기화
-        //enemy.GetComponent<EnemyUnit>().currentWayPointIndex = 0;
+        enemy.GetComponent<EnemyUnit>().SetWayPoint(0);
         enemy.gameObject.SetActive(false);
 
         ReturnToPool(enemy);

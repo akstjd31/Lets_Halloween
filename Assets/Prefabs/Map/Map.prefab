@@ -716,6 +716,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  playerEnemyUnitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   uiManager: {fileID: 0}
 --- !u!1 &2171064341279185128
 GameObject:
@@ -1475,7 +1478,7 @@ GameObject:
   m_Component:
   - component: {fileID: 879476336457972440}
   m_Layer: 0
-  m_Name: Waypoints
+  m_Name: WayPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -50,8 +50,6 @@ public class EnemyUnit : MonoBehaviour
             if (wayPointBox == null) { return; }
 
             currentWayPointIndex++;
-
-            if (currentWayPointIndex >= wayPointBox.childCount) { currentWayPointIndex = 0; }
         }
 
         if (other.tag == "EndPoint")
@@ -59,7 +57,6 @@ public class EnemyUnit : MonoBehaviour
             Debug.Log($"{gameObject.name} 끝지점 도달");
             gameObject.SetActive(false);
         }
-
     }
 
     private void Update()
@@ -70,7 +67,8 @@ public class EnemyUnit : MonoBehaviour
     //오브젝트 이동
     private void MoveObj()
     {
-        if (wayPointBox == null) { return; }
+        if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount)
+            return;
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
@@ -139,7 +137,4 @@ public class EnemyUnit : MonoBehaviour
         //Destroy(gameObject);
        gameObject.SetActive(false);   
     }
-
-  
-
 }
