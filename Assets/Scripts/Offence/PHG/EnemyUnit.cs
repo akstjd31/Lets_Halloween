@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class EnemyUnit : MonoBehaviour
 {
-    //ÇÁ·ÎÅäÅ¸ÀÔ
-    [SerializeField] private float moveSpeed;   //È¸Àü¼Óµµ´Â ÀÌµ¿¼Óµµ¿Í °°°Ô ¸ÂÃâ°Í
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½
+    [SerializeField] private float moveSpeed;   //È¸ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Óµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public float MoveSpeed {get => moveSpeed; set => moveSpeed = value; }
 
-    private int currentWayPointIndex = 0;
+    public int currentWayPointIndex { get; set; }
 
     private Transform wayPointBox;
     [SerializeField] private int maxHp;
@@ -20,31 +20,34 @@ public class EnemyUnit : MonoBehaviour
 
     Animator animator;
 
-    bool isDie = false;     //À¯´Ö »ý»ç¿©ºÎÈ®ÀÎ
+    bool isDie = false;     //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ç¿©ï¿½ï¿½È®ï¿½ï¿½
 
-    List<Renderer> renderers = new List<Renderer>();    //·»´õ·¯ ÀúÀå (ÇÇ°ÝÆÇÁ¤Ãß°¡¸¦À§ÇÑ)
+    List<Renderer> renderers = new List<Renderer>();    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
     List<Color> originalRenderColor = new List<Color>();
 
 
-    
+
     private void Start()
     {
-        wayPointBox = GameObject.Find("WayPoint").transform;
+        currentWayPointIndex = 0;
+        wayPointBox = GameObject.Find("Waypoints").transform;
         animator = GetComponent<Animator>();
         currentHp = maxHp;
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
-        foreach(var render in renderers)
+        foreach (var render in renderers)
         {
-            originalRenderColor.Add(render.material.color); //¿ø·¡»ö»ó Ãß°¡
+            originalRenderColor.Add(render.material.color); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         }
     }
+    
+    
 
 
-    //¿þÀÌÆ÷ÀÎÆ® Ãæµ¹Ã³¸®
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½æµ¹Ã³ï¿½ï¿½
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("WayPoint"))
+        if (other.name.Contains("Waypoints"))
         {
             if (wayPointBox == null) { return; }
 
@@ -55,7 +58,7 @@ public class EnemyUnit : MonoBehaviour
 
         if (other.tag == "EndPoint")
         {
-            Debug.Log($"{gameObject.name} ³¡ÁöÁ¡ µµ´Þ");
+            Debug.Log($"{gameObject.name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             gameObject.SetActive(false);
         }
 
@@ -66,7 +69,7 @@ public class EnemyUnit : MonoBehaviour
         MoveObj();
     }
 
-    //¿ÀºêÁ§Æ® ÀÌµ¿
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìµï¿½
     private void MoveObj()
     {
         if (wayPointBox == null) { return; }
@@ -85,7 +88,7 @@ public class EnemyUnit : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        //Debug.Log($"µ¥¹ÌÁö {damage}ÀÔÀ½");
+        //Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {damage}ï¿½ï¿½ï¿½ï¿½");
         currentHp = currentHp - damage;
 
         if (currentHp <= 0 && isDie==false)
@@ -96,7 +99,7 @@ public class EnemyUnit : MonoBehaviour
         }
     }
  
-    //À¯´Ö»ö»ó ÁöÁ¤
+    //ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void StatusEffectColor(PassiveSkill playerPassive)
     {
         switch(playerPassive)
@@ -117,7 +120,7 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
-    //»ö»ó ¿ø»óº¹±Í
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½óº¹±ï¿½
     public void ReturnStatusEffectColor()
     {
         for(int i=0; i< renderers.Count; i++)
@@ -126,13 +129,13 @@ public class EnemyUnit : MonoBehaviour
         }
     }
 
-    //»ý¼º½Ã ÇÃ·¹ÀÌ¾î°¡ °¡´ÂÀ§Ä¡ ´øÁ®ÁÜ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void SetWayPoint(int wayPointIndex)
     {
         currentWayPointIndex = wayPointIndex;
     }
 
-    //À¯´ÏÆ¼ ÀÌº¥Æ® ÇÔ¼ö
+    //ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½Ìºï¿½Æ® ï¿½Ô¼ï¿½
     void Die()
     {
         //Destroy(gameObject);

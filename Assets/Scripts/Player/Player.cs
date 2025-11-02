@@ -21,7 +21,7 @@ public class Player : Unit, IFaction
     {
         base.Initialize(name, id);
         currentLife = maxLife;
-        money = 1000;
+        money = 200;
         isDead = false;
     }
 

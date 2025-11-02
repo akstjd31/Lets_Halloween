@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MyEnemyUnit : MonoBehaviour
+public class MyEnemyUnit : Unit
 {
-    //moveSpeed rotateSpeed 동일
+    //moveSpeed rotateSpeed ????
     [SerializeField] private float moveSpeed;
     public float MoveSpeed { get => moveSpeed; set => moveSpeed = value; }
 
@@ -15,36 +15,33 @@ public class MyEnemyUnit : MonoBehaviour
     [SerializeField] private int hp;
     [SerializeField] private string EnemyName;
 
-    //적군진영 플레이어만 이용가능함
+    //???????? ?占쏙옙???? ??占폧????
     [SerializeField] private GameObject[] myEnemyUnitArray;
 
-    [SerializeField] GameObject roundClearText; //임시
-
-    //몹 스폰 딜레이
+    //?? ???? ??????
     [SerializeField] private float spawnDelay;
     private float spawnTime = 0;
 
-    //유닛 소환객체수 제한
+    //???? ???????? ????
     [SerializeField] private int maxUnitCount = 20;
     private int currentUnitCount;
 
 
-    List<Renderer> renderers = new List<Renderer>();    //렌더러 저장 (피격판정추가를위한)
+    List<Renderer> renderers = new List<Renderer>();    //?????? ???? (????????????????)
     List<Color> originalRenderColor = new List<Color>();
 
 
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
-        wayPointBox = GameObject.Find("WayPoint").transform;
-        roundClearText.SetActive(false);
+        wayPointBox = GameObject.Find("Waypoints").transform;
         currentUnitCount = 0;
 
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
         foreach (var render in renderers)
         {
-            originalRenderColor.Add(render.material.color); //원래색상 추가
+            originalRenderColor.Add(render.material.color); //???????? ???
         }
     }
 
@@ -53,10 +50,10 @@ public class MyEnemyUnit : MonoBehaviour
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
     }
 
-    //웨이포인트 충돌처리
+    //????????? ?占쏙옙???
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name.Contains("WayPoint"))
+        if (other.name.Contains("Waypoints"))
         {
             if (wayPointBox == null) { return; }
 
@@ -67,13 +64,12 @@ public class MyEnemyUnit : MonoBehaviour
 
         if(other.tag=="EndPoint")
         {
-            Debug.Log($"{gameObject.name} 끝지점 도달");
-            ClearRound();
+            Debug.Log($"{gameObject.name} ?????? ????");
             gameObject.SetActive(false);
         }
     }
 
-    //상태이상에 따른 유닛색상 지정
+    //??????? ???? ??????? ????
     public void StatusEffectColor(PassiveSkill playerPassive)
     {
         switch (playerPassive)
@@ -94,7 +90,7 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //색상 원상복귀
+    //???? ?????
     public void ReturnStatusEffectColor()
     {
         for (int i = 0; i < renderers.Count; i++)
@@ -114,7 +110,7 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //오브젝트 이동
+    //??????? ???
     private void MoveObj()
     {
         if (wayPointBox == null) { return; }
@@ -130,7 +126,7 @@ public class MyEnemyUnit : MonoBehaviour
             currentWayPointIndex++;
         }
     }
-    //몹소환
+    //?????
     private void CreateEnemyUnit()
     {
         switch (Input.inputString.ToUpper())
@@ -157,7 +153,7 @@ public class MyEnemyUnit : MonoBehaviour
         }
     }
 
-    //키입력에 따른 몬스터 소환
+    //???占쏙옙? ???? ???? ???
     private void SpawnUnit(int mobIndex, int WayPointIndex)
     {
         if (spawnTime >= spawnDelay)
@@ -167,11 +163,5 @@ public class MyEnemyUnit : MonoBehaviour
             spawnTime = 0;
             currentUnitCount++;
         }
-    }
-
-    //엔드포인트 도달시 라운드가 마지막이 아니라면 다음라운드 , 마지막이면 승리
-    void ClearRound()
-    {
-        roundClearText.SetActive(true);
     }
 }

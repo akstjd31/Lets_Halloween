@@ -122,7 +122,7 @@ public class GameManager : Singleton<GameManager>
     private void StartGame()
     {
         UpdateState(GameState.Prepare);
-        
+
         // 선택한 진영에 따른 컨트롤러 부여
         selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
 
@@ -131,7 +131,7 @@ public class GameManager : Singleton<GameManager>
 
         string loadSceneName = "";
         if (gameOptionData.factionType.Equals(FactionType.Player))
-            loadSceneName = "Deffence";
+            loadSceneName = "Deffence_Easy";
         else
             loadSceneName = "Offence";
 

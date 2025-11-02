@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 8772407588428875980}
   - component: {fileID: 6219897794426175794}
   - component: {fileID: 7456097418740821458}
+  - component: {fileID: 552552945108467902}
+  - component: {fileID: 5413282014537944833}
   m_Layer: 10
   m_Name: PlayerEnemy
   m_TagString: EnemyUnit
@@ -237,7 +239,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  rotateSpeed: 1
   hp: 1
   EnemyName: MyEnemy
   myEnemyUnitArray:
@@ -246,9 +247,35 @@ MonoBehaviour:
   - {fileID: 3384582700352060456, guid: a5ad52b625ec2064490244b3d0ece8b2, type: 3}
   - {fileID: 8466669505737022287, guid: 9eaeaa67cea368f4abf41e8e10531b06, type: 3}
   - {fileID: 2701038139692703968, guid: 7eac2bd3b5450904cbc18551a323b9c3, type: 3}
-  roundClearText: {fileID: 0}
   spawnDelay: 1
   maxUnitCount: 20
+--- !u!114 &552552945108467902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188948869858280359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  maxHp: 0
+  EnemyName: 
+--- !u!114 &5413282014537944833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188948869858280359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07328dd543aa0ca4a9ab6cd6e977b8a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5244039477533974237
 GameObject:
   m_ObjectHideFlags: 0

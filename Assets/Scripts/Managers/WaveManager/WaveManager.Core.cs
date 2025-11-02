@@ -17,7 +17,7 @@ public partial class WaveManager
     private int currentWaveIndex;
     private bool isWaveRunning;
     private WaveRuntimeData runtimeData;
-    
+
     private void Start()
     {
         // 웨이포인트 세팅
@@ -35,8 +35,8 @@ public partial class WaveManager
     // 웨이브 시작
     public void StartWave()
     {
-        if (currentWaveIndex >= waves.Count)
-            return;
+        // if (currentWaveIndex >= waves.Count)
+        //     return;
 
         isWaveRunning = true;
         onWaveStarted?.Invoke();
@@ -48,13 +48,20 @@ public partial class WaveManager
         if (!isWaveRunning)
             return;
 
-        runtimeData.UpdateTimer(Time.deltaTime);
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Player))
+        {
+            runtimeData.UpdateTimer(Time.deltaTime);
 
-        Wave wave = waves[currentWaveIndex];
-        TrySpawnEnemy(wave);
+            Wave wave = waves[currentWaveIndex];
+            TrySpawnEnemy(wave);
 
-        if (IsWaveComplete)
-            EndWave();
+            if (IsWaveComplete)
+                EndWave();
+        }
+        else
+        {
+            
+        }
     }
 
     // 웨이브 종료
@@ -72,6 +79,7 @@ public partial class WaveManager
             return;
 
         // 적 비활성화 및 초기화
+        //enemy.GetComponent<EnemyUnit>().currentWayPointIndex = 0;
         enemy.gameObject.SetActive(false);
 
         ReturnToPool(enemy);
@@ -92,14 +100,16 @@ public partial class WaveManager
         // 이벤트 구독 (중복 방지)
         if (enemyDeathEventHandler != null)
         {
-            enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
             enemyDeathEventHandler.onEnemyDeactivated += OnEnemyDeactivated;
         }
 
         GameManager.Instance.UpdateState(GameState.Battle);
 
-        Wave wave = waves[currentWaveIndex];
-        runtimeData.Initialize(wave);
+        if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Player))
+        {
+            Wave wave = waves[currentWaveIndex];
+            runtimeData.Initialize(wave);
+        }
     }
 
     // 웨이브 종료 시점 (이벤트 해제, 인덱스 증가)
@@ -118,7 +128,7 @@ public partial class WaveManager
             Debug.Log(waves[currentWaveIndex].reward + " 받음!");
             player?.ReceiveReward(waves[currentWaveIndex].reward);
         }
-            
+
 
         // 세팅
         currentWaveIndex++;
