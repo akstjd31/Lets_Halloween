@@ -11,7 +11,7 @@ public class SkillButton : ParentButton
     private TextMeshProUGUI countText;
     [SerializeField] public GameObject PreviewObj;
 
-    private void Start()
+    virtual public void Start()
     {
         countText = GetComponentInChildren<TextMeshProUGUI>();
         Color imageColor = transform.Find("SkillImage").GetComponent<Image>().color;

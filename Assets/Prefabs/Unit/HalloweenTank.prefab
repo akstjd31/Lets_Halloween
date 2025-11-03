@@ -633,11 +633,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7404d355b8c1fa43ac755abf0e2ef07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: 
-  skillCooldown: 50
+  skillName: "\uD0F1\uD06C \uC18C\uD658"
+  skillEffectName: "\uC18C\uD658"
+  skillEffect: "\uACE0\uB300 \uBCD1\uAE30\uB97C 30\uCD08 \uB3D9\uC548 \uC18C\uD658\uD55C\uB2E4."
+  skillCooldown: 999
   skillDuration: 30
   skillRange: 15
-  skillPrice: 0
+  skillPrice: 44
   collider: {fileID: 0}
 --- !u!65 &372031753731680398
 BoxCollider:

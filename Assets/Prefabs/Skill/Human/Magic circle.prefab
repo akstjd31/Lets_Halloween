@@ -9799,11 +9799,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff4152445bb736f4a8a2027c20071cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: 
-  skillCooldown: 1
-  skillDuration: 10
+  skillName: "\uCD94\uBC29"
+  skillEffectName: "\uD154\uB808\uD3EC\uD2B8"
+  skillEffect: "\uBC94\uC704 \uB0B4\uC758 \uC801\uB4E4\uC740 \uC2DC\uC791 \uC9C0\uC810\uC73C\uB85C
+    \uC774\uB3D9\uD55C\uB2E4."
+  skillCooldown: 30
+  skillDuration: 5
   skillRange: 4
-  skillPrice: 100
+  skillPrice: 20
   collider: {fileID: 0}
 --- !u!135 &8173123572759645829
 SphereCollider:
@@ -25055,7 +25058,7 @@ ParticleSystem:
         m_RotationOrder: 4
   ShapeModule:
     serializedVersion: 6
-    enabled: 1
+    enabled: 0
     type: 0
     angle: 25
     length: 5
@@ -29268,7 +29271,7 @@ ParticleSystemRenderer:
   m_FreeformStretching: 0
   m_RotateWithStretchDirection: 1
   m_UseCustomVertexStreams: 1
-  m_VertexStreams: 000304
+  m_VertexStreams: 00030409
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
@@ -43922,7 +43925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6029820243802964794
 Transform:
   m_ObjectHideFlags: 0

@@ -14,9 +14,19 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     private AudioSource audioSource;
 
     [SerializeField] private int power;
+    [SerializeField] private string name;
+    [SerializeField] private string passiveName;
+    [SerializeField] private string passiveEffect;
+    [SerializeField] private int price;
     public int Power => power;
+    public string Name => name;
+    public string PassiveName => passiveName;
+    public string PassiveEffect => passiveEffect;
+    public int Price => price;
 
     [SerializeField] private float attackDelay;
+
+    public float AttackDelay => attackDelay;
     private float attackTime;
 
     private bool isPlayerUnit; // 진영에따른 플레이어유닛 / 적군유닛 구분

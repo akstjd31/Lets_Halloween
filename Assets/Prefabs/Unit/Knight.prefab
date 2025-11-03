@@ -1942,6 +1942,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
   power: 15
+  name: "\uAE30\uC0AC"
+  passiveName: "\uC5C6\uC74C"
+  passiveEffect: "\uC624\uC9C1 \uBAB8 \uD558\uB098\uBFD0"
+  price: 20
   attackDelay: 1
   passiveSkill: 0
   passiveSkillPercent: 0
