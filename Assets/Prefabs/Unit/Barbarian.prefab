@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069fda051691ed9489ea9b5316c41bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAudio: {fileID: 0}
+  attackAudio: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
   power: 10
   name: "\uBC14\uBC14\uB9AC\uC548"
   passiveName: "\uB354\uBE14 \uC5B4\uD0DD"
@@ -656,8 +656,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 3becec1909f194046945d85ac1077772, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
