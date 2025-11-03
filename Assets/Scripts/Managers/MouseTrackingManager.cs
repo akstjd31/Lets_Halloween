@@ -80,6 +80,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     {
         Destroy(target);
     }
+
     public void SpawnTargetSkill(SkillBase obj)
     {
         checkUnit = false;
@@ -234,7 +235,6 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     yield return null;
                 }
             }
-            
         }
     }
 

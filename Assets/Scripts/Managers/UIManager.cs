@@ -179,5 +179,6 @@ public class UIManager : MonoBehaviour
         preparingButton.gameObject.SetActive(active);
         //preparingTimer.transform.parent.gameObject.SetActive(active);
         shopButton.transform.parent.gameObject.SetActive(active);
+        MouseTrackingManager.Instance.targetDestory();
     }
 }
