@@ -61,4 +61,21 @@ public class SkillCoolDown : MonoBehaviour
             button.GetComponent<Button>().interactable = false;
         }
     }
+
+    public void ResetTimer()
+    {
+        if (_animator != null)
+        {
+            _animator.Play("CoolTimeAnim", -1, 1f);
+            _animator.speed = 1f;
+        }
+
+        button.GetComponent <Button>().interactable = true;
+
+        Color imageColor = button .GetComponentInChildren<Image>().color;
+        imageColor.a = 1f;
+        button.GetComponentInChildren<Image>().color = imageColor;
+
+        isActivate = true;
+    }
 }

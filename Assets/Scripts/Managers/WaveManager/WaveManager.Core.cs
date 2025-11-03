@@ -122,6 +122,9 @@ public partial class WaveManager
 
         // 보상 지급
         Unit unit = GameManager.Instance.gameOptionData.unit;
+        var getGameObject = GameObject.FindWithTag("SkillButton_Tank");
+        var coolTime = getGameObject.GetComponentInChildren<SkillCoolDown>();
+        coolTime.ResetTimer();
 
         if (unit is Player player)
         {

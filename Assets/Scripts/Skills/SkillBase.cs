@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class SkillBase : MonoBehaviour, ISkil
 {
-    [SerializeField] public string skillName;
-    [SerializeField] public float skillCooldown;
-    [SerializeField] public float skillDuration;
-    [SerializeField] public float skillRange;
-    [SerializeField] public int skillPrice;
+    [SerializeField] public string skillName; // 스킬 이름
+    [SerializeField] public string skillEffectName; // 스킬 효과명
+    [SerializeField] public string skillEffect; // 스킬 효과
+    [SerializeField] public float skillCooldown; // 쿨타임
+    [SerializeField] public float skillDuration; // 지속시간
+    [SerializeField] public float skillRange; // 범위
+    [SerializeField] public int skillPrice; // 가격
 
     public string _name { get; set; }              // 이름
     public float _cooldown { get; set; }           // 쿨타임

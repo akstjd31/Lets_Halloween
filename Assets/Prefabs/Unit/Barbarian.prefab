@@ -637,6 +637,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAudio: {fileID: 0}
   power: 10
+  name: "\uBC14\uBC14\uB9AC\uC548"
+  passiveName: "\uB354\uBE14 \uC5B4\uD0DD"
+  passiveEffect: "\uD655\uB960\uC801\uC73C\uB85C \uD55C\uBC88 \uB354 \uACF5\uACA9\uD55C\uB2E4."
+  price: 20
   attackDelay: 0.8
   passiveSkill: 3
   passiveSkillPercent: 0.15

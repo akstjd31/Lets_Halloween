@@ -1,4 +1,5 @@
 using Palmmedia.ReportGenerator.Core.Reporting.Builders.Rendering;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -17,7 +18,6 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     private PlayerUnit ActivateUnitObject;
     private PlayerUnit_Projectile ActivateUnitPObject;
     private SkillBase ActivateSkillObject;
-    
     private SkillCoolDown skillCool;
 
     [SerializeField] LayerMask layermask;
@@ -26,7 +26,8 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     [SerializeField] LayerMask activateMask;
     [SerializeField] LayerMask activatePMask;
 
-    
+    public Action OnUnitPlaced;
+
     private static bool isClick = false;
 
     private ParentButton activeButton;
@@ -105,6 +106,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         ActivateUnitObject = null;
         StartCoroutine(CospawnTarget());
     }
+
     public void SetAnim(SkillCoolDown skillCoolDown)
     {
         skillCool = skillCoolDown;
@@ -286,6 +288,8 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
             else if (unit != null)
             {
                 var obj = Instantiate(unit, target.transform.position, unit.transform.rotation);
+                OnUnitPlaced?.Invoke();
+                OnUnitPlaced = null;
             }
 
             else if (unitP != null)
@@ -294,6 +298,8 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                 var obj = Instantiate(unitP, target.transform.position, unitP.transform.rotation);
                 SkillBase skillObj = obj.GetComponent<SkillBase>();
                 skillObj.UseSkill();
+                OnUnitPlaced?.Invoke();
+                OnUnitPlaced = null;
 
                 if (activeButton != null)
                 {
