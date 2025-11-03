@@ -9,7 +9,6 @@ public class EnemyUnit : MonoBehaviour
     public float moveSpeedOrigin;   //회전속도는 이동속도와 같게 맞출것
 
     public float MoveSpeed { get; set; }
-    
 
     private int currentWayPointIndex = 0;
 
@@ -85,8 +84,8 @@ public class EnemyUnit : MonoBehaviour
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
 
-        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position, moveSpeedOrigin * Time.deltaTime);
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), moveSpeedOrigin * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position,targetTransform.position, MoveSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), MoveSpeed * Time.deltaTime);
 
         if (direction == Vector3.zero)
         {

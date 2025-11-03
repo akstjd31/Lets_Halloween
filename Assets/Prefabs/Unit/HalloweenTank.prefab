@@ -637,9 +637,9 @@ MonoBehaviour:
   skillEffectName: "\uC18C\uD658"
   skillEffect: "\uACE0\uB300 \uBCD1\uAE30\uB97C 30\uCD08 \uB3D9\uC548 \uC18C\uD658\uD55C\uB2E4."
   skillCooldown: 999
-  skillDuration: 30
+  skillDuration: 15
   skillRange: 15
-  skillPrice: 44
+  skillPrice: 66
   collider: {fileID: 0}
 --- !u!65 &372031753731680398
 BoxCollider:

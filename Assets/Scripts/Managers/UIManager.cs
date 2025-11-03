@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject shopUI;
     private Button shopButton;
 
-
     [Header("Prefab")]
     [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
     
@@ -95,7 +94,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateMoney(Player player)
     {
-        moneyText.text = player.Money.ToString("N0");
+        moneyText.text = player?.Money.ToString("N0");
     }
 
     private void SetPreparingTimer()

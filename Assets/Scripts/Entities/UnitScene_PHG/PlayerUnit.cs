@@ -211,7 +211,6 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
         if (target == null || isStatus || !target.gameObject.activeSelf || target.MoveSpeed==0) yield break;
 
         GameObject obj;
-        float originMoveSpeed = target.MoveSpeed;
       
         Debug.Log("스턴 발동");
         isStatus = true;
@@ -223,7 +222,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
         yield return passiveSkillDuration;
 
-        target.MoveSpeed = originMoveSpeed;
+        target.MoveSpeed = target.moveSpeedOrigin;
         Destroy(obj);
         Debug.Log("스턴 풀림");
         target.ReturnStatusEffectColor();

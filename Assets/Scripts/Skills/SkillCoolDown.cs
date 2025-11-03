@@ -26,7 +26,6 @@ public class SkillCoolDown : MonoBehaviour
         skillObj = skillbutton.skillPrefab.GetComponent<SkillBase>();
         Debug.Log($"쿨타임 : {skillObj.skillCooldown}");
         button = transform.parent.gameObject;
-        
     }
 
     public void UseSkill()

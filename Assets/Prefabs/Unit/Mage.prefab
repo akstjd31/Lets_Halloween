@@ -906,7 +906,7 @@ MonoBehaviour:
   price: 20
   attackDelay: 1
   passiveSkill: 2
-  passiveSkillPercent: 0.25
+  passiveSkillPercent: 1
   passiveSkillTime: 2
   passiveSkillEffect: {fileID: 7215683859329325772, guid: 79dc631e0723d6e49ae56ed1f84decb7, type: 3}
 --- !u!82 &1054192729930539855
