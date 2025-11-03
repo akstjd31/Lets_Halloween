@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -79,8 +80,10 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
     public void targetDestory()
     {
+        StopCoroutine(CospawnTarget());
         Destroy(target);
     }
+
     public void SpawnTargetSkill(SkillBase obj)
     {
         checkUnit = false;
@@ -148,6 +151,9 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
             while (!isClick)
             {
+                if (target == null)
+                    yield break;
+
                 Ray rayTarget = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hitTarget;
 
@@ -240,7 +246,6 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
                     yield return null;
                 }
             }
-            
         }
     }
 

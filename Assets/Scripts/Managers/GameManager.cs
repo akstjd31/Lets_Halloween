@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -45,26 +46,13 @@ public class GameManager : Singleton<GameManager>
         isGameOver = false;
         isGameClear = false;
         isFirstWave = true;
-        elapsedTime = preparingTime;
+        InitPreparingTime();
 
         UpdateState(GameState.Main);
     }
 
     private void Update()
     {
-        // 게임 오버 상태
-        if (isGameOver && !hasProcessed)
-        {
-            hasProcessed = true;
-            SceneManager.LoadScene("Defeat");
-        }
-
-        if (isGameClear && !hasProcessed)
-        {
-            hasProcessed = true;
-            SceneManager.LoadScene("Victory");
-        }
-
         // 각 상태에 따른 수행 부분
         switch (currentState)
         {
@@ -79,6 +67,7 @@ public class GameManager : Singleton<GameManager>
                 break;
             case GameState.Result:
                 selectedFactionController?.ResultPhase();
+                LoadEndScene();
                 break;
         }
     }
@@ -101,6 +90,21 @@ public class GameManager : Singleton<GameManager>
             loadSceneName = "Offence_";
 
         SceneManager.LoadScene(loadSceneName + diffName);
+    }
+
+    private void LoadEndScene()
+    {
+        if (!hasProcessed)
+        {
+            string sceneName = "";
+            if (isGameClear)
+                sceneName = "Victory";
+            else if (isGameOver)
+                sceneName = "Defeat";
+
+            hasProcessed = true;
+            SceneManager.LoadScene(sceneName);
+        }
     }
 
     // GameState 게터
