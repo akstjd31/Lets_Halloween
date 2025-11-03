@@ -128,19 +128,19 @@ public class ShopManager : MonoBehaviour
 
         if (checktype == true)
         {
+            _setButton.AddCount();
             player.ReceiveReward(-price);
             uiManager.UpdateMoney(player);
-            _setButton.AddCount();
 
         }
 
-        else if (checktype == false)        
+        else if (checktype == false)
         {
             MouseTrackingManager.Instance.targetObject = _preview;
             MouseTrackingManager.Instance.OnUnitPlaced = OnUnitPlaced;
             MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
         }
-
+    
         UpdateBuyText();
     }
     // 스킬인지 체크
@@ -173,6 +173,7 @@ public class ShopManager : MonoBehaviour
     {
         price = units[itemIndex].Price;
         player.ReceiveReward(-price);
+        uiManager.UpdateMoney(player);
         UpdateBuyText();
     }
 }
