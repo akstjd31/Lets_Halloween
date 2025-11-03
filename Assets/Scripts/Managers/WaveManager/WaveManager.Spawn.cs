@@ -6,19 +6,17 @@ public partial class WaveManager
     [Header("Spawn Settings")]
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private Transform waypoint;
+    [SerializeField] private List<Transform> waypoints;
     [SerializeField] private Transform endPoint;
     [SerializeField] private float minZPos;
     [SerializeField] private float maxZPos;
-    [SerializeField] private int poolSize;
     [SerializeField] private int spawnInfoIndex;
 
-    [Header("Runtime")]
-    [SerializeField] private List<Enemy> activeEnemies = new List<Enemy>();
-    [SerializeField] private List<Transform> waypoints;
-
-    // 프리팹별 오브젝트 풀
+    [Header("Object Pool")]
     private Dictionary<Enemy, Queue<Enemy>> enemyPools = new();
-
+    [SerializeField] private List<Enemy> activeEnemies = new List<Enemy>();
+    [SerializeField] private int poolSize;
+    
     // 풀 초기화 (처음 한 번만)
     private void InitPool(Enemy prefab)
     {

@@ -17,7 +17,8 @@ public class EnemyFactionController : MonoBehaviour, IFactionController
 
             Debug.Log("초기 세팅 중...");
             enemy = newEnemyPrefab.GetComponent<MyEnemyUnit>();
-            // enemy.Initialize(newEnemyPrefab.name, 0);
+            enemy.Initialize(newEnemyPrefab.name, 0);
+            enemy.SetMoney(200);
             SetUnitActive(false);
         }
 

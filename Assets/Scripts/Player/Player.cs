@@ -32,9 +32,7 @@ public class Player : Unit, IFaction
         if (currentLife <= 0)
             OnDead();
     }
-
-    public void ReceiveReward(int reward) => money += reward;
-
+    
     public override void OnDead()
     {
         //Debug.Log("게임 오버!");

@@ -43,7 +43,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private RawImage rawImage;
 
-    Player player;
+    Unit unit;
 
     // [SerializeField] private int _money = 1000;
 
@@ -69,7 +69,7 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
-        player = (GameManager.Instance.gameOptionData.unit as Player);
+        unit = GameManager.Instance.gameOptionData.unit;
         SetRender();
     }
 
@@ -149,22 +149,22 @@ public class ShopManager : MonoBehaviour
 
                 price = skills[itemIndex].skillPrice;
 
-                if (price > player.Money)
+                if (price > unit.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
                 }
 
                 _setButton.AddCount();
-                player.ReceiveReward(-price);
-                uiManager.UpdateMoney(player);
+                unit.ReceiveReward(-price);
+                uiManager.UpdateMoney(unit);
 
                 break;
 
             case ShopCheck.Unit:
                 price = units[itemIndex].Price;
 
-                if (price > player.Money)
+                if (price > unit.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
@@ -178,15 +178,15 @@ public class ShopManager : MonoBehaviour
             case ShopCheck.Monster:
                 price = enemyUnits[itemIndex].Price;
 
-                if (price > player.Money)
+                if (price > unit.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
                 }
 
                 _setUnitButton.AddCount();
-                player.ReceiveReward(-price);
-                uiManager.UpdateMoney(player);
+                unit.ReceiveReward(-price);
+                uiManager.UpdateMoney(unit);
                 break;
         }
         UpdateBuyText();
@@ -207,8 +207,8 @@ public class ShopManager : MonoBehaviour
     private void OnUnitPlaced()
     {
         price = units[itemIndex].Price;
-        player.ReceiveReward(-price);
-        uiManager.UpdateMoney(player);
+        unit.ReceiveReward(-price);
+        uiManager.UpdateMoney(unit);
         UpdateBuyText();
     }
 

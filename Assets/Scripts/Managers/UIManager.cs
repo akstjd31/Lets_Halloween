@@ -71,7 +71,7 @@ public class UIManager : MonoBehaviour
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
 
             Unit unit = GameManager.Instance.gameOptionData.unit;
-            UpdateMoney((unit as Player));
+            UpdateMoney(unit);
 
             SetPreparingTimer();
         }
@@ -106,9 +106,9 @@ public class UIManager : MonoBehaviour
         }
     }
     // 돈 갱신
-    public void UpdateMoney(Player player)
+    public void UpdateMoney(Unit unit)
     {
-        moneyText.text = player?.Money.ToString("N0");
+        moneyText.text = unit?.Money.ToString("N0");
     }
 
     private void SetPreparingTimer()
