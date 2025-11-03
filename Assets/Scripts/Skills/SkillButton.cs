@@ -43,6 +43,10 @@ public class SkillButton : ParentButton
 
     public override void OnClickButton()
     {
+        if (GameManager.Instance.GetGameState().Equals(GameState.Prepare))
+            return;
+            
+        // 스킬 개수가 0이면 사용 불가
         if (skillCount <= 0)
         {
             button.interactable = false;

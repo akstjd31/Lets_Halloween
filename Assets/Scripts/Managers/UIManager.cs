@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             difficultyText.text = $"[{GameManager.Instance.gameOptionData.difficulty}]";
 
             Unit unit = GameManager.Instance.gameOptionData.unit;
-            moneyText.text = (unit as Player)?.Money.ToString("N0");
+            UpdateMoney((unit as Player));
 
             SetPreparingTimer();
         }
@@ -91,6 +91,11 @@ public class UIManager : MonoBehaviour
             WaveManager.Instance.onWaveStarted -= OnWaveStarted;
             WaveManager.Instance.onWaveEnded -= OnWaveEnded;
         }
+    }
+
+    public void UpdateMoney(Player player)
+    {
+        moneyText.text = player.Money.ToString("N0");
     }
 
     private void SetPreparingTimer()
@@ -150,7 +155,7 @@ public class UIManager : MonoBehaviour
 
         if (unit is Player player)
         {
-            moneyText.text = player?.Money.ToString("N0");
+            UpdateMoney((unit as Player));
         }
     }
     

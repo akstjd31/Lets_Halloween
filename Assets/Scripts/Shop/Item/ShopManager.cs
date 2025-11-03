@@ -52,6 +52,12 @@ public class ShopManager : MonoBehaviour
     private GameObject _preview;
 
     private string lastButtonText = "";
+    UIManager uiManager;
+
+    private void Awake()
+    {
+        uiManager = FindFirstObjectByType<UIManager>();
+    }
 
     private void Start()
     {
@@ -114,8 +120,6 @@ public class ShopManager : MonoBehaviour
     {
         price = checktype? skills[itemIndex].skillPrice : units[itemIndex].Price;
 
-        Debug.Log("남은돈"+player.Money);
-
         if(price > player.Money)
         {
              buttonText.text = "돈 부족";
@@ -125,6 +129,7 @@ public class ShopManager : MonoBehaviour
         if (checktype == true)
         {
             player.ReceiveReward(-price);
+            uiManager.UpdateMoney(player);
             _setButton.AddCount();
 
         }

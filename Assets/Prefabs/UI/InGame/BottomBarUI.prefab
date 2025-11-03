@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 6501483804405778736}
   m_Layer: 5
   m_Name: SkillButton (3)
-  m_TagString: Untagged
+  m_TagString: SkillButton_Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

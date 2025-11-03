@@ -83,6 +83,29 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    // 게임 시작 시 진영 선택에 따른 컨트롤러 제어권 관리
+    private void StartGame()
+    {
+        UpdateState(GameState.Prepare);
+
+        // 선택한 진영에 따른 컨트롤러 부여
+        selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
+
+        // 씬 넘어가기
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        string loadSceneName = "";
+        if (gameOptionData.factionType.Equals(FactionType.Player))
+            loadSceneName = "Deffence_";
+        else
+            loadSceneName = "Offence_";
+
+        SceneManager.LoadScene(loadSceneName + diffName);
+    }
+
+    // GameState 게터
+    public GameState GetGameState() => this.currentState;
+
     // 상태 업데이트
     public void UpdateState(GameState gameState) => this.currentState = gameState;
 
@@ -117,26 +140,6 @@ public class GameManager : Singleton<GameManager>
                 UpdateState(GameState.Battle);
             }
         }
-    }
-
-    // 게임 시작 시 진영 선택에 따른 컨트롤러 제어권 관리
-    private void StartGame()
-    {
-        UpdateState(GameState.Prepare);
-
-        // 선택한 진영에 따른 컨트롤러 부여
-        selectedFactionController = gameOptionData.factionType.Equals(FactionType.Player) ? playerFactionController : enemyFactionController;
-
-        // 씬 넘어가기
-        SceneManager.sceneLoaded += OnSceneLoaded;
-
-        string loadSceneName = "";
-        if (gameOptionData.factionType.Equals(FactionType.Player))
-            loadSceneName = "Deffence_";
-        else
-            loadSceneName = "Offence_";
-
-        SceneManager.LoadScene(loadSceneName + diffName);
     }
 
     // 다음 씬에서 초기화하기 위함
