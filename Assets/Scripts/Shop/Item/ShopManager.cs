@@ -45,7 +45,7 @@ public class ShopManager : MonoBehaviour
 
     Player player;
 
-    [SerializeField] private int _money = 1000;
+    // [SerializeField] private int _money = 1000;
 
     private int itemIndex;
 
@@ -149,24 +149,22 @@ public class ShopManager : MonoBehaviour
 
                 price = skills[itemIndex].skillPrice;
 
-                if (price > _money)
+                if (price > player.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
                 }
 
                 _setButton.AddCount();
-                //player.ReceiveReward(-price);
-                //uiManager.UpdateMoney(player);
-
-                _money -= price;
+                player.ReceiveReward(-price);
+                uiManager.UpdateMoney(player);
 
                 break;
 
             case ShopCheck.Unit:
                 price = units[itemIndex].Price;
 
-                if (price > _money)
+                if (price > player.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
@@ -180,17 +178,15 @@ public class ShopManager : MonoBehaviour
             case ShopCheck.Monster:
                 price = enemyUnits[itemIndex].Price;
 
-                if (price > _money)
+                if (price > player.Money)
                 {
                     buttonText.text = "돈 부족";
                     return;
                 }
 
                 _setUnitButton.AddCount();
-                //player.ReceiveReward(-price);
-                //uiManager.UpdateMoney(player);
-
-                _money -= price;
+                player.ReceiveReward(-price);
+                uiManager.UpdateMoney(player);
                 break;
         }
         UpdateBuyText();

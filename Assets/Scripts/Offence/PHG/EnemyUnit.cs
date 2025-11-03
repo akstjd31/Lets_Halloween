@@ -75,7 +75,6 @@ public class EnemyUnit : MonoBehaviour
             Debug.Log($"{gameObject.name} 끝지점 도달");
             gameObject.SetActive(false);
         }
-
     }
 
     private void OnEnable()
@@ -93,7 +92,8 @@ public class EnemyUnit : MonoBehaviour
     //오브젝트 이동
     private void MoveObj()
     {
-        if (wayPointBox == null) { return; }
+        if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount)
+            return; 
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
         Vector3 direction = (targetTransform.position - transform.position).normalized;
