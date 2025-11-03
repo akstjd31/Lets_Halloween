@@ -10,6 +10,8 @@ public class SkillButtonTank : SkillButton
 
     override public void Start()
     {
+        
+
         _cooldownAnim = transform.GetComponentInChildren<SkillCoolDown>();
         base.Start();
     }
