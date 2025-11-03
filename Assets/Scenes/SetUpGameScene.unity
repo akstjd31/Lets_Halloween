@@ -369,7 +369,7 @@ MonoBehaviour:
   playerFactionController: {fileID: 1164515271}
   enemyFactionController: {fileID: 1575578128}
   currentState: 0
-  preparingTime: 30
+  preparingTime: 10
   isGameOver: 0
   isGameClear: 0
   elapsedTime: 0

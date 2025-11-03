@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     [Header("ShopUI")]
     [SerializeField] private GameObject shopUI;
     private Button shopButton;
+    private Vector3 originPos;
 
     [Header("Prefab")]
     [SerializeField] private Image heart, heartDark;    // 하트 / 빈하트
@@ -53,7 +54,9 @@ public class UIManager : MonoBehaviour
         preparingTimer = FindFirstObjectByType<Timer>();
 
         // Shop UI
+        originPos = shopUI.transform.position;
         shopButton = shopUI?.GetComponentInChildren<Button>();
+        shopButton.onClick.AddListener(OnClickShopButton);
 
         // Prefab
     }
@@ -91,7 +94,17 @@ public class UIManager : MonoBehaviour
             WaveManager.Instance.onWaveEnded -= OnWaveEnded;
         }
     }
-
+    // 상점 버튼 클릭 시 이벤트
+    public void OnClickShopButton()
+    {
+        if (shopButton != null)
+        {
+            Animator anim = shopUI.GetComponent<Animator>();
+            bool isShopOpen = anim.GetBool("isShopOpen");
+            anim.SetBool("isShopOpen", !isShopOpen);
+        }
+    }
+    // 돈 갱신
     public void UpdateMoney(Player player)
     {
         moneyText.text = player?.Money.ToString("N0");
@@ -136,6 +149,8 @@ public class UIManager : MonoBehaviour
     private void OnWaveStarted()
     {
         Debug.Log("웨이브 시작");
+        shopUI.GetComponent<Animator>().SetBool("isShopOpen", false);
+        shopUI.transform.position = originPos;
         UIActiveSetting(false);
     }
 
