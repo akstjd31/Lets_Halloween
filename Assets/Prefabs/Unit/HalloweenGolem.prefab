@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 6550840133373681873}
   - component: {fileID: 8738535359068316451}
   - component: {fileID: 4457097195492498444}
+  - component: {fileID: -7593193191491545469}
   m_Layer: 9
   m_Name: HalloweenGolem
   m_TagString: Enemy
@@ -292,9 +293,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8046be8b3a9404240bf93839c5f911c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _name: 
+  _story: 
+  _any: 
+  _hp: 0
+  _price: 0
   moveSpeedOrigin: 5
   maxHp: 800
   EnemyName: Golem
+  isDie: 0
 --- !u!114 &4457097195492498444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,6 +314,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07328dd543aa0ca4a9ab6cd6e977b8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7593193191491545469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2701038139692703968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7404d355b8c1fa43ac755abf0e2ef07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  skillEffectName: 
+  skillEffect: 
+  skillCooldown: 50
+  skillDuration: 999999
+  skillRange: 5
+  skillPrice: 0
+  collider: {fileID: 0}
 --- !u!1 &3196770521590773508
 GameObject:
   m_ObjectHideFlags: 0

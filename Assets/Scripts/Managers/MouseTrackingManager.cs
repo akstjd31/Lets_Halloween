@@ -39,6 +39,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     bool onMouseMap;
     bool overActivate;
     public bool skillCheck;
+    public bool activeSkill = false;
 
     private void Start()
     {
@@ -116,6 +117,11 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     public void SetAnim(SkillCoolDown skillCoolDown)
     {
         skillCool = skillCoolDown;
+        if (activeSkill == true)
+        {
+            skillCool.UseSkill();
+            activeSkill = false;
+        }
     }
 
     IEnumerator CospawnTarget()

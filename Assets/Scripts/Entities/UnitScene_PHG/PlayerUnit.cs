@@ -130,12 +130,12 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
                 Attack();
             }
 
-            if (enemy.isDie == true)
-            {
-                Debug.Log("죽음 작동");
-                isAttack = false;
-                target = null;
-            }
+            //if (enemy.isDie == true)
+            //{
+            //    Debug.Log("죽음 작동");
+            //    isAttack = false;
+            //    target = null;
+            //}
 
         }
     }

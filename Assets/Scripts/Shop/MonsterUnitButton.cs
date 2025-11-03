@@ -8,7 +8,7 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class MonsterUnitButton : ParentButton
 {
     [SerializeField] public EnemyUnit enemyPrefab;
-    [SerializeField] private int unitCount;
+    [SerializeField] public int unitCount;
     private TextMeshProUGUI countText;
 
     virtual public void Start()

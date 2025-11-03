@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SetUpGameSceneManager : MonoBehaviour
 {
-    [Header("ī�޶�")]
+    //[Header("ī�޶�")]
     [SerializeField] private GameObject inputSelectFactionCamera;
     [SerializeField] private GameObject inputSelectDifficultyCamera;
-    [Header("ĵ����")]
+    //[Header("ĵ����")]
     [SerializeField] private GameObject inputSelectFactionCanvas;
     [SerializeField] private GameObject inputSelectDifficultyCanvas;
 

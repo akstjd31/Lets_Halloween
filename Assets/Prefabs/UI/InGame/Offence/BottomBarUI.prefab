@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 6313620057375885874}
   - component: {fileID: 5715904149254054067}
   - component: {fileID: 476808244216940073}
-  - component: {fileID: 4524275786183058953}
+  - component: {fileID: 8424100646407662673}
   m_Layer: 5
   m_Name: SkillButton_3
   m_TagString: SkillButton_Tank
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &4524275786183058953
+--- !u!114 &8424100646407662673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -314,14 +314,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 536519686152961883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2312b3fe96b92c4da4646303e41d251, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a9253f896470264d95f980d9c9e2a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
   skillCount: 0
-  skillPrefab: {fileID: -5047452870791924376, guid: 39649a4ef37bbd540b384b23d1097177, type: 3}
-  PreviewObj: {fileID: 4344829753938422983, guid: 9b0551b75bdb1bd45acab98e63fb3f3d, type: 3}
-  playerUnitObj: {fileID: 4345171868221772138, guid: 39649a4ef37bbd540b384b23d1097177, type: 3}
+  skillPrefab: {fileID: -7593193191491545469, guid: 7eac2bd3b5450904cbc18551a323b9c3, type: 3}
+  PreviewObj: {fileID: 0}
 --- !u!1 &810574006016141416
 GameObject:
   m_ObjectHideFlags: 0

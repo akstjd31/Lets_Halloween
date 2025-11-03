@@ -553,7 +553,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SkillCheck
+        m_MethodName: SetEnum_Skill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -577,14 +577,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SetSkillButton
-        m_Mode: 2
+        m_MethodName: SetButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SkillButton (2)
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
@@ -868,7 +868,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SkillCheck
+        m_MethodName: SetEnum_Skill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -892,14 +892,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SetSkillButton
-        m_Mode: 2
+        m_MethodName: SetButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SkillButton (1)
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
@@ -1051,7 +1051,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: UnitCheck
+        m_MethodName: SetEnum_Unit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1438,7 +1438,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SkillCheck
+        m_MethodName: SetEnum_Skill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1462,14 +1462,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SetSkillButton
-        m_Mode: 2
+        m_MethodName: SetButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SkillButton (3)
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
@@ -2090,7 +2090,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SkillCheck
+        m_MethodName: SetEnum_Skill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2114,14 +2114,14 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: SetSkillButton
-        m_Mode: 2
+        m_MethodName: SetButton
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: SkillButton, Assembly-CSharp
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SkillButton
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
@@ -2273,7 +2273,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: UnitCheck
+        m_MethodName: SetEnum_Unit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2950,7 +2950,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: UnitCheck
+        m_MethodName: SetEnum_Unit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3161,7 +3161,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 5924401667861720139}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: UnitCheck
+        m_MethodName: SetEnum_Unit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4492,6 +4492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c332cd94b89295d449fa6f4a1fd94c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyUnits: []
   units:
   - {fileID: 8553449892030435666, guid: d4cf768933ccb81479dd63926b483747, type: 3}
   - {fileID: 3609033240770444996, guid: f47f1bb239dd31f4ab7add8fa9b7fa1b, type: 3}
@@ -4509,8 +4510,12 @@ MonoBehaviour:
   infoText_SkillCoolTimeOrUnitPassiveName: {fileID: 107221441925105890}
   infoText_SkillDurationOrUnitPassiveEffect: {fileID: 3315452616038589855}
   infoText_Price: {fileID: 7539222469855857380}
-  rawImage: {fileID: 3651534993473053533}
+  rawImageName: RawImage
+  renderCameraName: LenderCamera
   renderCamera: {fileID: 0}
+  rawImage: {fileID: 3651534993473053533}
+  _money: 1000
+  checker: 0
 --- !u!1 &9212652408784723630
 GameObject:
   m_ObjectHideFlags: 0

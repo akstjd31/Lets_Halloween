@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MyEnemyUnit : Unit
@@ -30,21 +31,24 @@ public class MyEnemyUnit : Unit
     List<Renderer> renderers = new List<Renderer>();    //?????? ???? (????????????????)
     List<Color> originalRenderColor = new List<Color>();
 
+    private MonsterUnitButton monsterUnitButton;
+    private SkillButtonGoel buttonGoel;
+    public bool clickSkill;
 
     private void Start()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
         wayPointBox = GameObject.Find("WayPoint").transform;
         currentUnitCount = 0;
-
+        buttonGoel = GameObject.Find("SkillButton_3").GetComponent<SkillButtonGoel>();
         renderers.AddRange(GetComponentsInChildren<Renderer>());
 
         foreach (var render in renderers)
         {
             originalRenderColor.Add(render.material.color); //???????? ???
         }
-    }
 
+    }
     private void OnEnable()
     {
         transform.position = GameObject.FindWithTag("StartPoint").transform.position;
@@ -127,28 +131,35 @@ public class MyEnemyUnit : Unit
     //?????
     private void CreateEnemyUnit()
     {
+
         switch (Input.inputString.ToUpper())
         {
             case "Q":
+                monsterUnitButton = GameObject.Find("UnitButton").GetComponent<MonsterUnitButton>();
                 SpawnUnit(0, currentWayPointIndex);
                 break;
 
             case "W":
+                monsterUnitButton = GameObject.Find("UnitButton_1").GetComponent<MonsterUnitButton>();
                 SpawnUnit(1, currentWayPointIndex);
                 break;
 
             case "E":
+                monsterUnitButton = GameObject.Find("UnitButton_2").GetComponent<MonsterUnitButton>();
                 SpawnUnit(2, currentWayPointIndex);
                 break;
 
             case "R":
+                monsterUnitButton = GameObject.Find("UnitButton_3").GetComponent<MonsterUnitButton>();
                 SpawnUnit(3, currentWayPointIndex);
                 break;
-
-            case "T":
-                SpawnUnit(4, currentWayPointIndex);
-                break;
         }
+    }
+
+    public void SpawnGoal()
+    {
+        clickSkill = true;
+        SpawnUnit(4, currentWayPointIndex);
     }
 
     //???占쏙옙? ???? ???? ???
@@ -156,10 +167,24 @@ public class MyEnemyUnit : Unit
     {
         if (spawnTime >= spawnDelay)
         {
-            GameObject mob = Instantiate(myEnemyUnitArray[mobIndex], transform.position, transform.rotation);
-            mob.GetComponent<EnemyUnit>().SetWayPoint(currentWayPointIndex);
-            spawnTime = 0;
-            currentUnitCount++;
+            if(clickSkill == true && buttonGoel.skillCount > 0)
+            {
+                GameObject mob = Instantiate(myEnemyUnitArray[mobIndex], transform.position, transform.rotation);
+                mob.GetComponent<EnemyUnit>().SetWayPoint(currentWayPointIndex);
+                spawnTime = 0;
+                currentUnitCount++;
+                buttonGoel.RemoveCount();
+                clickSkill = false;
+            }
+           
+            else if (monsterUnitButton.unitCount > 0)
+            {
+                GameObject mob = Instantiate(myEnemyUnitArray[mobIndex], transform.position, transform.rotation);
+                mob.GetComponent<EnemyUnit>().SetWayPoint(currentWayPointIndex);
+                spawnTime = 0;
+                currentUnitCount++;
+                monsterUnitButton.RemoveCount();
+            }
         }
     }
 }
