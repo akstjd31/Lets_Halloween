@@ -34,7 +34,6 @@ public class Player : Unit, IFaction
     }
 
     public void ReceiveReward(int reward) => money += reward;
-    
 
     public override void OnDead()
     {

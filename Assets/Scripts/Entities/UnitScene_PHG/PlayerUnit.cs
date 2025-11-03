@@ -14,12 +14,12 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     private AudioSource audioSource;
 
     [SerializeField] private int power;
-    [SerializeField] private string name;
+    [SerializeField] private string _name;
     [SerializeField] private string passiveName;
     [SerializeField] private string passiveEffect;
     [SerializeField] private int price;
     public int Power => power;
-    public string Name => name;
+    public string Name => _name;
     public string PassiveName => passiveName;
     public string PassiveEffect => passiveEffect;
     public int Price => price;
@@ -70,43 +70,88 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     //구분 이유 -> 타겟우선 -> Enemy
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag ==("Enemy"))
-        {
-            Debug.Log("적군 진입");
-            isAttack = true;
-            transform.LookAt(other.transform);  //타겟을 바라봄
-            attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
-            target = other.gameObject;
-            enemy = other.GetComponent<EnemyUnit>();
-            
-        }
-        else if(other.tag== ("EnemyUnit"))
-        {
-            Debug.Log("적플레이어 진입");
-            isAttack = true;
-            transform.LookAt(other.transform);  //타겟을 바라봄
-            attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
-            target = other.gameObject;
-            myEnemy = other.GetComponent<MyEnemyUnit>();
-        }
+        
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == ("Enemy"))
+        {
+            if (target == null)
+            {
+                Debug.Log("적군 진입");
+                isAttack = true;
+                transform.LookAt(other.transform);  //타겟을 바라봄
+                attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
+                target = other.gameObject;
+                enemy = other.GetComponent<EnemyUnit>();
+            }
+
+            else if (target != null)
+            {
+                return;
+            }
+        }
+
+        else if (other.gameObject.tag == ("EnemyUnit"))
+        {
+            if (target == null)
+            {
+                Debug.Log("적플레이어 진입");
+                isAttack = true;
+                transform.LookAt(other.transform);  //타겟을 바라봄
+                attackTime = attackDelay;   //적군 바로공격할수있게 쿨타임 충전
+                target = other.gameObject;
+                enemy = other.GetComponent<EnemyUnit>();
+            }
+
+            else if (target != null)
+            {
+                return;
+            }
+        }
+
+        else if (other.gameObject.tag == "Shield")
+        {
+            if (target != null)
+            {
+                target = null;
+            }
+            return;
+        }
+    }
     private void Update()
     {
-        if (isAttack && target.activeSelf)  // 현재 공격 대상이 존재할 때만 회전
+        if (target != null)
         {
-            transform.LookAt(target.transform);
-            Attack();   
+            if (isAttack && target.activeSelf)  // 현재 공격 대상이 존재할 때만 회전
+            {
+                transform.LookAt(target.transform);
+                Attack();
+            }
+
+            if (enemy.isDie == true)
+            {
+                Debug.Log("죽음 작동");
+                isAttack = false;
+                target = null;
+            }
+
         }
     }
 
     // 적이 범위를 벗어나면 정지상태로 돌입
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag.Contains("Enemy"))
+        if (target != null)
         {
-            isAttack = false;
-        }    
+            if (other.gameObject == target.gameObject)
+            {
+                Debug.Log("타겟이 범위를 벗어남");
+                isAttack = false;
+                target = null;
+            }
+        }
     }
 
     void Attack()
@@ -117,7 +162,7 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
 
             if (attackTime >= attackDelay)
             {
-              
+                
                 //현재 애니메이션 상태 가져옴
                 AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -313,7 +358,10 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     //유니티 애니메이션 함수
     void Shoot()
     {
-        weapon.Shoot(target.transform);
+        if (target != null)
+        {
+            weapon.Shoot(target.transform);
+        }
     }
 
     void TakeDamage()
@@ -351,4 +399,15 @@ public class PlayerUnit : MonoBehaviour , IUnitPassiveSkill
     }
     #endregion
 
+    public void AttackSlow(float power)
+    {
+        attackDelay *= 1 + (power / 100f);
+        //Debug.Log("공격 속도 느려짐" + attackDelay);
+    }
+
+    public void ResetAttackDelay(float originalDelay)
+    {
+        attackDelay = originalDelay;
+        //Debug.Log("공격 속도 돌아옴" + attackDelay);
+    }
 }

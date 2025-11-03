@@ -6,14 +6,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-enum PlayStyle
+public enum ShopCheck
 {
-    Human,
-    Monster
+    Unit = 1,
+    Monster,
+    Skill
 }
 
 public class ShopManager : MonoBehaviour
 {
+    [Header("에너미 슬롯")]
+    public EnemyUnit[] enemyUnits;
     [Header("유닛 슬롯")]
     public PlayerUnit[] units;
     [Header("스킬 슬롯")]
@@ -33,21 +36,26 @@ public class ShopManager : MonoBehaviour
     [Header("정보 텍스트_가격")]
     public TextMeshProUGUI infoText_Price;
     [Header("아이템이미지")]
-    public RawImage rawImage;
+    public string rawImageName;
+    public string renderCameraName;
 
     [SerializeField] private Camera renderCamera;
 
+    [SerializeField] private RawImage rawImage;
+
     Player player;
+
+    [SerializeField] private int _money = 1000;
 
     private int itemIndex;
 
-    private bool checktype;
 
     int price;
 
     private SkillButton _setButton;
+    private MonsterUnitButton _setUnitButton;
 
-    PlayStyle style;
+    [SerializeField] public ShopCheck checker;
 
     private GameObject _preview;
 
@@ -62,6 +70,7 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         player = (GameManager.Instance.gameOptionData.unit as Player);
+        SetRender();
     }
 
     public void SetupIndex(int index)
@@ -70,11 +79,20 @@ public class ShopManager : MonoBehaviour
         UpdateBuyText();
     }
 
+    public void EnemyInfo()
+    {
+        infoText_Name.text = enemyUnits[itemIndex].Name; // 이름
+        infoText_SkillNameOrUnitATK.text = enemyUnits[itemIndex].Story; // 배경설명
+        infoText_SkillEffectOrUnitATKSPD.text = enemyUnits[itemIndex].Any; // 공격속도
+        infoText_SkillCoolTimeOrUnitPassiveName.text = "체력 : " + enemyUnits[itemIndex].HP.ToString(); // 체력
+        infoText_SkillDurationOrUnitPassiveEffect.text = "이동 속도 : " + enemyUnits[itemIndex].MoveSpeed.ToString(); // 이동 속도
+        infoText_Price.text = "가격 : " + enemyUnits[itemIndex].Price.ToString(); // 가격
+    }
     public void UnitInfo()
     {
         infoText_Name.text = units[itemIndex].Name; // 이름
         infoText_SkillNameOrUnitATK.text = "공격력  : " + units[itemIndex].Power.ToString(); // 공격력
-        infoText_SkillEffectOrUnitATKSPD.text = "공격 속도 : " + units[itemIndex].AttackDelay.ToString()+"초"; ; // 공격속도
+        infoText_SkillEffectOrUnitATKSPD.text = "공격 속도 : " + units[itemIndex].AttackDelay.ToString() + "초"; ; // 공격속도
         infoText_SkillCoolTimeOrUnitPassiveName.text = units[itemIndex].PassiveName; // 패시브명
         infoText_SkillDurationOrUnitPassiveEffect.text = units[itemIndex].PassiveEffect; // 패시브효과
         infoText_Price.text = "가격 : " + units[itemIndex].Price.ToString(); // 가격
@@ -98,66 +116,87 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateBuyText()
     {
-        if (checktype)
+        switch (checker)
         {
-            price = skills[itemIndex].skillPrice;
-        }
-        else
-        {
-            price = units[itemIndex].Price;
+            case ShopCheck.Skill:
+                price = skills[itemIndex].skillPrice;
+                break;
+
+            case ShopCheck.Unit:
+                price = units[itemIndex].Price;
+                break;
+
+            case ShopCheck.Monster:
+                price = enemyUnits[itemIndex].Price;
+                break;
         }
 
-        string newText = (price > player.Money) ? "돈 부족" : "구입 가능";
+        // string newText = (price > player.Money) ? "돈 부족" : "구입 가능";
 
-        if (newText != lastButtonText)
-        {
-            buttonText.text = newText;
-            lastButtonText = newText;
-        }
+        //if (newText != lastButtonText)
+        //{
+        //    buttonText.text = newText;
+        //    lastButtonText = newText;
+        //}
     }
 
     public void Buy()
     {
-        price = checktype? skills[itemIndex].skillPrice : units[itemIndex].Price;
-
-        if(price > player.Money)
+        Debug.Log("현재 열거형"+checker.ToString());
+        switch (checker)
         {
-             buttonText.text = "돈 부족";
-             return;
-        }
+            case ShopCheck.Skill:
 
-        if (checktype == true)
-        {
-            _setButton.AddCount();
-            player.ReceiveReward(-price);
-            uiManager.UpdateMoney(player);
+                price = skills[itemIndex].skillPrice;
 
-        }
+                if (price > _money)
+                {
+                    buttonText.text = "돈 부족";
+                    return;
+                }
 
-        else if (checktype == false)
-        {
-            MouseTrackingManager.Instance.targetObject = _preview;
-            MouseTrackingManager.Instance.OnUnitPlaced = OnUnitPlaced;
-            MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
+                _setButton.AddCount();
+                //player.ReceiveReward(-price);
+                //uiManager.UpdateMoney(player);
+
+                _money -= price;
+
+                break;
+
+            case ShopCheck.Unit:
+                price = units[itemIndex].Price;
+
+                if (price > _money)
+                {
+                    buttonText.text = "돈 부족";
+                    return;
+                }
+
+                MouseTrackingManager.Instance.targetObject = _preview;
+                MouseTrackingManager.Instance.OnUnitPlaced = OnUnitPlaced;
+                MouseTrackingManager.Instance.SpawnTargetUnit(units[itemIndex]);
+                break;
+
+            case ShopCheck.Monster:
+                price = enemyUnits[itemIndex].Price;
+
+                if (price > _money)
+                {
+                    buttonText.text = "돈 부족";
+                    return;
+                }
+
+                _setUnitButton.AddCount();
+                //player.ReceiveReward(-price);
+                //uiManager.UpdateMoney(player);
+
+                _money -= price;
+                break;
         }
-    
         UpdateBuyText();
     }
-    // 스킬인지 체크
-    public void SkillCheck()
-    {
-        checktype = true;
-    }
-    // 유닛인지 체크
-    public void UnitCheck()
-    {
-        checktype = false;
-    }
     // 관련된 스킬 버튼 설정
-    public void SetSkillButton(SkillButton setButton)
-    {
-        _setButton = setButton;
-    }
+
     // 유닛 프리뷰 설정
     public void SetPreview(GameObject preview)
     {
@@ -176,4 +215,47 @@ public class ShopManager : MonoBehaviour
         uiManager.UpdateMoney(player);
         UpdateBuyText();
     }
+
+    public void SetButton(string buttonName)
+    {
+        switch (checker)
+        {
+            case ShopCheck.Skill:
+                _setButton = GameObject.Find(buttonName).GetComponent<SkillButton>();
+                break;
+
+            case ShopCheck.Unit:
+                
+                break;
+
+            case ShopCheck.Monster:
+                _setUnitButton = GameObject.Find(buttonName).GetComponent<MonsterUnitButton>();
+                break;
+        }
+    }
+
+    public void SetRender()
+    {
+        rawImage = GameObject.Find(rawImageName).GetComponent<RawImage>();
+        renderCamera = GameObject.Find(renderCameraName).GetComponent<Camera>();
+    }
+
+    public void SetEnum(ShopCheck type)
+    {
+        checker = type;
+    }
+
+    public void SetEnum_Unit()
+    {
+        SetEnum(ShopCheck.Unit);
+    }
+    public void SetEnum_Monster()
+    {
+        SetEnum(ShopCheck.Monster);
+    }
+    public void SetEnum_Skill()
+    {
+        SetEnum(ShopCheck.Skill);
+    }
+
 }

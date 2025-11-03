@@ -13,6 +13,7 @@ TagManager:
   - Projectile
   - Skill
   - SkillButton_Tank
+  - Shield
   layers:
   - Default
   - TransparentFX
