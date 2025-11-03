@@ -52,6 +52,7 @@ public class UIManager : MonoBehaviour
         preparingButton = BottomBarUI?.GetComponentInChildren<Button>();
         preparingButton?.onClick.AddListener(GameManager.Instance.OnClickReadyButton);
         preparingTimer = FindFirstObjectByType<Timer>();
+        preparingTimer.transform.parent.gameObject.SetActive(false);
 
         // Shop UI
         originPos = shopUI.transform.position;
@@ -177,7 +178,7 @@ public class UIManager : MonoBehaviour
     private void UIActiveSetting(bool active)
     {
         preparingButton.gameObject.SetActive(active);
-        //preparingTimer.transform.parent.gameObject.SetActive(active);
+        preparingTimer.transform.parent.gameObject.SetActive(active);
         shopButton.transform.parent.gameObject.SetActive(active);
         MouseTrackingManager.Instance.targetDestory();
     }
