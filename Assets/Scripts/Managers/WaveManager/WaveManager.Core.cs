@@ -115,14 +115,10 @@ public partial class WaveManager
     // 웨이브 종료 시점 (이벤트 해제, 인덱스 증가)
     private void HandleWaveEnded()
     {
-        // 게임 클리어 (웨이브 모두 통과)
-        if (currentWaveIndex >= waves.Count)
-            GameManager.Instance.isGameClear = true;
-
-        GameManager.Instance.UpdateState(GameState.Prepare);
-
         if (enemyDeathEventHandler != null)
             enemyDeathEventHandler.onEnemyDeactivated -= OnEnemyDeactivated;
+
+        GameManager.Instance.UpdateState(GameState.Prepare);
 
         // 보상 지급
         Unit unit = GameManager.Instance.gameOptionData.unit;
@@ -140,6 +136,14 @@ public partial class WaveManager
         // 세팅
         currentWaveIndex++;
         spawnInfoIndex = 0;
+
+
+        // 게임 클리어 (웨이브 모두 통과)
+        if (currentWaveIndex >= waves.Count)
+        {
+            GameManager.Instance.isGameClear = true;
+            GameManager.Instance.UpdateState(GameState.Result);
+        }
     }
 
     // 안전한 해제

@@ -115,6 +115,7 @@ public class UIManager : MonoBehaviour
     {
         if (preparingTimer != null)
         {
+            GameManager.Instance.InitPreparingTime();
             preparingTimer.timeRemaining = GameManager.Instance.elapsedTime;
             preparingTimer.minutes = (int)(preparingTimer.timeRemaining / 60);
             preparingTimer.seconds = (int)(preparingTimer.timeRemaining % 60);
@@ -152,6 +153,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("웨이브 시작");
         shopUI.GetComponent<Animator>().SetBool("isShopOpen", false);
         shopUI.transform.position = originPos;
+        SetPreparingTimer();
         UIActiveSetting(false);
     }
 
@@ -164,7 +166,6 @@ public class UIManager : MonoBehaviour
         Unit unit = GameManager.Instance.gameOptionData.unit;
         coinAttractionParticle.Play();
 
-        SetPreparingTimer();
         UIActiveSetting(true);
         waveText.text = $"Wave {WaveManager.Instance.GetWaveNumber()}";
 
