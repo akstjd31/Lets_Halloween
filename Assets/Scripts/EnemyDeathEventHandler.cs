@@ -45,7 +45,11 @@ public class EnemyDeathEventHandler : MonoBehaviour
         {
             if (GameManager.Instance.gameOptionData.factionType.Equals(FactionType.Enemy))
             {
-                if (hit.collider.CompareTag("EnemyUnit"))
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    HandleEnemyCollision(hit.collider);
+                }
+                else if (hit.collider.CompareTag("EnemyUnit"))
                 {
                     GameManager.Instance.UpdateState(GameState.Result);
                     GameManager.Instance.isGameClear = true;

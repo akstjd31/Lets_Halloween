@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class shield : SkillBase
 {
     private Transform rangeTransform;
 
-    private List<Enemy> affectedEnemies = new List<Enemy>();
-
+    private readonly HashSet<Enemy> enemyInRange = new HashSet<Enemy>();
+    private readonly Dictionary<Enemy, string> _originalTag = new Dictionary<Enemy, string>();
+   
     override public void Start()
     {
         IsReady = true;
@@ -19,30 +21,65 @@ public class shield : SkillBase
 
     public override void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null && !affectedEnemies.Contains(enemy))
+        if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "EnemyUnit")
         {
-            affectedEnemies.Add(enemy);
-            enemy.tag = "Shield";
+            if (!endSkill)
+            {
+                Enemy _enemy = other.GetComponent<Enemy>();
+
+                // 이미 슬로우 중이라면 넣지 않음
+                if (!enemyInRange.Contains(_enemy))
+                {
+                    Debug.Log("슬로우중");
+                    enemyInRange.Add(_enemy);
+
+                    if (!_originalTag.ContainsKey(_enemy))
+                    {
+                        Debug.Log("속도 저장");
+                        _originalTag.Add(_enemy, _enemy.tag);
+                    }
+                    _enemy.tag = "Shield";
+                }
+            }
+            Debug.Log("범위내에 적 들어옴");
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null && affectedEnemies.Contains(enemy))
+        if (other.gameObject.tag == "Shield")
         {
-            enemy.tag = "Enemy";
-            affectedEnemies.Remove(enemy);
+            Enemy _enemy = other.GetComponent<Enemy>();
+
+            if (enemyInRange.Contains(_enemy))
+            {
+                ResetTag(_enemy); 
+
+                enemyInRange.Remove(_enemy);
+            }
+        }
+    }
+
+    private void ResetTag(Enemy _enemy)
+    {
+        if (_originalTag.TryGetValue(_enemy, out string originalTag))
+        {
+            _enemy.tag = originalTag;
+
+            _originalTag.Remove(_enemy);
         }
     }
 
     private void OnDestroy()
     {
-        foreach (var enemys in affectedEnemies)
+        foreach (Enemy e in enemyInRange)
         {
-            if (enemys != null)
-                enemys.tag = "Enemy";
+            if (e != null)
+            {
+                ResetTag(e);
+            }
         }
+
+        enemyInRange.Clear();
     }
 }

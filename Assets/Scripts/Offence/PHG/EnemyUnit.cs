@@ -93,6 +93,7 @@ public class EnemyUnit : MonoBehaviour
     private void MoveObj()
     {
         if (wayPointBox == null || currentWayPointIndex >= wayPointBox.childCount)
+        
             return; 
 
         Transform targetTransform = wayPointBox.GetChild(currentWayPointIndex);
