@@ -38,6 +38,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
     bool onBuild;
     bool onMouseMap;
     bool overActivate;
+    public bool skillCheck;
 
     private void Start()
     {
@@ -89,6 +90,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         ActivateSkillObject = obj;
         ActivateUnitObject = null;
         ActivateUnitPObject = null;
+        skillCheck = true;
         StartCoroutine(CospawnTarget());
     }
 
@@ -98,7 +100,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         ActivateUnitObject = obj;
         ActivateSkillObject = null;
         ActivateUnitPObject = null;
-        checkUnit = true;
+        skillCheck = false;
         StartCoroutine(CospawnTarget());
     }
     public void SpawnTargetUnitP(PlayerUnit_Projectile obj)
@@ -107,6 +109,7 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
         ActivateUnitPObject = obj;
         ActivateSkillObject = null;
         ActivateUnitObject = null;
+        skillCheck = false;
         StartCoroutine(CospawnTarget());
     }
 
@@ -172,23 +175,26 @@ public class MouseTrackingManager : Singleton<MouseTrackingManager>
 
                     onMouseMap = Physics.Raycast(rayTarget, out hitTarget, Mathf.Infinity, layermask3);
 
-                    if (ActivateUnitObject != null || ActivateSkillObject != null || ActivateUnitPObject != null)
+                   if (skillCheck != true)
                     {
-                        Vector3 halfExtents = targetColor.bounds.extents;
-                        Debug.Log("유닛 겹침 작동중");
-                        Debug.Log("현재 activateMask" + activateMask.ToString());
-
-                        int comMaks = activateMask | activatePMask;
-
-                        overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 10, halfExtents, Vector3.down, target.transform.rotation, 20, comMaks, QueryTriggerInteraction.Ignore);
-                        //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
-                        if (overActivate)
+                        if (ActivateUnitObject != null || ActivateSkillObject != null || ActivateUnitPObject != null)
                         {
-                            SetColorRecursive(target ,new Color(1, 0, 0, 0.5f)); // 빨간색
-                            Debug.Log("유닛 겹침");
-                            clickEnable = false;
-                            yield return null;
-                            continue;
+                            Vector3 halfExtents = targetColor.bounds.extents;
+                            Debug.Log("유닛 겹침 작동중");
+                            Debug.Log("현재 activateMask" + activateMask.ToString());
+
+                            int comMaks = activateMask | activatePMask;
+
+                            overActivate = Physics.BoxCast(target.transform.position + Vector3.up * 10, halfExtents, Vector3.down, target.transform.rotation, 20, comMaks, QueryTriggerInteraction.Ignore);
+                            //overActivate = Physics.Raycast(target.transform.position + Vector3.up, Vector3.down, out _, 10f, activateMask);
+                            if (overActivate)
+                            {
+                                SetColorRecursive(target, new Color(1, 0, 0, 0.5f)); // 빨간색
+                                Debug.Log("유닛 겹침");
+                                clickEnable = false;
+                                yield return null;
+                                continue;
+                            }
                         }
                     }
 
